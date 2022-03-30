@@ -1,11 +1,14 @@
 # Read Me First
+
 The following was discovered as part of building this project:
 
-* The original package name 'codurance.academy-final-boy.backend' is invalid and this project uses 'codurance.academyfinalboy.backend' instead.
+* The original package name 'codurance.academy-final-boy.backend' is invalid and this project uses '
+  codurance.academyfinalboy.backend' instead.
 
 # Getting Started
 
 ### Reference Documentation
+
 For further reference, please consider the following sections:
 
 * [Official Gradle documentation](https://docs.gradle.org)
@@ -20,6 +23,7 @@ For further reference, please consider the following sections:
 * [OAuth2 Client](https://docs.spring.io/spring-boot/docs/2.6.5/reference/htmlsingle/#boot-features-security-oauth2-client)
 
 ### Guides
+
 The following guides illustrate how to use some features concretely:
 
 * [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
@@ -29,6 +33,7 @@ The following guides illustrate how to use some features concretely:
 * [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
 
 ### Additional Links
+
 These additional references should also help you:
 
 * [Gradle Build Scans – insights for your project's build](https://scans.gradle.com#gradle)
