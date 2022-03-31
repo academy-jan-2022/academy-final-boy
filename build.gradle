@@ -3,6 +3,7 @@ plugins {
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id "com.diffplug.spotless" version "6.4.1"
+    id "org.flywaydb.flyway" version "8.5.5"
 }
 
 group = 'codurance.academy-final-boy'
@@ -22,7 +23,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'org.postgresql:postgresql'
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -38,6 +38,12 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+flyway {
+    url = 'jdbc:sqlserver://localhost:1433'
+    user = 'sa'
+    password = 'TUC:GR8?MHYP'
 }
 
 spotless {
