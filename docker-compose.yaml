@@ -1,16 +1,11 @@
 version: "3.8"
 services:
   db:
-    image: postgres:13.4
-    container_name: "postgresdb"
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: "sqlserver"
     environment:
-      POSTGRES_DB: postgresdb
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      SA_PASSWORD: TUC:GR8?MHYP
+      ACCEPT_EULA: Y
+      MSSQL_PID: Developer
     ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-volumes:
-  pgdata:
-  pgadmin:
+      - "1433:1433"
