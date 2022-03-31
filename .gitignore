@@ -87,3 +87,6 @@ local.properties
 target/
 
 /bin
+
+## Exclusions ###
+!/gradle/wrapper/gradle-wrapper.jar
