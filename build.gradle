@@ -5,6 +5,7 @@ plugins {
     id "com.diffplug.spotless" version "6.4.1"
     id 'com.adarshr.test-logger' version '3.1.0'
     id "org.sonarqube" version "3.3"
+    id 'jacoco'
 }
 
 group = 'codurance.academy-final-boy'
@@ -45,6 +46,12 @@ tasks.named('test') {
 spotless {
     java {
         googleJavaFormat()
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
     }
 }
 
