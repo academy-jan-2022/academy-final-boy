@@ -7,8 +7,6 @@ class PassingTests {
 
   @Test
   void green() {
-    var sut = new BackendApplication();
-    sut.coverageWorks();
     Assertions.assertTrue(true);
   }
 }
