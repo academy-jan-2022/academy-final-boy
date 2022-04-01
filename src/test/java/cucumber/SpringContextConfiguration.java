@@ -8,6 +8,4 @@ import org.springframework.boot.test.context.SpringBootTest;
     classes = BackendApplication.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CucumberContextConfiguration
-class SpringContextConfiguration {
-
-}
+class SpringContextConfiguration {}
