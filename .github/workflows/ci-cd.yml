@@ -25,12 +25,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-    - name: Setup test DB
-      run: make up
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
-      with:
-        arguments: build
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
       with:
@@ -43,8 +37,10 @@ jobs:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
+    - name: Setup test DB
+      run: make up
     - name: Build and analyze
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./gradlew sonarqube --info
+      run: ./gradlew build jacocoTestReport sonarqube --info
