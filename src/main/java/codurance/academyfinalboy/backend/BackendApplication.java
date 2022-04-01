@@ -10,7 +10,7 @@ public class BackendApplication {
     SpringApplication.run(BackendApplication.class, args);
   }
 
-  public void coverageWorks(){
-    System.out.println("coverage works" );
+  public void coverageWorks() {
+    System.out.println("coverage works");
   }
 }
