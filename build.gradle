@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id "com.diffplug.spotless" version "6.4.1"
     id 'com.adarshr.test-logger' version '3.1.0'
+    id "org.sonarqube" version "3.3"
 }
 
 group = 'codurance.academy-final-boy'
@@ -44,5 +45,13 @@ tasks.named('test') {
 spotless {
     java {
         googleJavaFormat()
+    }
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "academy-jan-2022_academy-final-boy"
+        property "sonar.organization", "academy-jan-2022"
+        property "sonar.host.url", "https://sonarcloud.io"
     }
 }
