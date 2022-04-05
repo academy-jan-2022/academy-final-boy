@@ -37,8 +37,14 @@ jobs:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
-    - name: Setup test DB
-      run: docker-compose up -d db
+    - name: Build backend
+      run: ./gradlew build -x test
+    - name: Create containers
+      env:
+        SPRING_DATA_SOURCE_URL: ${{ secrets.SPRING_DATA_SOURCE_URL }}
+        SPRING_DATA_SOURCE_USERNAME: ${{ secrets.SPRING_DATA_SOURCE_USERNAME }}
+        SPRING_DATA_SOURCE_PASSWORD: ${{ secrets.SPRING_DATA_SOURCE_PASSWORD }}
+      run: docker compose up -d
     - name: Build and analyze
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -46,4 +52,4 @@ jobs:
         SPRING_DATA_SOURCE_URL: ${{ secrets.SPRING_DATA_SOURCE_URL }}
         SPRING_DATA_SOURCE_USERNAME: ${{ secrets.SPRING_DATA_SOURCE_USERNAME }}
         SPRING_DATA_SOURCE_PASSWORD: ${{ secrets.SPRING_DATA_SOURCE_PASSWORD }}
-      run: ./gradlew build jacocoTestReport sonarqube
+      run: ./gradlew test jacocoTestReport sonarqube
