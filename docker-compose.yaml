@@ -16,6 +16,9 @@ services:
     image: academy/teaminator-back:latest
     environment:
       TYPEORM_HOST: project_db
+      SPRING_DATA_SOURCE_URL: ${SPRING_DATA_SOURCE_URL}
+      SPRING_DATA_SOURCE_USERNAME: ${SPRING_DATA_SOURCE_USERNAME}
+      SPRING_DATA_SOURCE_PASSWORD: ${SPRING_DATA_SOURCE_PASSWORD}
     container_name: webservice
     depends_on:
       - db
