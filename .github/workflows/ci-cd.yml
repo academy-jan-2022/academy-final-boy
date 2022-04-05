@@ -39,6 +39,8 @@ jobs:
         restore-keys: ${{ runner.os }}-gradle
     - name: Build backend
       run: ./gradlew build -x test
+    - name: Build Image
+      run: docker build -t academy/teaminator-back .
     - name: Create containers
       env:
         SPRING_DATA_SOURCE_URL: ${{ secrets.SPRING_DATA_SOURCE_URL }}
