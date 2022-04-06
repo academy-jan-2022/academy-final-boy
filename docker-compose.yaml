@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    container_name: project_db
+    container_name: teaminator_db
     image: mcr.microsoft.com/azure-sql-edge:latest
     environment:
       MSSQL_SA_PASSWORD: TUC:GR8?MHYP
@@ -15,11 +15,11 @@ services:
   backend:
     image: academy/teaminator-back:latest
     environment:
-      TYPEORM_HOST: project_db
+      TYPEORM_HOST: teaminator_db
       SPRING_DATA_SOURCE_URL: ${SPRING_DATA_SOURCE_URL}
       SPRING_DATA_SOURCE_USERNAME: ${SPRING_DATA_SOURCE_USERNAME}
       SPRING_DATA_SOURCE_PASSWORD: ${SPRING_DATA_SOURCE_PASSWORD}
-    container_name: webservice
+    container_name: teaminator_backend
     depends_on:
       - db
     ports:
