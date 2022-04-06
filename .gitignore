@@ -88,5 +88,11 @@ target/
 
 /bin
 
+### Environment variables ###
+.env.dev
+.env.test
+!.env.dev.sample
+!.env.test.sample
+
 ## Exclusions ###
 !/gradle/wrapper/gradle-wrapper.jar
