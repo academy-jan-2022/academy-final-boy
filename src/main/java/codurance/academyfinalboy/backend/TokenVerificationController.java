@@ -1,18 +1,27 @@
 package codurance.academyfinalboy.backend;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 public class TokenVerificationController {
 
+    @Autowired
+    private GoogleTokenValidator googleTokenValidator;
+
     @PostMapping("/tokenvalidator")
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public void getTodoLists() {
+
+    public ResponseEntity<?> isTokenValid(@RequestBody String token) {
+        Boolean isTokenValid = googleTokenValidator.verify(token);
+
+        if(isTokenValid){
+            return ResponseEntity.ok().build();
+        }
+
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 }
