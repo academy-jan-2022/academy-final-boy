@@ -4,7 +4,7 @@ services:
     container_name: teaminator_db
     image: mcr.microsoft.com/azure-sql-edge:latest
     environment:
-      MSSQL_SA_PASSWORD: TUC:GR8?MHYP
+      MSSQL_SA_PASSWORD: ${SPRING_DATA_SOURCE_PASSWORD}
       ACCEPT_EULA: Y
       MSSQL_PID: Developer
     ports:
