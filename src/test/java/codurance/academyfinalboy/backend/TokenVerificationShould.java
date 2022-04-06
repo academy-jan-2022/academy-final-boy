@@ -17,12 +17,21 @@ public class TokenVerificationShould {
 
     @Test
     void unauthorized_calls_without_a_valid_token_return_a_401_error() throws Exception {
-        // Given
         String token = "";
 
         mockMvc.perform(post("/tokenvalidator")
                         .content(token)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
+        String token = "iAmValid";
+
+        mockMvc.perform(post("/tokenvalidator")
+                        .content(token)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
