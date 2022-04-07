@@ -4,8 +4,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository {
+  Optional<Participant> findByExternalId(UUID externalId);
 
-  Optional<User> findByExternalId(UUID externalId);
-
-  User save(User user);
+  Participant save(Participant participant);
 }

@@ -4,7 +4,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import codurance.academyfinalboy.backend.user.User;
+import codurance.academyfinalboy.backend.user.Participant;
 import codurance.academyfinalboy.backend.user.UserRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -27,7 +27,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 public class LoginStepdefs {
 
   @LocalServerPort private int port = 0;
-  private User savedUser;
+  private Participant savedParticipant;
   private Response response;
 
   private record LoginRequest(UUID externalId, String fullName) {}
@@ -52,11 +52,11 @@ public class LoginStepdefs {
         row -> {
           UUID externalId = UUID.fromString(row.get("externalId"));
 
-          User user = userRepository.findByExternalId(externalId).orElseThrow();
-          assertThat(user.getExternalId()).isEqualTo(externalId);
-          assertThat(user.getUsername()).isEqualTo(row.get("username"));
-          assertThat(user.getFullName()).isEqualTo(row.get("fullName"));
-          assertThat(user.getId()).isNotNull();
+          Participant participant = userRepository.findByExternalId(externalId).orElseThrow();
+          assertThat(participant.getExternalId()).isEqualTo(externalId);
+          assertThat(participant.getUsername()).isEqualTo(row.get("username"));
+          assertThat(participant.getFullName()).isEqualTo(row.get("fullName"));
+          assertThat(participant.getId()).isNotNull();
         });
   }
 
@@ -65,9 +65,9 @@ public class LoginStepdefs {
     data.forEach(
         row -> {
           UUID externalId = UUID.fromString(row.get("externalId"));
-          User user = new User(externalId, row.get("fullName"), row.get("username"));
+          Participant participant = new Participant(externalId, row.get("fullName"), row.get("username"));
 
-          savedUser = userRepository.save(user);
+          savedParticipant = userRepository.save(participant);
         });
   }
 
@@ -75,8 +75,8 @@ public class LoginStepdefs {
   public void theUserIsNotCreated() {
     response.then().statusCode(200);
 
-    User user = userRepository.findByExternalId(savedUser.getExternalId()).orElseThrow();
+    Participant participant = userRepository.findByExternalId(savedParticipant.getExternalId()).orElseThrow();
 
-    assertThat(user.getId()).isEqualTo(savedUser.getId());
+    assertThat(participant.getId()).isEqualTo(savedParticipant.getId());
   }
 }
