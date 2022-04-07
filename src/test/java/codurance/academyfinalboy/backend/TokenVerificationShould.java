@@ -1,11 +1,9 @@
 package codurance.academyfinalboy.backend;
 
-import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Mockito.when;
@@ -24,7 +22,7 @@ public class TokenVerificationShould {
     @Test
     void unauthorized_calls_without_a_valid_token_return_a_401_error() throws Exception {
         String token = "";
-        when(googleTokenValidator.verify(token)).thenReturn(false);
+        when(googleTokenValidator.authenticateToken(token)).thenReturn(false);
 
         mockMvc.perform(get("/tokenvalidator")
                         .header("Authorization", token))
@@ -35,7 +33,7 @@ public class TokenVerificationShould {
     void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
         String token = "iAmValid";
 
-        when(googleTokenValidator.verify(token)).thenReturn(true);
+        when(googleTokenValidator.authenticateToken(token)).thenReturn(true);
 
         mockMvc.perform(get("/tokenvalidator")
                         .header("Authorization", token))

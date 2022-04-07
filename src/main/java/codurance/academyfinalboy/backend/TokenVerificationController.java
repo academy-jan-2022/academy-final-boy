@@ -5,6 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+
 @RestController
 public class TokenVerificationController {
 
@@ -13,8 +16,8 @@ public class TokenVerificationController {
 
     @GetMapping ("/tokenvalidator")
 
-    public ResponseEntity<?> isTokenValid(@RequestHeader("Authorization") String token) {
-        Boolean isTokenValid = googleTokenValidator.verify(token);
+    public ResponseEntity<?> isTokenValid(@RequestHeader("Authorization") String token) throws GeneralSecurityException, IOException {
+        Boolean isTokenValid = googleTokenValidator.authenticateToken(token);
 
         if(isTokenValid){
             return ResponseEntity.ok().build();
