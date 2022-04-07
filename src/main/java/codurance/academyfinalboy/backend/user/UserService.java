@@ -3,6 +3,7 @@ package codurance.academyfinalboy.backend.user;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,10 +20,12 @@ public class UserService {
   }
 
   public void createUser(UUID externalId, String fullName) {
+    Optional<User> foundUser = userRepository.findByExternalId(externalId);
 
-    var user = new User(externalId, fullName, createUsername(fullName));
-
-    userRepository.save(user);
+    if (foundUser.isEmpty()) {
+      var user = new User(externalId, fullName, createUsername(fullName));
+      userRepository.save(user);
+    }
   }
 
   private String createUsername(String fullName) {

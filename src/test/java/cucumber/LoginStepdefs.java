@@ -52,7 +52,7 @@ public class LoginStepdefs {
         row -> {
           UUID externalId = UUID.fromString(row.get("externalId"));
 
-          User user = userRepository.findByExternalId(externalId);
+          User user = userRepository.findByExternalId(externalId).orElseThrow();
           assertThat(user.getExternalId()).isEqualTo(externalId);
           assertThat(user.getUsername()).isEqualTo(row.get("username"));
           assertThat(user.getFullName()).isEqualTo(row.get("fullName"));
@@ -75,7 +75,7 @@ public class LoginStepdefs {
   public void theUserIsNotCreated() {
     response.then().statusCode(200);
 
-    User user = userRepository.findByExternalId(savedUser.getExternalId());
+    User user = userRepository.findByExternalId(savedUser.getExternalId()).orElseThrow();
 
     assertThat(user.getId()).isEqualTo(savedUser.getId());
   }
