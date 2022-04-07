@@ -17,7 +17,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "cucumber")
-public class HeartbeatStepDefs {
+public class HeartbeatStepdefs {
 
   @LocalServerPort private int port = 0;
 
