@@ -26,9 +26,6 @@ public class TokenVerificationShould {
         String token = "";
         when(googleTokenValidator.verify(token)).thenReturn(false);
 
-
-//        JSONObject json = new JSONObject();
-//        json.put("token", token);
         mockMvc.perform(get("/tokenvalidator")
                         .header("Authorization", token))
                 .andExpect(status().isUnauthorized());
