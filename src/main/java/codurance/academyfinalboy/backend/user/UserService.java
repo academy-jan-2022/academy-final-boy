@@ -1,7 +1,9 @@
 package codurance.academyfinalboy.backend.user;
 
-import java.util.UUID;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -10,6 +12,10 @@ public class UserService {
   public UserService(UserRepository userRepository) {
 
     this.userRepository = userRepository;
+  }
+
+  private static Character getFirstLetter(String name) {
+    return name.charAt(0);
   }
 
   public void createUser(UUID externalId, String fullName) {
@@ -21,17 +27,11 @@ public class UserService {
 
   private String createUsername(String fullName) {
     StringBuilder username = new StringBuilder();
+    String[] names = fullName.split(" ");
+    username.append(names[0]);
 
-    String[] strings = fullName.split(" ");
+    Arrays.stream(names).skip(1).map(UserService::getFirstLetter).forEach(username::append);
 
-    for (int i = 0; i < strings.length; i++) {
-
-      if (i == 0) {
-        username.append(strings[i]);
-      } else {
-        username.append(strings[i].charAt(0));
-      }
-    }
     return username.toString();
   }
 }

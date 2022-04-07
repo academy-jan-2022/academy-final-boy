@@ -24,8 +24,6 @@ class LoginControllerShould {
 
   @MockBean LoginAction loginAction;
 
-  record LoginRequest(UUID externalId, String fullName) {}
-
   @Test
   void call_login_action() throws Exception {
     var loginRequest = new LoginRequest(UUID.randomUUID(), "fullName");
@@ -37,6 +35,6 @@ class LoginControllerShould {
                 .content(mapper.writeValueAsString(loginRequest)))
         .andExpect(status().isOk());
 
-    verify(loginAction).execute(loginRequest.externalId, loginRequest.fullName);
+    verify(loginAction).execute(loginRequest.externalId(), loginRequest.fullName());
   }
 }
