@@ -16,6 +16,8 @@ import java.util.Collections;
 
 public class GoogleTokenValidator {
     public Boolean authenticateToken(String token) throws GeneralSecurityException, IOException {
+        //http call
+
         return true;
         //        String CLIENT_ID = "";
 //
