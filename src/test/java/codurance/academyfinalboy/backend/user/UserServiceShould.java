@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.mockito.Mockito.*;
 
-class ParticipantServiceShould {
+class UserServiceShould {
 
   private UserRepository userRepositoryMock;
   private UserService userService;
@@ -25,7 +25,7 @@ class ParticipantServiceShould {
     String fullName = "Mario Sanchez Lopez";
     userService.createUser(externalId, fullName);
 
-    var expectedUser = new Participant(externalId, fullName, "MarioSL");
+    var expectedUser = new User(externalId, fullName, "MarioSL");
 
     verify(userRepositoryMock).save(expectedUser);
   }
@@ -35,7 +35,7 @@ class ParticipantServiceShould {
 
     UUID externalId = UUID.randomUUID();
     String fullName = "Mario Sanchez Lopez";
-    var expectedUser = new Participant(externalId, fullName, "MarioSL");
+    var expectedUser = new User(externalId, fullName, "MarioSL");
     when(userRepositoryMock.findByExternalId(externalId)).thenReturn(Optional.of(expectedUser));
 
     userService.createUser(externalId, fullName);

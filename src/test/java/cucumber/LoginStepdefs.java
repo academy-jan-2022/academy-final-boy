@@ -1,24 +1,28 @@
 package cucumber;
 
-import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-
-import codurance.academyfinalboy.backend.user.Participant;
+import codurance.academyfinalboy.backend.user.User;
 import codurance.academyfinalboy.backend.user.UserRepository;
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
+import io.cucumber.java.BeforeStep;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
+
+import java.util.Map;
+import java.util.UUID;
+
+import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Suite
 @IncludeEngines("cucumber")
@@ -27,7 +31,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 public class LoginStepdefs {
 
   @LocalServerPort private int port = 0;
-  private Participant savedParticipant;
+  private User savedUser;
   private Response response;
 
   private record LoginRequest(UUID externalId, String fullName) {}
@@ -45,38 +49,33 @@ public class LoginStepdefs {
   }
 
   @Then("the user is created in the db with:")
-  public void theUserIsCreatedInTheDbWith(List<Map<String, String>> data) {
+  public void theUserIsCreatedInTheDbWith(Map<String, String> data) {
     response.then().statusCode(200);
 
-    data.forEach(
-        row -> {
-          UUID externalId = UUID.fromString(row.get("externalId"));
+    UUID externalId = UUID.fromString(data.get("externalId"));
 
-          Participant participant = userRepository.findByExternalId(externalId).orElseThrow();
-          assertThat(participant.getExternalId()).isEqualTo(externalId);
-          assertThat(participant.getUsername()).isEqualTo(row.get("username"));
-          assertThat(participant.getFullName()).isEqualTo(row.get("fullName"));
-          assertThat(participant.getId()).isNotNull();
-        });
+    User user = userRepository.findByExternalId(externalId).orElseThrow();
+    assertThat(user.getExternalId()).isEqualTo(externalId);
+    assertThat(user.getUsername()).isEqualTo(data.get("username"));
+    assertThat(user.getFullName()).isEqualTo(data.get("fullName"));
+    assertThat(user.getId()).isNotNull();
   }
 
   @Given("the following user exists:")
-  public void theFollowingUserExists(List<Map<String, String>> data) {
-    data.forEach(
-        row -> {
-          UUID externalId = UUID.fromString(row.get("externalId"));
-          Participant participant = new Participant(externalId, row.get("fullName"), row.get("username"));
+  public void theFollowingUserExists(Map<String, String> data) {
 
-          savedParticipant = userRepository.save(participant);
-        });
+    UUID externalId = UUID.fromString(data.get("externalId"));
+    User user = new User(externalId, data.get("fullName"), data.get("username"));
+
+    savedUser = userRepository.save(user);
   }
 
   @Then("the user is not created")
   public void theUserIsNotCreated() {
     response.then().statusCode(200);
 
-    Participant participant = userRepository.findByExternalId(savedParticipant.getExternalId()).orElseThrow();
+    User user = userRepository.findByExternalId(savedUser.getExternalId()).orElseThrow();
 
-    assertThat(participant.getId()).isEqualTo(savedParticipant.getId());
+    assertThat(user.getId()).isEqualTo(savedUser.getId());
   }
 }

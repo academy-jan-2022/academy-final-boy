@@ -19,10 +19,10 @@ public class UserService {
   }
 
   public void createUser(UUID externalId, String fullName) {
-    Optional<Participant> foundUser = userRepository.findByExternalId(externalId);
+    Optional<User> foundUser = userRepository.findByExternalId(externalId);
 
     if (foundUser.isEmpty()) {
-      var user = new Participant(externalId, fullName, createUsername(fullName));
+      var user = new User(externalId, fullName, createUsername(fullName));
       userRepository.save(user);
     }
   }

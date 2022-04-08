@@ -1,4 +1,4 @@
-create table [participant]
+create table [application_user]
 (
     id          int identity,
     external_id VARCHAR (255) not null,

@@ -18,12 +18,17 @@ public class SpringUserRepository implements UserRepository {
   }
 
   @Override
-  public Optional<Participant> findByExternalId(UUID externalId) {
+  public Optional<User> findByExternalId(UUID externalId) {
     return repository.findByExternalId(externalId);
   }
 
   @Override
-  public Participant save(Participant participant) {
-    return repository.save(participant);
+  public User save(User user) {
+    return repository.save(user);
+  }
+
+  @Override
+  public void clear() {
+    repository.deleteAll();
   }
 }
