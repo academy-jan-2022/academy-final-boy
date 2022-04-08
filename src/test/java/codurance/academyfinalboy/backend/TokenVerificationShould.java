@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -16,13 +17,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TokenVerificationShould {
 
     String endpointUrl="http://localhost:8080/tokenvalidator";
+    HttpClient client;
+
+    @BeforeEach
+    void setUp() {
+         client = HttpClient.newHttpClient();
+    }
 
     @Disabled
     @Test
     void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
         String validToken = "[fill_with_a_valid_token]";
 
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(endpointUrl))
                 .setHeader("Authorization",validToken)
@@ -36,7 +42,6 @@ public class TokenVerificationShould {
 
     @Test
     void unauthorized_calls_with_a_missing_header_authorization() throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(endpointUrl))
                 .GET()
@@ -50,7 +55,6 @@ public class TokenVerificationShould {
     @Test
     void unauthorized_calls_with_a_empty_header_authorization() throws Exception {
         String validToken ="";
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(endpointUrl))
                 .setHeader("Authorization",validToken)
@@ -65,7 +69,6 @@ public class TokenVerificationShould {
     @Test
     void unauthorized_calls_with_a_invalid_header_authorization() throws Exception {
         String validToken ="Invalid_token";
-        HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI(endpointUrl))
                 .setHeader("Authorization",validToken)
