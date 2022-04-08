@@ -61,7 +61,7 @@ public class LoginStepdefs {
   public void theFollowingUserExists(Map<String, String> data) {
 
     UUID externalId = UUID.fromString(data.get("externalId"));
-    User user = new User(externalId, data.get("fullName"), data.get("username"));
+    User user = new User(externalId, data.get("fullName"));
 
     savedUser = userRepository.save(user);
   }

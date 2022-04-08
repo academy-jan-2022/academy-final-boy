@@ -25,7 +25,7 @@ class UserServiceShould {
     String fullName = "Mario Sanchez Lopez";
     userService.createUser(externalId, fullName);
 
-    var expectedUser = new User(externalId, fullName, "MarioSL");
+    var expectedUser = new User(externalId, fullName);
 
     verify(userRepositoryMock).save(expectedUser);
   }
@@ -35,7 +35,7 @@ class UserServiceShould {
 
     UUID externalId = UUID.randomUUID();
     String fullName = "Mario Sanchez Lopez";
-    var expectedUser = new User(externalId, fullName, "MarioSL");
+    var expectedUser = new User(externalId, fullName);
     when(userRepositoryMock.findByExternalId(externalId)).thenReturn(Optional.of(expectedUser));
 
     userService.createUser(externalId, fullName);

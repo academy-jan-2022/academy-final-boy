@@ -19,7 +19,7 @@ class SpringUserRepositoryShould {
 
   @Test
   void create_user() {
-    User user = new User(UUID.randomUUID(), "fullName", "username");
+    User user = new User(UUID.randomUUID(), "fullName");
     User savedUser = repository.save(user);
 
     assertThat(savedUser.getId()).isNotNull();
@@ -28,7 +28,7 @@ class SpringUserRepositoryShould {
   @Test
   void find_user_by_external_id() {
 
-    User user = new User(UUID.randomUUID(), "fullName", "username");
+    User user = new User(UUID.randomUUID(), "fullname");
     User savedUser = repository.save(user);
 
     Optional<User> foundUser = repository.findByExternalId(user.getExternalId());
