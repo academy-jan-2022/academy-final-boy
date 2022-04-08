@@ -1,19 +1,18 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
-
 import java.util.Map;
 import java.util.UUID;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.server.LocalServerPort;
 
 public class LoginStepdefs extends BaseCucumberTest {
 

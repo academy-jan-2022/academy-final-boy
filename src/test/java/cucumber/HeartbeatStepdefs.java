@@ -1,12 +1,12 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
 
 public class HeartbeatStepdefs extends BaseCucumberTest {
 

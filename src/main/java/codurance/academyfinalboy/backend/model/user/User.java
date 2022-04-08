@@ -1,11 +1,10 @@
 package codurance.academyfinalboy.backend.model.user;
 
+import java.util.Arrays;
+import java.util.UUID;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.util.Arrays;
-import java.util.UUID;
 
 @Data
 @Table("application_user")

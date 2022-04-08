@@ -1,12 +1,11 @@
 package codurance.academyfinalboy.backend.actions;
 
-import codurance.academyfinalboy.backend.model.user.UserService;
-import org.junit.jupiter.api.Test;
-
-import java.util.UUID;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import codurance.academyfinalboy.backend.model.user.UserService;
+import java.util.UUID;
+import org.junit.jupiter.api.Test;
 
 class LoginShould {
 

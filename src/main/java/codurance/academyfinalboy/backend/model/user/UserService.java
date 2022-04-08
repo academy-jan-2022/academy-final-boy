@@ -1,9 +1,8 @@
 package codurance.academyfinalboy.backend.model.user;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {

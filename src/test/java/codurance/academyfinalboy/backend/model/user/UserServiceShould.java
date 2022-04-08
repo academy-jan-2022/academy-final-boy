@@ -1,12 +1,11 @@
 package codurance.academyfinalboy.backend.model.user;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 import java.util.UUID;
-
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class UserServiceShould {
 
