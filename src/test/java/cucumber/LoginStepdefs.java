@@ -35,7 +35,7 @@ public class LoginStepdefs extends BaseCucumberTest {
   public void theUserIsCreatedInTheDbWith(Map<String, String> data) {
     response.then().statusCode(200);
 
-    UUID externalId = UUID.fromString(data.get("externalId"));
+    String externalId = "123123123";
 
     User user = userRepository.findByExternalId(externalId).orElseThrow();
     assertThat(user.getExternalId()).isEqualTo(externalId);
@@ -47,7 +47,7 @@ public class LoginStepdefs extends BaseCucumberTest {
   @Given("the following user exists:")
   public void theFollowingUserExists(Map<String, String> data) {
 
-    UUID externalId = UUID.fromString(data.get("externalId"));
+    String externalId = "as123123123213";
     User user = new User(externalId, data.get("fullName"));
 
     savedUser = userRepository.save(user);

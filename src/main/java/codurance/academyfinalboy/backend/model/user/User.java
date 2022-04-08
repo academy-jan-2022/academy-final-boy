@@ -10,11 +10,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("application_user")
 public class User {
   @Id Long id;
-  UUID externalId;
+  String externalId;
   String fullName;
   String username;
 
-  public User(UUID externalId, String fullName) {
+  public User(String externalId, String fullName) {
     this.id = null;
     this.externalId = externalId;
     this.fullName = fullName;

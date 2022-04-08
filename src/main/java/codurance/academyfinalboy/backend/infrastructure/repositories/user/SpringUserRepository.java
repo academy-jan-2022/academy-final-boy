@@ -17,7 +17,7 @@ public class SpringUserRepository implements UserRepository {
   }
 
   @Override
-  public Optional<User> findByExternalId(UUID externalId) {
+  public Optional<User> findByExternalId(String externalId) {
     return repository.findByExternalId(externalId);
   }
 

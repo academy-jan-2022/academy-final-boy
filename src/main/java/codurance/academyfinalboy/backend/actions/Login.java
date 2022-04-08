@@ -13,7 +13,7 @@ public class Login {
     this.userService = userService;
   }
 
-  public void execute(UUID externalId, String fullName) {
+  public void execute(String externalId, String fullName) {
     userService.createUser(externalId, fullName);
   }
 }

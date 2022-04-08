@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface SpringDataJdbcUserRepository extends CrudRepository<User, Long> {
 
-  Optional<User> findByExternalId(UUID externalId);
+  Optional<User> findByExternalId(String externalId);
 }

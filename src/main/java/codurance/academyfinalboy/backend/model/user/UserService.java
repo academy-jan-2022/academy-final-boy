@@ -12,7 +12,7 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public void createUser(UUID externalId, String fullName) {
+  public void createUser(String externalId, String fullName) {
     Optional<User> foundUser = userRepository.findByExternalId(externalId);
 
     if (foundUser.isEmpty()) {

@@ -20,7 +20,7 @@ class UserServiceShould {
 
   @Test
   void create_user_if_does_not_exists() {
-    UUID externalId = UUID.randomUUID();
+    String externalId = "12322333333";
     String fullName = "Mario Sanchez Lopez";
     userService.createUser(externalId, fullName);
 
@@ -32,7 +32,7 @@ class UserServiceShould {
   @Test
   void not_create_user_if_already_exists() {
 
-    UUID externalId = UUID.randomUUID();
+    String externalId = "asdfsadfsadf";
     String fullName = "Mario Sanchez Lopez";
     var expectedUser = new User(externalId, fullName);
     when(userRepositoryMock.findByExternalId(externalId)).thenReturn(Optional.of(expectedUser));
