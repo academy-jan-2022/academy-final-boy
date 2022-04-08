@@ -8,11 +8,11 @@ import java.net.URISyntaxException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-public class GoogleTokenValidatorShould {
+class GoogleTokenValidatorShould {
   String validToken = "";
   String invalidToken = "invalid_token";
 
-  @Disabled
+  @Disabled("Do not have a permanent valid token, test must be run manually")
   @Test
   void return_true_when_token_is_valid()
       throws IOException, InterruptedException, URISyntaxException {

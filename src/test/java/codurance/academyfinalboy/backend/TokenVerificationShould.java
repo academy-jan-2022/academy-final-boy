@@ -15,7 +15,7 @@ class TokenVerificationShould {
   @Autowired MockMvc mockMvc;
 
   @Test
-  @Disabled
+  @Disabled("Do not have a permanent valid token, test must be run manually")
   void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
     String validToken = "[enter valid token]";
 
