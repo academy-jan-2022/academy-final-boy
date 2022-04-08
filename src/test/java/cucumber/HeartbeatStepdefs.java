@@ -4,6 +4,7 @@ import static io.cucumber.junit.platform.engine.Constants.GLUE_PROPERTY_NAME;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
@@ -32,4 +33,5 @@ public class HeartbeatStepdefs {
   public void theStatusIsUp() {
     response.then().statusCode(200).body("status", equalTo("UP"));
   }
+
 }
