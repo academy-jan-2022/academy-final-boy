@@ -15,7 +15,7 @@ public class GoogleTokenValidatorShould {
     String invalidToken = "invalid_token";
 
     @Test
-    void return_true_when_token_is_valid() throws GeneralSecurityException, IOException, InterruptedException, URISyntaxException {
+    void return_true_when_token_is_valid() throws IOException, InterruptedException, URISyntaxException {
         GoogleTokenValidator googleTokenValidator = new GoogleTokenValidator();
         assertTrue(googleTokenValidator.authenticateToken(validToken));
     }
@@ -24,4 +24,5 @@ public class GoogleTokenValidatorShould {
         GoogleTokenValidator googleTokenValidator = new GoogleTokenValidator();
         assertFalse(googleTokenValidator.authenticateToken(invalidToken));
     }
+
 }

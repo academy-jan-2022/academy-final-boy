@@ -1,42 +1,82 @@
 package codurance.academyfinalboy.backend;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.http.HttpStatus;
 
-import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @WebMvcTest(TokenVerificationController.class)
 public class TokenVerificationShould {
 
-    @Autowired
-    private MockMvc mockMvc;
+    String endpointUrl="http://localhost:8080/tokenvalidator";
+    HttpClient client;
 
-    @MockBean
-    GoogleTokenValidator googleTokenValidator;
+    @BeforeEach
+    void setUp() {
+         client = HttpClient.newHttpClient();
+    }
 
+    @Disabled
     @Test
-    void unauthorized_calls_without_a_valid_token_return_a_401_error() throws Exception {
-        String token = "";
-        when(googleTokenValidator.authenticateToken(token)).thenReturn(false);
+    void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
+        String validToken = "[fill_with_a_valid_token]";
 
-        mockMvc.perform(get("/tokenvalidator")
-                        .header("Authorization", token))
-                .andExpect(status().isUnauthorized());
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(endpointUrl))
+                .setHeader("Authorization",validToken)
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertTrue(HttpStatus.valueOf(response.statusCode()).is2xxSuccessful());
     }
 
     @Test
-    void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
-        String token = "iAmValid";
+    void unauthorized_calls_with_a_missing_header_authorization() throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(endpointUrl))
+                .GET()
+                .build();
 
-        when(googleTokenValidator.authenticateToken(token)).thenReturn(true);
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        mockMvc.perform(get("/tokenvalidator")
-                        .header("Authorization", token))
-                .andExpect(status().isOk());
+        assertTrue(HttpStatus.valueOf(response.statusCode()).is4xxClientError());
+    }
+
+    @Test
+    void unauthorized_calls_with_a_empty_header_authorization() throws Exception {
+        String validToken ="";
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(endpointUrl))
+                .setHeader("Authorization",validToken)
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertTrue(HttpStatus.valueOf(response.statusCode()).is4xxClientError());
+    }
+
+    @Test
+    void unauthorized_calls_with_a_invalid_header_authorization() throws Exception {
+        String validToken ="Invalid_token";
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(new URI(endpointUrl))
+                .setHeader("Authorization",validToken)
+                .GET()
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        assertTrue(HttpStatus.valueOf(response.statusCode()).is4xxClientError());
     }
 }
