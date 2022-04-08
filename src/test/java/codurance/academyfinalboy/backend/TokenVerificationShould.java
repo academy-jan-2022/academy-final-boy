@@ -1,81 +1,49 @@
 package codurance.academyfinalboy.backend;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TokenVerificationController.class)
-public class TokenVerificationShould {
+class TokenVerificationShould {
 
-  String endpointUrl = "http://localhost:8080/tokenvalidator";
-  HttpClient client;
+  @Autowired MockMvc mockMvc;
 
-  @BeforeEach
-  void setUp() {
-    client = HttpClient.newHttpClient();
-  }
-
-  @Disabled
   @Test
+  @Disabled
   void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
-    String validToken = "[fill_with_a_valid_token]";
+    String validToken = "[enter valid token]";
 
-    HttpRequest request =
-        HttpRequest.newBuilder()
-            .uri(new URI(endpointUrl))
-            .setHeader("Authorization", validToken)
-            .GET()
-            .build();
-
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-    assertTrue(HttpStatus.valueOf(response.statusCode()).is2xxSuccessful());
+    mockMvc
+        .perform(get("/tokenvalidator").header("Authorization", validToken))
+        .andExpect(status().isOk());
   }
 
   @Test
   void unauthorized_calls_with_a_missing_header_authorization() throws Exception {
-    HttpRequest request = HttpRequest.newBuilder().uri(new URI(endpointUrl)).GET().build();
-
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-    assertTrue(HttpStatus.valueOf(response.statusCode()).is4xxClientError());
+    mockMvc.perform(get("/tokenvalidator")).andExpect(status().isUnauthorized());
   }
 
   @Test
   void unauthorized_calls_with_a_empty_header_authorization() throws Exception {
-    String validToken = "";
-    HttpRequest request =
-        HttpRequest.newBuilder()
-            .uri(new URI(endpointUrl))
-            .setHeader("Authorization", validToken)
-            .GET()
-            .build();
+    String emptyToken = "";
 
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-    assertTrue(HttpStatus.valueOf(response.statusCode()).is4xxClientError());
+    mockMvc
+        .perform(get("/tokenvalidator").header("Authorization", emptyToken))
+        .andExpect(status().isUnauthorized());
   }
 
   @Test
   void unauthorized_calls_with_a_invalid_header_authorization() throws Exception {
-    String validToken = "Invalid_token";
-    HttpRequest request =
-        HttpRequest.newBuilder()
-            .uri(new URI(endpointUrl))
-            .setHeader("Authorization", validToken)
-            .GET()
-            .build();
+    String invalidToken = "";
 
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-    assertTrue(HttpStatus.valueOf(response.statusCode()).is4xxClientError());
+    mockMvc
+        .perform(get("/tokenvalidator").header("Authorization", invalidToken))
+        .andExpect(status().isUnauthorized());
   }
 }
