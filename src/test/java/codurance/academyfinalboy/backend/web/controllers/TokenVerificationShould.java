@@ -1,4 +1,4 @@
-package codurance.academyfinalboy.backend;
+package codurance.academyfinalboy.backend.web.controllers;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
