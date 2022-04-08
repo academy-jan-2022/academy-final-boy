@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class GoogleTokenValidatorShould {
   String validToken = "";
   String invalidToken = "invalid_token";
 
+  @Disabled
   @Test
   void return_true_when_token_is_valid()
       throws IOException, InterruptedException, URISyntaxException {
