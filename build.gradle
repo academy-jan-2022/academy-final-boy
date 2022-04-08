@@ -27,6 +27,9 @@ dependencies {
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "io.rest-assured:rest-assured:4.4.0"
 
+    implementation 'com.google.api-client:google-api-client-jackson2:1.20.0'
+    compileOnly 'com.google.api-client:google-api-client:1.31.5'
+
 
     testImplementation "io.cucumber:cucumber-java:7.2.3"
     testImplementation "io.cucumber:cucumber-spring:7.2.3"
