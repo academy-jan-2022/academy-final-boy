@@ -28,7 +28,7 @@ public class GoogleTokenValidator implements HandlerInterceptor {
 
     }
 
-    public Boolean authenticateToken(String token) throws IOException, InterruptedException, URISyntaxException {
+    protected Boolean authenticateToken(String token) throws IOException, InterruptedException, URISyntaxException {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(new URI("https://oauth2.googleapis.com/tokeninfo?id_token="+token))
