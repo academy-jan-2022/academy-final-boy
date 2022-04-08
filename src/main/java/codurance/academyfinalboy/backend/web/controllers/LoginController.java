@@ -16,10 +16,10 @@ public class LoginController {
     this.login = login;
   }
 
-  record LoginRequest(UUID externalId, String fullName) {}
-
   @PostMapping("/login")
   private void login(@RequestBody LoginRequest loginRequest) {
     login.execute(loginRequest.externalId(), loginRequest.fullName());
   }
+
+  record LoginRequest(UUID externalId, String fullName) {}
 }

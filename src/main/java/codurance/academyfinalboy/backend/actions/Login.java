@@ -1,9 +1,9 @@
 package codurance.academyfinalboy.backend.actions;
 
-import java.util.UUID;
-
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class Login {

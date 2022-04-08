@@ -1,6 +1,6 @@
 # 👦
 
-This project with Spring Initializr 
+This project with Spring Initializr
 
 ## Technologies
 

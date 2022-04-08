@@ -17,21 +17,20 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 class SpringContextConfiguration {
 
-    @Autowired UserRepository userRepository;
+  @Autowired UserRepository userRepository;
 
-    @Before
-    void tearDown() {
-        userRepository.clear();
-    }
+  @Before
+  void tearDown() {
+    userRepository.clear();
+  }
 
-    @BeforeAll
-    void tearDown2() {
-        userRepository.clear();
-    }
+  @BeforeAll
+  void tearDown2() {
+    userRepository.clear();
+  }
 
   @BeforeEach
   void setUp() {
-        userRepository.clear();
+    userRepository.clear();
   }
-
 }
