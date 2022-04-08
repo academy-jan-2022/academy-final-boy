@@ -8,9 +8,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfiguration implements WebMvcConfigurer {
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry){
-        registry.addInterceptor(new GoogleTokenValidator());
-    }
-
+  @Override
+  public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new GoogleTokenValidator());
+  }
 }

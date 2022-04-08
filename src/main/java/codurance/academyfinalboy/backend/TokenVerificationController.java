@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TokenVerificationController {
 
-    @GetMapping ("/tokenvalidator")
-
-    public void isTokenValid() {
-
-    }
+  @GetMapping("/tokenvalidator")
+  public void isTokenValid() {}
 }
