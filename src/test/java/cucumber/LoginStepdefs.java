@@ -1,7 +1,7 @@
 package cucumber;
 
-import codurance.academyfinalboy.backend.user.User;
-import codurance.academyfinalboy.backend.user.UserRepository;
+import codurance.academyfinalboy.backend.model.user.User;
+import codurance.academyfinalboy.backend.model.user.UserRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

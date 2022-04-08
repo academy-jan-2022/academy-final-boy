@@ -1,12 +1,10 @@
 package cucumber;
 
 import codurance.academyfinalboy.backend.BackendApplication;
-import codurance.academyfinalboy.backend.user.UserRepository;
+import codurance.academyfinalboy.backend.model.user.UserRepository;
 import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
-import io.cucumber.java.BeforeStep;
 import io.cucumber.spring.CucumberContextConfiguration;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

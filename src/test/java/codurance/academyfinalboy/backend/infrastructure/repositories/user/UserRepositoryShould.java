@@ -1,5 +1,7 @@
-package codurance.academyfinalboy.backend.user;
+package codurance.academyfinalboy.backend.infrastructure.repositories.user;
 
+import codurance.academyfinalboy.backend.model.user.User;
+import codurance.academyfinalboy.backend.model.user.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class SpringUserRepositoryShould {
+class UserRepositoryShould {
 
-  @Autowired UserRepository repository;
+  @Autowired
+  UserRepository repository;
 
   @Test
   void create_user() {

@@ -1,14 +1,16 @@
-package codurance.academyfinalboy.backend.user;
+package codurance.academyfinalboy.backend.actions;
 
 import java.util.UUID;
+
+import codurance.academyfinalboy.backend.model.user.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginAction {
+public class Login {
 
   private final UserService userService;
 
-  public LoginAction(UserService userService) {
+  public Login(UserService userService) {
     this.userService = userService;
   }
 

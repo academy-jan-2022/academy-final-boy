@@ -1,22 +1,24 @@
-package codurance.academyfinalboy.backend.user;
+package codurance.academyfinalboy.backend.actions;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import java.util.UUID;
+
+import codurance.academyfinalboy.backend.model.user.UserService;
 import org.junit.jupiter.api.Test;
 
-class LoginActionShould {
+class LoginShould {
 
   @Test
   void call_create_user() {
     UserService userServiceMock = mock(UserService.class);
 
-    LoginAction loginAction = new LoginAction(userServiceMock);
+    Login login = new Login(userServiceMock);
 
     String fullName = "fullname";
     UUID externalId = UUID.randomUUID();
-    loginAction.execute(externalId, fullName);
+    login.execute(externalId, fullName);
 
     verify(userServiceMock).createUser(externalId, fullName);
   }

@@ -1,4 +1,4 @@
-package codurance.academyfinalboy.backend.user;
+package codurance.academyfinalboy.backend.model.user;
 
 import java.util.Optional;
 import java.util.UUID;

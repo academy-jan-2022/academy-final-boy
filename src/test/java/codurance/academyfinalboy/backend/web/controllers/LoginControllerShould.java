@@ -1,10 +1,12 @@
-package codurance.academyfinalboy.backend.user;
+package codurance.academyfinalboy.backend.web.controllers;
 
+import static codurance.academyfinalboy.backend.web.controllers.LoginController.*;
 import static org.mockito.Mockito.verify;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import codurance.academyfinalboy.backend.actions.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,8 @@ class LoginControllerShould {
 
   @Autowired ObjectMapper mapper;
 
-  @MockBean LoginAction loginAction;
+  @MockBean
+  Login login;
 
   @Test
   void call_login_action() throws Exception {
@@ -35,6 +38,6 @@ class LoginControllerShould {
                 .content(mapper.writeValueAsString(loginRequest)))
         .andExpect(status().isOk());
 
-    verify(loginAction).execute(loginRequest.externalId(), loginRequest.fullName());
+    verify(login).execute(loginRequest.externalId(), loginRequest.fullName());
   }
 }

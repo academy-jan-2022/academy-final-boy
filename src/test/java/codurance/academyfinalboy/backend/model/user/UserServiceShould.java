@@ -1,5 +1,8 @@
-package codurance.academyfinalboy.backend.user;
+package codurance.academyfinalboy.backend.model.user;
 
+import codurance.academyfinalboy.backend.model.user.User;
+import codurance.academyfinalboy.backend.model.user.UserRepository;
+import codurance.academyfinalboy.backend.model.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
