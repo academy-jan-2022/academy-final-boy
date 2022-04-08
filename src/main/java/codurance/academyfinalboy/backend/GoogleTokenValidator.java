@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,6 +22,6 @@ public class GoogleTokenValidator {
 
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return response.statusCode() == 200;
+        return HttpStatus.valueOf(response.statusCode()).is2xxSuccessful();
     }
 }
