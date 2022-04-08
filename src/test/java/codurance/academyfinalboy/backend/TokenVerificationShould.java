@@ -31,12 +31,12 @@ public class TokenVerificationShould {
 
     @Test
     void authorized_calls_with_a_valid_token_return_a_200() throws Exception {
-        String token = "iAmValid";
+        String validtoken = "iAmValid";
 
-        when(googleTokenValidator.authenticateToken(token)).thenReturn(true);
+        when(googleTokenValidator.authenticateToken(validtoken)).thenReturn(true);
 
         mockMvc.perform(get("/tokenvalidator")
-                        .header("Authorization", token))
+                        .header("Authorization", validtoken))
                 .andExpect(status().isOk());
     }
 }
