@@ -1,4 +1,4 @@
-package codurance.academyfinalboy.backend;
+package codurance.academyfinalboy.backend.web.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

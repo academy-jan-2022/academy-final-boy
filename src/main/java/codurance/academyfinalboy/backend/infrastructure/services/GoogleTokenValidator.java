@@ -1,4 +1,4 @@
-package codurance.academyfinalboy.backend;
+package codurance.academyfinalboy.backend.infrastructure.services;
 
 import java.io.IOException;
 import java.net.URI;
