@@ -46,6 +46,7 @@ jobs:
           SPRING_DATA_SOURCE_URL: ${{ secrets.SPRING_DATA_SOURCE_URL }}
           SPRING_DATA_SOURCE_USERNAME: ${{ secrets.SPRING_DATA_SOURCE_USERNAME }}
           SPRING_DATA_SOURCE_PASSWORD: ${{ secrets.SPRING_DATA_SOURCE_PASSWORD }}
+          SPRING_CORS_URL: ${{ secrets.SPRING_CORS_URL }}
         run: ./gradlew build test jacocoTestReport sonarqube
       - name: Azure Container Registry Login
         uses: Azure/docker-login@v1
