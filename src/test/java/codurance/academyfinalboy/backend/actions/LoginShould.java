@@ -16,7 +16,7 @@ class LoginShould {
     Login login = new Login(userServiceMock);
 
     String fullName = "fullname";
-    UUID externalId = UUID.randomUUID();
+    String externalId = "51656156156";
     login.execute(externalId, fullName);
 
     verify(userServiceMock).createUser(externalId, fullName);

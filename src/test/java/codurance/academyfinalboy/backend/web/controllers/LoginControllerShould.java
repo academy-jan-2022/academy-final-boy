@@ -28,7 +28,7 @@ class LoginControllerShould {
 
   @Test
   void call_login_action() throws Exception {
-    var loginRequest = new LoginRequest(UUID.randomUUID(), "fullName");
+    var loginRequest = new LoginRequest("1561560156610", "fullName");
 
     mockMvc
         .perform(
