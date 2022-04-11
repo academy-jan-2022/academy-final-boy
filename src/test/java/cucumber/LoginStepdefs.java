@@ -10,7 +10,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -24,8 +23,7 @@ public class LoginStepdefs extends BaseCucumberTest {
   @When("the login endpoint is called with:")
   public void theLoginEndpointIsCalledWith(Map<String, String> data) {
 
-    var requestBody =
-        new LoginRequest(data.get("externalId"), data.get("fullName"));
+    var requestBody = new LoginRequest(data.get("externalId"), data.get("fullName"));
 
     response =
         given().port(port).when().contentType("application/json").body(requestBody).post("/login");

@@ -1,8 +1,6 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
 import codurance.academyfinalboy.backend.actions.Login;
-import java.util.UUID;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -4,7 +4,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import codurance.academyfinalboy.backend.model.user.UserService;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 class LoginShould {

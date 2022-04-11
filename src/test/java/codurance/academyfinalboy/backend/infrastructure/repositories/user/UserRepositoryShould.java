@@ -6,7 +6,6 @@ import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
