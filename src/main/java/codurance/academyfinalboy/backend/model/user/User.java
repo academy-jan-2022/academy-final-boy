@@ -1,7 +1,6 @@
 package codurance.academyfinalboy.backend.model.user;
 
 import java.util.Arrays;
-import java.util.UUID;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
@@ -10,11 +9,11 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table("application_user")
 public class User {
   @Id Long id;
-  UUID externalId;
+  String externalId;
   String fullName;
   String username;
 
-  public User(UUID externalId, String fullName) {
+  public User(String externalId, String fullName) {
     this.id = null;
     this.externalId = externalId;
     this.fullName = fullName;

@@ -10,7 +10,6 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import java.util.Map;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 
@@ -24,8 +23,7 @@ public class LoginStepdefs extends BaseCucumberTest {
   @When("the login endpoint is called with:")
   public void theLoginEndpointIsCalledWith(Map<String, String> data) {
 
-    var requestBody =
-        new LoginRequest(UUID.fromString(data.get("externalId")), data.get("fullName"));
+    var requestBody = new LoginRequest(data.get("externalId"), data.get("fullName"));
 
     response =
         given().port(port).when().contentType("application/json").body(requestBody).post("/login");
@@ -35,7 +33,7 @@ public class LoginStepdefs extends BaseCucumberTest {
   public void theUserIsCreatedInTheDbWith(Map<String, String> data) {
     response.then().statusCode(200);
 
-    UUID externalId = UUID.fromString(data.get("externalId"));
+    String externalId = data.get("externalId");
 
     User user = userRepository.findByExternalId(externalId).orElseThrow();
     assertThat(user.getExternalId()).isEqualTo(externalId);
@@ -47,7 +45,7 @@ public class LoginStepdefs extends BaseCucumberTest {
   @Given("the following user exists:")
   public void theFollowingUserExists(Map<String, String> data) {
 
-    UUID externalId = UUID.fromString(data.get("externalId"));
+    String externalId = data.get("externalId");
     User user = new User(externalId, data.get("fullName"));
 
     savedUser = userRepository.save(user);
@@ -62,5 +60,5 @@ public class LoginStepdefs extends BaseCucumberTest {
     assertThat(user.getId()).isEqualTo(savedUser.getId());
   }
 
-  private record LoginRequest(UUID externalId, String fullName) {}
+  private record LoginRequest(String externalId, String fullName) {}
 }

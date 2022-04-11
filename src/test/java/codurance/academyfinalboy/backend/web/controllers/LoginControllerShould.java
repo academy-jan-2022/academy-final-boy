@@ -8,7 +8,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import codurance.academyfinalboy.backend.actions.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,7 +27,7 @@ class LoginControllerShould {
 
   @Test
   void call_login_action() throws Exception {
-    var loginRequest = new LoginRequest(UUID.randomUUID(), "fullName");
+    var loginRequest = new LoginRequest("1561560156610", "fullName");
 
     mockMvc
         .perform(
