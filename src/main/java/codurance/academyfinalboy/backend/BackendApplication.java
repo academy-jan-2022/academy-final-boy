@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,9 @@ public class BackendApplication {
     SpringApplication.run(BackendApplication.class, args);
   }
 
+  @Value("${cors.url}")
+  private String corsUrl;
+
   @Bean
   public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
@@ -20,7 +24,7 @@ public class BackendApplication {
         registry
             .addMapping("/**")
             .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
-            .allowedOrigins("*")
+            .allowedOrigins(corsUrl)
             .maxAge(3600);
       }
     };
