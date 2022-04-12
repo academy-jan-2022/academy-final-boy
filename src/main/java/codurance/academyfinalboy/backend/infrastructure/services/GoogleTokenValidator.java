@@ -1,19 +1,23 @@
 package codurance.academyfinalboy.backend.infrastructure.services;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.HandlerInterceptor;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 @Service
 public class GoogleTokenValidator implements HandlerInterceptor {
+
+  private final AuthenticatedUser authenticatedUser;
+
+  public GoogleTokenValidator(AuthenticatedUser authenticatedUser) {
+    this.authenticatedUser = authenticatedUser;
+  }
+
+  record GoogleResponse(String sub) {}
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -30,17 +34,18 @@ public class GoogleTokenValidator implements HandlerInterceptor {
     return false;
   }
 
-  protected Boolean authenticateToken(String token)
-      throws IOException, InterruptedException, URISyntaxException {
-    HttpClient client = HttpClient.newHttpClient();
-    HttpRequest request =
-        HttpRequest.newBuilder()
-            .uri(new URI("https://oauth2.googleapis.com/tokeninfo?id_token=" + token))
-            .GET()
-            .build();
+  protected boolean authenticateToken(String token) {
+    RestTemplate restTemplate = new RestTemplate();
 
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    try {
+      GoogleResponse responseObject =
+          restTemplate.getForObject(
+              "https://oauth2.googleapis.com/tokeninfo?id_token=" + token, GoogleResponse.class);
 
-    return HttpStatus.valueOf(response.statusCode()).is2xxSuccessful();
+      authenticatedUser.setExternalId(responseObject.sub);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
   }
 }

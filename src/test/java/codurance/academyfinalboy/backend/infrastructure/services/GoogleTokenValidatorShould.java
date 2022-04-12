@@ -1,28 +1,31 @@
 package codurance.academyfinalboy.backend.infrastructure.services;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.IOException;
-import java.net.URISyntaxException;
+import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 class GoogleTokenValidatorShould {
-  String validToken = "";
+  String validToken =
+      "eyJhbGciOiJSUzI1NiIsImtpZCI6ImYxMzM4Y2EyNjgzNTg2M2Y2NzE0MDhmNDE3MzhhN2I0OWU3NDBmYzAiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjcxMjA4NTQ4MjUzLWhyZDVhNG52cms0b3Zzc2Nmc2twcnNib2RuN2F0ZThrLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjcxMjA4NTQ4MjUzLWhyZDVhNG52cms0b3Zzc2Nmc2twcnNib2RuN2F0ZThrLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTE0MTczNzk1NTc2NTI3NjAzMTgwIiwiaGQiOiJjb2R1cmFuY2UuY29tIiwiZW1haWwiOiJkYW5pZWwucm9kcmlndWV6QGNvZHVyYW5jZS5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IjR2WjR1Z1hVb2wxOXkxeDZjNXBzM2ciLCJuYW1lIjoiRGFuaWVsIFJvZHJpZ3VleiBBbGNhbGEiLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2pDMzhCRUd0RzVBZlJYcVFrZDVtZFJKSGhNdHk1STh0V0hPTWR6PXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IkRhbmllbCIsImZhbWlseV9uYW1lIjoiUm9kcmlndWV6IEFsY2FsYSIsImxvY2FsZSI6ImVuLUdCIiwiaWF0IjoxNjQ5Nzc2NDM3LCJleHAiOjE2NDk3ODAwMzcsImp0aSI6IjgzOWZiYWFkZmQ2ZmU4NmQxYjRiZDdiMTM4ZjJmODViZGMxZTQzYzgifQ.CKnQRTBRA3n9FPhh4iZ99-TvQQ-t7G6LzUnF3s7igWqY53r9K1H-x19TnXqkQcRC48hSpWQXf8YOwImFuSze2Y3lELB4sMlRblMEUYHim9FW9AySLCs0hpuQ9COkatcPtK-Z5hhUKySTf60-RtAOIetYl-5fFAxQUHeRcqmynmdX39cPzuyKJoYCFIzJMMYdfamfkdPNfWs44DJXQt3gfjO74szTMlljDCdi7CRrW51wSVc8PusHX3RJUkbfx9UlCQIiBhBa7h9GyXW4RXVYbcqTZsMOAxqL258nfhenuJV6wjMCIC6oYLIIyhzEUhjbY9g4OJVEkCC7claPm-rMCQ";
+  String expectedExternalId = "114173795576527603180";
   String invalidToken = "invalid_token";
 
   @Disabled("Do not have a permanent valid token, test must be run manually")
   @Test
-  void return_true_when_token_is_valid()
-      throws IOException, InterruptedException, URISyntaxException {
-    GoogleTokenValidator googleTokenValidator = new GoogleTokenValidator();
-    assertTrue(googleTokenValidator.authenticateToken(validToken));
+  void return_true_when_token_is_valid() {
+    AuthenticatedUser authenticatedUser = new AuthenticatedUser();
+    GoogleTokenValidator googleTokenValidator = new GoogleTokenValidator(authenticatedUser);
+    assertThat(googleTokenValidator.authenticateToken(validToken)).isTrue();
+    assertThat(authenticatedUser.getExternalId()).isEqualTo(expectedExternalId);
   }
 
   @Test
-  void return_false_when_token_is_invalid() throws Exception {
-    GoogleTokenValidator googleTokenValidator = new GoogleTokenValidator();
-    assertFalse(googleTokenValidator.authenticateToken(invalidToken));
+  void return_false_when_token_is_invalid() {
+    AuthenticatedUser authenticatedUser = new AuthenticatedUser();
+    GoogleTokenValidator googleTokenValidator = new GoogleTokenValidator(authenticatedUser);
+    assertThat(googleTokenValidator.authenticateToken(invalidToken)).isFalse();
   }
+
 }
