@@ -16,7 +16,6 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 
   @Autowired AuthenticatedUser authenticatedUser;
 
-
   @Override
   public void addInterceptors(InterceptorRegistry registry) {
     if (shouldFilterRequests) {

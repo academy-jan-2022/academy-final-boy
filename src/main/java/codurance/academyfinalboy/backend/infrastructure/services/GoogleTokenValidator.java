@@ -1,19 +1,18 @@
 package codurance.academyfinalboy.backend.infrastructure.services;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import java.util.Objects;
-
 @Service
 public class GoogleTokenValidator implements HandlerInterceptor {
 
   private final AuthenticatedUser authenticatedUser;
-  private final RestTemplate restTemplate ;
+  private final RestTemplate restTemplate;
 
   public GoogleTokenValidator(AuthenticatedUser authenticatedUser, RestTemplate restTemplate) {
     this.authenticatedUser = authenticatedUser;
