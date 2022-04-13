@@ -5,19 +5,31 @@ import codurance.academyfinalboy.backend.model.team.Team;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SpringTeamRepositoryShould extends BaseSpringTest {
 
-    @Autowired
-    SpringTeamRepository repository;
+  @Autowired SpringTeamRepository repository;
 
   @Test
   void save_team() {
-      Team  team = new Team("team name", "team description", 3L);
+    Team team = new Team("team name", "team description", 3L);
 
-      Long teamId = repository.save(team);
+    Long teamId = repository.save(team);
 
-      assertThat(teamId).isNotNull();
+    assertThat(teamId).isNotNull();
+  }
+
+  @Test
+  void find_by_id() {
+    Team team = new Team("team name", "team description", 3L);
+    Long teamId = repository.save(team);
+
+      Optional<Team> foundTeam = repository.findById(teamId);
+
+      team.setId(teamId);
+      assertThat(foundTeam).hasValue(team);
   }
 }

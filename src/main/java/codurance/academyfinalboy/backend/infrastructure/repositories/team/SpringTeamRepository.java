@@ -17,7 +17,7 @@ public class SpringTeamRepository implements TeamRepository {
 
     @Override
     public Optional<Team> findById(Long teamId) {
-        return Optional.empty();
+        return repository.findById(teamId);
     }
 
     @Override
