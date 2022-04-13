@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class TeamServiceShould {
 
@@ -28,9 +27,10 @@ class TeamServiceShould {
     TeamService teamService = new TeamService(mockedTeamRepository);
 
     Long userId = 1L;
-
     Team expectedTeams = new Team("team name", "description", userId);
     List<Team> usersTeams = List.of(expectedTeams);
+
+    when(mockedTeamRepository.findTeamsForUser(userId)).thenReturn(usersTeams);
     teamService.createTeam(1L, "team name", "description");
 
     List<Team> currentUsersTeam = teamService.getTeamsForUser(userId);
