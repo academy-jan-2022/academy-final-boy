@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import java.util.Objects;
+
 @Service
 public class GoogleTokenValidator implements HandlerInterceptor {
 
@@ -41,7 +43,7 @@ public class GoogleTokenValidator implements HandlerInterceptor {
       GoogleResponse responseObject =
           restTemplate.getForObject(
               "https://oauth2.googleapis.com/tokeninfo?id_token=" + token, GoogleResponse.class);
-      authenticatedUser.setExternalId(responseObject.sub);
+      authenticatedUser.setExternalId(Objects.requireNonNull(responseObject).sub);
       return true;
     } catch (Exception e) {
       return false;
