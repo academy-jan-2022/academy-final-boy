@@ -14,6 +14,5 @@ public class AuthenticatedUser {
 
   public void setExternalId(String externalId) {
     this.externalId = externalId;
-
   }
 }
