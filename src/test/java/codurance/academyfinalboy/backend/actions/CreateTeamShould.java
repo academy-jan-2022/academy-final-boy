@@ -18,6 +18,7 @@ class CreateTeamShould {
   private final String externalId = "externalId";
   User savedUser = new User(externalId, "name");
   private final Long userId = 2L;
+  private final Long teamId = 3L;
 
   @BeforeEach
   void setUp() {
@@ -27,6 +28,7 @@ class CreateTeamShould {
     mockedUserService = mock(UserService.class);
 
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(savedUser));
+    when(mockedTeamService.createTeam(userId, "team name", "description")).thenReturn(teamId);
 
     createTeam = new CreateTeam(mockedTeamService, mockedUserService);
     createTeam.execute("team name", "description");
@@ -40,5 +42,10 @@ class CreateTeamShould {
   @Test
   void call_create_team_service() {
     verify(mockedTeamService).createTeam(userId, "team name", "description");
+  }
+
+  @Test
+  void add_team_to_user() {
+    verify(mockedUserService).addTeamToUser(savedUser, teamId);
   }
 }
