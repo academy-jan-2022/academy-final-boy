@@ -17,6 +17,6 @@ public class TeamService {
     }
 
     public List<Team> getTeamsForUser(Long userId) {
-        throw new UnsupportedOperationException();
+        return teamRepository.findTeamsForUser(userId);
     }
 }
