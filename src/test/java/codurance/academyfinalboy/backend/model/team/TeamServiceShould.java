@@ -30,7 +30,7 @@ class TeamServiceShould {
     Team expectedTeams = new Team("team name", "description", userId);
     List<Team> usersTeams = List.of(expectedTeams);
 
-    when(mockedTeamRepository.findTeamsForUser(userId)).thenReturn(usersTeams);
+    when(mockedTeamRepository.findTeamsByUser(userId)).thenReturn(usersTeams);
     teamService.createTeam(1L, "team name", "description");
 
     List<Team> currentUsersTeam = teamService.getTeamsForUser(userId);

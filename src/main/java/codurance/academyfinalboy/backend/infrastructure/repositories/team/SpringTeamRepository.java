@@ -28,7 +28,7 @@ public class SpringTeamRepository implements TeamRepository {
     }
 
     @Override
-    public List<Team> findTeamsForUser(Long userId) {
+    public List<Team> findTeamsByUser(Long userId) {
         throw new UnsupportedOperationException();
     }
 }
