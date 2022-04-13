@@ -1,9 +1,13 @@
 package codurance.academyfinalboy.backend.model.user;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import codurance.academyfinalboy.backend.model.team.Team;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
@@ -13,6 +17,7 @@ public class User {
   String externalId;
   String fullName;
   String username;
+  List<AggregateReference<Team, Long>> teams = new ArrayList<>();
 
   public User(String externalId, String fullName) {
     this.id = null;
@@ -35,7 +40,11 @@ public class User {
     return username.toString();
   }
 
-  public List<Long> getTeams() {
-    return null;
+  public List<AggregateReference<Team, Long>> getTeams() {
+    return teams;
+  }
+
+  public void addTeam(Long teamId) {
+    teams.add(AggregateReference.to(teamId));
   }
 }

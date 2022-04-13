@@ -14,6 +14,7 @@ import io.restassured.response.Response;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
 public class CreateTeamStepdefs extends BaseCucumberTest {
 
@@ -53,7 +54,7 @@ public class CreateTeamStepdefs extends BaseCucumberTest {
 
   @And("the team is added on the user")
   public void theTeamIsAddedOnTheUser() {
-    assertThat(savedUser.getTeams()).contains(teamId);
+    assertThat(savedUser.getTeams()).contains(AggregateReference.to(teamId));
   }
 
   private record CreateTeamRequest(Team team) {}

@@ -8,6 +8,7 @@ import java.util.Optional;
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
 class UserServiceShould {
 
@@ -60,7 +61,7 @@ class UserServiceShould {
     var teamId = 3L;
 
     userService.addTeamToUser(user, teamId);
-    assertThat(user.getTeams()).contains(teamId);
+    assertThat(user.getTeams()).contains(AggregateReference.to(teamId));
     verify(userRepositoryMock).save(user);
   }
 }

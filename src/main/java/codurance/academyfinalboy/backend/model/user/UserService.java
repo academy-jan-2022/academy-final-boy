@@ -29,7 +29,8 @@ public class UserService {
     return userRepository.findByExternalId(externalId);
   }
 
-  public void addTeamToUser(User savedUser, Long teamId) {
-    throw new UnsupportedOperationException();
+  public void addTeamToUser(User user, Long teamId) {
+    user.addTeam(teamId);
+    userRepository.save(user);
   }
 }
