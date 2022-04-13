@@ -1,6 +1,7 @@
 package codurance.academyfinalboy.backend.infrastructure.services;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Service;
@@ -11,9 +12,11 @@ import org.springframework.web.servlet.HandlerInterceptor;
 public class GoogleTokenValidator implements HandlerInterceptor {
 
   private final AuthenticatedUser authenticatedUser;
+  private final RestTemplate restTemplate;
 
-  public GoogleTokenValidator(AuthenticatedUser authenticatedUser) {
+  public GoogleTokenValidator(AuthenticatedUser authenticatedUser, RestTemplate restTemplate) {
     this.authenticatedUser = authenticatedUser;
+    this.restTemplate = restTemplate;
   }
 
   record GoogleResponse(String sub) {}
@@ -34,14 +37,12 @@ public class GoogleTokenValidator implements HandlerInterceptor {
   }
 
   protected boolean authenticateToken(String token) {
-    RestTemplate restTemplate = new RestTemplate();
 
     try {
       GoogleResponse responseObject =
           restTemplate.getForObject(
               "https://oauth2.googleapis.com/tokeninfo?id_token=" + token, GoogleResponse.class);
-
-      authenticatedUser.setExternalId(responseObject.sub);
+      authenticatedUser.setExternalId(Objects.requireNonNull(responseObject).sub);
       return true;
     } catch (Exception e) {
       return false;
