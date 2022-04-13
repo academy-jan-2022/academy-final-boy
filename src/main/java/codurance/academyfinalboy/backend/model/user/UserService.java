@@ -23,4 +23,8 @@ public class UserService {
   public Optional<User> getCurrentUser() {
     throw new UnsupportedOperationException();
   }
+
+  public void addTeamToUser(User savedUser, Long teamId) {
+    throw new UnsupportedOperationException();
+  }
 }

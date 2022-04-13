@@ -18,6 +18,8 @@ public class CreateTeam {
   public Long execute(String name, String description) {
     var user = userService.getCurrentUser().orElseThrow();
     var userId = user.getId();
-    return teamService.createTeam(userId, name, description);
+    var teamId = teamService.createTeam(userId, name, description);
+    userService.addTeamToUser(user, teamId);
+    return teamId;
   }
 }
