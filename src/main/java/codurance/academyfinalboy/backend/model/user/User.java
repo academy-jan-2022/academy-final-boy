@@ -35,5 +35,7 @@ public class User {
     return username.toString();
   }
 
-  public List<Long> getTeams() {}
+  public List<Long> getTeams() {
+    return null;
+  }
 }
