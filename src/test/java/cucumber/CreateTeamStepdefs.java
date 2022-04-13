@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 
-public class CreateTeamStepdefs extends BaseCucumberTest {
+public class CreateTeamStepdefs {
 
   @Autowired UserRepository userRepository;
   @Autowired TeamRepository teamRepository;

@@ -6,6 +6,8 @@ import io.cucumber.java.Before;
 import io.cucumber.java.BeforeAll;
 import io.cucumber.spring.CucumberContextConfiguration;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.platform.suite.api.SelectClasspathResource;
+import org.junit.platform.suite.api.Suite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -15,22 +17,6 @@ import org.springframework.test.context.ActiveProfiles;
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @CucumberContextConfiguration
 @ActiveProfiles("test")
-class SpringContextConfiguration {
-
-  @Autowired UserRepository userRepository;
-
-  @Before
-  void tearDown() {
-    userRepository.clear();
-  }
-
-  @BeforeAll
-  void tearDown2() {
-    userRepository.clear();
-  }
-
-  @BeforeEach
-  void setUp() {
-    userRepository.clear();
-  }
-}
+@Suite
+@SelectClasspathResource("features")
+class SpringContextConfiguration {}

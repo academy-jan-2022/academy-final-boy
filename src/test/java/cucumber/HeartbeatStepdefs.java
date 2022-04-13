@@ -8,7 +8,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.springframework.boot.web.server.LocalServerPort;
 
-public class HeartbeatStepdefs extends BaseCucumberTest {
+public class HeartbeatStepdefs {
 
   @LocalServerPort private int port = 0;
 
