@@ -2,6 +2,7 @@ package cucumber;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
+import codurance.academyfinalboy.backend.model.team.UserRef;
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
@@ -50,7 +51,7 @@ public class CreateTeamStepdefs {
     assertThat(team.getId()).isEqualTo(teamId);
     assertThat(team.getName()).isEqualTo(data.get("teamName"));
     assertThat(team.getDescription()).isEqualTo(data.get("teamDescription"));
-    assertThat(team.getMembers()).contains(savedUser.getId());
+    assertThat(team.getMembers()).contains(new UserRef(savedUser.getId()));
   }
 
   @And("the team is added on the user")
