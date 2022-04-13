@@ -1,9 +1,10 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import java.util.ArrayList;
-import java.util.List;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Team {
@@ -17,5 +18,10 @@ public class Team {
     this.name = name;
     this.description = description;
     this.members = new ArrayList<>();
+  }
+
+  public Team(String name, String description, long userId) {
+    this(name, description);
+    members.add(userId);
   }
 }
