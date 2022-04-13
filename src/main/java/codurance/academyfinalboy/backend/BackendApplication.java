@@ -28,7 +28,8 @@ public class BackendApplication {
             .allowedOrigins(corsUrl)
             .maxAge(3600);
       }
-    };}
+    };
+  }
 
   @Bean
   public static RestTemplate getRestTemplate() {
