@@ -3,6 +3,8 @@ package codurance.academyfinalboy.backend.model.user;
 import static org.mockito.Mockito.*;
 
 import java.util.Optional;
+
+import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +12,13 @@ class UserServiceShould {
 
   private UserRepository userRepositoryMock;
   private UserService userService;
+  private AuthenticatedUser mockAuthenticatedUser;
 
   @BeforeEach
   void setUp() {
+    mockAuthenticatedUser = mock(AuthenticatedUser.class);
     userRepositoryMock = mock(UserRepository.class);
-    userService = new UserService(userRepositoryMock);
+    userService = new UserService(userRepositoryMock, mockAuthenticatedUser);
   }
 
   @Test
@@ -39,5 +43,13 @@ class UserServiceShould {
     userService.createUser(externalId, fullName);
 
     verify(userRepositoryMock, never()).save(expectedUser);
+  }
+
+  @Test
+  void get_current_user_with_external_id() {
+    String externalId = "asdfsadfsadf";
+    when(mockAuthenticatedUser.getExternalId()).thenReturn(externalId);
+     userService.getCurrentUser();
+     verify(userRepositoryMock).findByExternalId(externalId);
   }
 }

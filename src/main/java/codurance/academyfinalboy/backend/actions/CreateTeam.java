@@ -1,6 +1,5 @@
 package codurance.academyfinalboy.backend.actions;
 
-import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.springframework.stereotype.Component;

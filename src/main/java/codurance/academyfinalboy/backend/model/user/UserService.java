@@ -1,14 +1,18 @@
 package codurance.academyfinalboy.backend.model.user;
 
 import java.util.Optional;
+
+import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
   private final UserRepository userRepository;
+  private final AuthenticatedUser authenticatedUser;
 
-  public UserService(UserRepository userRepository) {
+  public UserService(UserRepository userRepository, AuthenticatedUser authenticatedUser) {
     this.userRepository = userRepository;
+    this.authenticatedUser = authenticatedUser;
   }
 
   public void createUser(String externalId, String fullName) {
@@ -21,7 +25,8 @@ public class UserService {
   }
 
   public Optional<User> getCurrentUser() {
-    throw new UnsupportedOperationException();
+    var externalId = authenticatedUser.getExternalId();
+    return userRepository.findByExternalId(externalId);
   }
 
   public void addTeamToUser(User savedUser, Long teamId) {
