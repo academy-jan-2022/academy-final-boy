@@ -19,4 +19,8 @@ public class UserService {
       userRepository.save(user);
     }
   }
+
+  public Optional<User> getCurrentUser() {
+    throw new UnsupportedOperationException();
+  }
 }
