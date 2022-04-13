@@ -1,5 +1,8 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.user.User;
@@ -8,13 +11,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import java.util.Map;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateTeamStepdefs extends BaseCucumberTest {
 
@@ -27,9 +26,15 @@ public class CreateTeamStepdefs extends BaseCucumberTest {
 
   @When("the create team endpoint is called with:")
   public void theCreateTeamEndpointIsCalledWith(Map<String, String> data) {
-    var requestBody = new CreateTeamRequest(new Team(data.get("teamName"), data.get("teamDescription")));
+    var requestBody =
+        new CreateTeamRequest(new Team(data.get("teamName"), data.get("teamDescription")));
     response =
-            given().port(port).when().contentType("application/json").body(requestBody).post("/create-team");
+        given()
+            .port(port)
+            .when()
+            .contentType("application/json")
+            .body(requestBody)
+            .post("/create-team");
   }
 
   @Then("the team is created in the db with:")
@@ -53,6 +58,5 @@ public class CreateTeamStepdefs extends BaseCucumberTest {
 
   private record CreateTeamRequest(Team team) {}
 
-  private record CreateTeamResponse(Long teamId) {
-  }
+  private record CreateTeamResponse(Long teamId) {}
 }

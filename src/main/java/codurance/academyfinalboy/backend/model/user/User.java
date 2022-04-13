@@ -2,8 +2,6 @@ package codurance.academyfinalboy.backend.model.user;
 
 import java.util.Arrays;
 import java.util.List;
-
-import codurance.academyfinalboy.backend.model.team.Team;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
