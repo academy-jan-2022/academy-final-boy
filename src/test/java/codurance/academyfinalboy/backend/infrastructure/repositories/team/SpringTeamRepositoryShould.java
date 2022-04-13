@@ -32,4 +32,6 @@ class SpringTeamRepositoryShould extends BaseSpringTest {
       team.setId(teamId);
       assertThat(foundTeam).hasValue(team);
   }
+
+
 }
