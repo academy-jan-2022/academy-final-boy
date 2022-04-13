@@ -31,6 +31,7 @@ public class CreateTeamStepdefs {
   public void theCreateTeamEndpointIsCalledWith(Map<String, String> data) {
     var requestBody =
         new CreateTeamRequest(new Team(data.get("teamName"), data.get("teamDescription")));
+
     response =
         given()
             .port(port)
@@ -42,8 +43,7 @@ public class CreateTeamStepdefs {
 
   @Then("the team is created in the db with:")
   public void theTeamIsCreatedInTheDbWith(Map<String, String> data) {
-    var responseBody = response.body().as(CreateTeamResponse.class);
-    teamId = responseBody.teamId();
+    teamId = Long.parseLong(response.then().log().all().extract().path("teamId").toString());
     String externalId = data.get("externalId");
     savedUser = userRepository.findByExternalId(externalId).orElseThrow();
 
