@@ -1,20 +1,21 @@
 package cucumber;
 
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
+import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.data.jdbc.core.mapping.AggregateReference;
+
+import java.util.Map;
+
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateTeamStepdefs {
 
@@ -54,7 +55,7 @@ public class CreateTeamStepdefs {
 
   @And("the team is added on the user")
   public void theTeamIsAddedOnTheUser() {
-    assertThat(savedUser.getTeams()).contains(AggregateReference.to(teamId));
+    assertThat(savedUser.getTeams()).contains(new TeamRef(teamId));
   }
 
   private record CreateTeamRequest(Team team) {}

@@ -1,14 +1,13 @@
 package codurance.academyfinalboy.backend.model.user;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
-
-import java.util.Optional;
-
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.data.jdbc.core.mapping.AggregateReference;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 class UserServiceShould {
 
@@ -51,8 +50,8 @@ class UserServiceShould {
   void get_current_user_with_external_id() {
     String externalId = "asdfsadfsadf";
     when(mockAuthenticatedUser.getExternalId()).thenReturn(externalId);
-     userService.getCurrentUser();
-     verify(userRepositoryMock).findByExternalId(externalId);
+    userService.getCurrentUser();
+    verify(userRepositoryMock).findByExternalId(externalId);
   }
 
   @Test
@@ -61,7 +60,7 @@ class UserServiceShould {
     var teamId = 3L;
 
     userService.addTeamToUser(user, teamId);
-    assertThat(user.getTeams()).contains(AggregateReference.to(teamId));
+    assertThat(user.getTeams()).contains(new TeamRef(teamId));
     verify(userRepositoryMock).save(user);
   }
 }
