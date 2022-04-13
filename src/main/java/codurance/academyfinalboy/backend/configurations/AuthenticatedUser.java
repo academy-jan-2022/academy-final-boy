@@ -1,8 +1,10 @@
 package codurance.academyfinalboy.backend.configurations;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Component
+@RequestScope
 public class AuthenticatedUser {
   private String externalId;
 

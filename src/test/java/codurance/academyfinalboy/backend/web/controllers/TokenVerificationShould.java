@@ -3,15 +3,19 @@ package codurance.academyfinalboy.backend.web.controllers;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import codurance.academyfinalboy.backend.BaseSpringTest;
+import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TokenVerificationController.class)
+@Import(AuthenticatedUser.class)
 class TokenVerificationShould {
-
   @Autowired MockMvc mockMvc;
 
   @Test
