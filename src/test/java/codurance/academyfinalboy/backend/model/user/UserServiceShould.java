@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.user;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import java.util.Optional;
@@ -51,5 +52,15 @@ class UserServiceShould {
     when(mockAuthenticatedUser.getExternalId()).thenReturn(externalId);
      userService.getCurrentUser();
      verify(userRepositoryMock).findByExternalId(externalId);
+  }
+
+  @Test
+  void add_team_to_a_user() {
+    var user = new User("external id", "full name");
+    var teamId = 3L;
+
+    userService.addTeamToUser(user, teamId);
+    assertThat(user.getTeams()).contains(teamId);
+    verify(userRepositoryMock).save(user);
   }
 }
