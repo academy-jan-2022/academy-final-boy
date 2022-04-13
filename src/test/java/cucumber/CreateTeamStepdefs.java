@@ -1,5 +1,8 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.team.UserRef;
@@ -10,13 +13,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import java.util.Map;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateTeamStepdefs {
 

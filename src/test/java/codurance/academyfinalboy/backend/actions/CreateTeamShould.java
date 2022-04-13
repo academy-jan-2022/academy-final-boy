@@ -1,14 +1,13 @@
 package codurance.academyfinalboy.backend.actions;
 
+import static org.mockito.Mockito.*;
+
 import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
-
-import static org.mockito.Mockito.*;
 
 class CreateTeamShould {
   TeamService mockedTeamService;

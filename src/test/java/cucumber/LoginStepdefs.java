@@ -1,18 +1,17 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import java.util.Map;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginStepdefs {
 
@@ -26,7 +25,8 @@ public class LoginStepdefs {
 
     var requestBody = new LoginRequest(data.get("externalId"), data.get("fullName"));
 
-    response = given().port(port).when().contentType("application/json").body(requestBody).post("/login");
+    response =
+        given().port(port).when().contentType("application/json").body(requestBody).post("/login");
   }
 
   @Then("the user is created in the db with:")

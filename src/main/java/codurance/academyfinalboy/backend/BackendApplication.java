@@ -40,7 +40,7 @@ public class BackendApplication {
 
   @Bean
   @Profile("test")
-  public static AuthenticatedUser getAuthenticatedUser(){
+  public static AuthenticatedUser getAuthenticatedUser() {
     AuthenticatedUser authenticatedUser = new AuthenticatedUser();
     authenticatedUser.setExternalId("ba222e1f-85a2-463a-8e7d-53d3d8a16408");
     return authenticatedUser;

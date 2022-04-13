@@ -1,13 +1,12 @@
 package codurance.academyfinalboy.backend.infrastructure.repositories.team;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.model.team.Team;
+import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class SpringTeamRepositoryShould extends BaseSpringTest {
 
@@ -27,9 +26,9 @@ class SpringTeamRepositoryShould extends BaseSpringTest {
     Team team = new Team("team name", "team description", 3L);
     Long teamId = repository.save(team);
 
-      Optional<Team> foundTeam = repository.findById(teamId);
+    Optional<Team> foundTeam = repository.findById(teamId);
 
-      team.setId(teamId);
-      assertThat(foundTeam).hasValue(team);
+    team.setId(teamId);
+    assertThat(foundTeam).hasValue(team);
   }
 }

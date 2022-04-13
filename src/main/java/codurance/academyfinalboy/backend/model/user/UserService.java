@@ -1,8 +1,7 @@
 package codurance.academyfinalboy.backend.model.user;
 
-import java.util.Optional;
-
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
