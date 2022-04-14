@@ -2,9 +2,12 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.team;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
+import codurance.academyfinalboy.backend.model.user.TeamRef;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public class SpringTeamRepository implements TeamRepository {
@@ -24,6 +27,11 @@ public class SpringTeamRepository implements TeamRepository {
     public Long save(Team team) {
         Team savedTeam = repository.save(team);
         return savedTeam.getId();
+    }
+
+    @Override
+    public List<Team> findAllById(Set<TeamRef> teamIds) {
+        throw new UnsupportedOperationException();
     }
 
 
