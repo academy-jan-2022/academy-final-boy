@@ -35,18 +35,4 @@ class SpringTeamRepositoryShould extends BaseSpringTest {
       assertThat(foundTeam).hasValue(team);
   }
 
-  @Test
-  void find_teams_by_user() {
-    Long userId = 1L;
-
-    Team team = new Team("team name", "team description", 1L);
-    repository.save(team);
-    List<Team> expectedTeamsResult = List.of(team);
-
-    List<Team> currentUsersTeam = repository.findTeamsByUser(userId);
-
-    assertEquals(expectedTeamsResult, currentUsersTeam);
-
-  }
-
 }

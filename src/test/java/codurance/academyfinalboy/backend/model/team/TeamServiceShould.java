@@ -21,21 +21,4 @@ class TeamServiceShould {
     verify(mockedTeamRepository).save(expectedTeam);
   }
 
-  @Test
-  void get_all_teams_the_user_is_part_of() {
-    TeamRepository mockedTeamRepository = mock(TeamRepository.class);
-    TeamService teamService = new TeamService(mockedTeamRepository);
-
-    Long userId = 1L;
-    Team expectedTeams = new Team("team name", "description", userId);
-    List<Team> usersTeams = List.of(expectedTeams);
-
-    when(mockedTeamRepository.findTeamsByUser(userId)).thenReturn(usersTeams);
-    teamService.createTeam(1L, "team name", "description");
-
-    List<Team> currentUsersTeam = teamService.getTeamsForUser(userId);
-
-    assertEquals(usersTeams, currentUsersTeam);
-
-  }
 }

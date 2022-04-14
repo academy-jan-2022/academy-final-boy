@@ -16,7 +16,4 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
-    public List<Team> getTeamsForUser(Long userId) {
-        return teamRepository.findTeamsByUser(userId);
-    }
 }

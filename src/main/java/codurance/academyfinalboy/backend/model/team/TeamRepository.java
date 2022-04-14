@@ -7,6 +7,4 @@ public interface TeamRepository {
   Optional<Team> findById(Long teamId);
 
   Long save(Team expectedTeam);
-
-    List<Team> findTeamsByUser(Long userId);
 }
