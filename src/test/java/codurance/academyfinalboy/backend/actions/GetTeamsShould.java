@@ -1,43 +1,47 @@
 package codurance.academyfinalboy.backend.actions;
 
-import codurance.academyfinalboy.backend.infrastructure.repositories.team.SpringDataJdbcTeamRepository;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class GetTeamsShould {
 
-    @Test
-    public void get_current_user_from_user_service() {
-        UserService mockedUserService = mock(UserService.class);
-        GetTeams getTeams = new GetTeams(mockedUserService);
+  @Mock private UserService mockedUserService;
+  @Mock private TeamRepository mockedTeamRepository;
 
-        getTeams.execute();
+  private User currentUser;
 
-        verify(mockedUserService).getCurrentUser();
-    }
+  @BeforeEach
+  void setUp() {
+    currentUser = new User("1250", "Bob Jones");
 
-    @Test
-    public void get_teams_from_team_repository() {
-        UserService mockedUserService = mock(UserService.class);
-        TeamRepository mockedTeamRepository = mock(TeamRepository.class);
+    currentUser.addTeam(12L);
+    currentUser.addTeam(13L);
 
-        User currentUser = new User("1250", "Bob Jones");
+    when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(currentUser));
 
-        currentUser.addTeam(12L);
-        currentUser.addTeam(13L);
+    GetTeams getTeams = new GetTeams(mockedUserService, mockedTeamRepository);
+    getTeams.execute();
+  }
 
-        when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(currentUser));
+  @Test
+  public void get_current_user_from_user_service() {
+    verify(mockedUserService).getCurrentUser();
+  }
 
-        GetTeams getTeams = new GetTeams(mockedUserService);
-        getTeams.execute();
-
-        verify(mockedTeamRepository).findAllById(currentUser.getTeams());
-    }
+  @Test
+  public void get_teams_from_team_repository() {
+    verify(mockedTeamRepository).findAllById(currentUser.getTeams());
+  }
 }
-
