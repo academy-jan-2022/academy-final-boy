@@ -35,7 +35,8 @@ jobs:
 
       - name: Build Test DB
         run: make start-db
-      - name: Build and analyze
+
+      - name: Test, Report and Sonar Analysis
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -45,14 +46,7 @@ jobs:
           SPRING_CORS_URL: ${{ secrets.SPRING_CORS_URL }}
         run: ./gradlew build test jacocoTestReport sonarqube
 
-      - name: Azure Container Registry Login
-        uses: Azure/docker-login@v1
-        with:
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-
-      - name: Push Docker image to Azure registry
+      - name: Build docker image
         uses: docker/build-push-action@v2
         with:
           tags: academyfinalproject.azurecr.io/academy-final-boy:latest
