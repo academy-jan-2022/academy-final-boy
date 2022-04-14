@@ -13,7 +13,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
 
-public class LoginStepdefs extends BaseCucumberTest {
+public class LoginStepdefs {
 
   @Autowired UserRepository userRepository;
   @LocalServerPort private int port = 0;

@@ -26,6 +26,7 @@ class UserRepositoryShould extends BaseSpringTest {
   void find_user_by_external_id() {
 
     User user = new User("123123123123123", "fullname");
+    user.addTeam(5L);
     User savedUser = repository.save(user);
 
     Optional<User> foundUser = repository.findByExternalId(user.getExternalId());

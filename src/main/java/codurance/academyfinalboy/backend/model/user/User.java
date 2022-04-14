@@ -1,8 +1,11 @@
 package codurance.academyfinalboy.backend.model.user;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
@@ -12,6 +15,9 @@ public class User {
   String externalId;
   String fullName;
   String username;
+
+  @MappedCollection(idColumn = "user_id")
+  Set<TeamRef> teams = new HashSet<>();
 
   public User(String externalId, String fullName) {
     this.id = null;
@@ -32,5 +38,13 @@ public class User {
     Arrays.stream(names).skip(1).map(User::getFirstLetter).forEach(username::append);
 
     return username.toString();
+  }
+
+  public Set<TeamRef> getTeams() {
+    return teams;
+  }
+
+  public void addTeam(Long teamId) {
+    teams.add(new TeamRef(teamId));
   }
 }
