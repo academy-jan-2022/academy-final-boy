@@ -1,9 +1,11 @@
 package codurance.academyfinalboy.backend.actions;
 
+import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 
+import java.util.List;
 import java.util.Optional;
 
 public class GetTeams {
@@ -15,9 +17,8 @@ public class GetTeams {
         this.teamRepository = teamRepository;
     }
 
-    public void execute() {
+    public List<Team> execute() {
         User currentUser = userService.getCurrentUser().orElseThrow();
-        teamRepository.findAllById(currentUser.getTeams());
-
+        return teamRepository.findAllById(currentUser.getTeams());
     }
 }
