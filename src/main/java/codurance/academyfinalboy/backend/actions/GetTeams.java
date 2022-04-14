@@ -9,7 +9,7 @@ public class GetTeams {
         this.userService = userService;
     }
 
-    public String execute() {
-      throw new UnsupportedOperationException();
+    public void execute() {
+        userService.getCurrentUser();
     }
 }
