@@ -1,11 +1,9 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 
 class TeamServiceShould {
 
@@ -20,5 +18,4 @@ class TeamServiceShould {
 
     verify(mockedTeamRepository).save(expectedTeam);
   }
-
 }

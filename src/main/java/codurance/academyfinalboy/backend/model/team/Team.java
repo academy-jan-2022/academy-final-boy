@@ -1,15 +1,12 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import java.util.HashSet;
+import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
-
-import javax.websocket.OnOpen;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @Table

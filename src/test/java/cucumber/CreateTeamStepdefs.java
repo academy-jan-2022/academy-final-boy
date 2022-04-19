@@ -1,5 +1,8 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.team.UserRef;
@@ -10,13 +13,9 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.server.LocalServerPort;
-
-import java.util.Map;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreateTeamStepdefs {
 
@@ -31,6 +30,7 @@ public class CreateTeamStepdefs {
   public void theCreateTeamEndpointIsCalledWith(Map<String, String> data) {
     var requestBody =
         new CreateTeamRequest(new Team(data.get("teamName"), data.get("teamDescription")));
+
     response =
         given()
             .port(port)
@@ -42,8 +42,7 @@ public class CreateTeamStepdefs {
 
   @Then("the team is created in the db with:")
   public void theTeamIsCreatedInTheDbWith(Map<String, String> data) {
-    var responseBody = response.body().as(CreateTeamResponse.class);
-    teamId = responseBody.teamId();
+    teamId = Long.parseLong(response.then().log().all().extract().path("teamId").toString());
     String externalId = data.get("externalId");
     savedUser = userRepository.findByExternalId(externalId).orElseThrow();
 

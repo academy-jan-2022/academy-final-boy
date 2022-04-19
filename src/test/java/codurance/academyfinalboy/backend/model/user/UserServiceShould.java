@@ -1,13 +1,12 @@
 package codurance.academyfinalboy.backend.model.user;
 
-import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
+
+import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 class UserServiceShould {
 
