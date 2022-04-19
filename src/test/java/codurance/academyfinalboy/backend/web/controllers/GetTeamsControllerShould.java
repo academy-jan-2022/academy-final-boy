@@ -47,7 +47,7 @@ public class GetTeamsControllerShould {
     GoogleTokenValidator googleTokenValidator;
 
     @Test
-    void return_team_id() throws Exception {
+    void get_a_list_of_teams_on_request() throws Exception {
         var expectedTeam1 = new Team("Team 1", "Team 1 description");
         var expectedTeam2 = new Team("Team 2", "Team 2 description");
 
