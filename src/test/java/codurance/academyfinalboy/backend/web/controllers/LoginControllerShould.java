@@ -41,20 +41,6 @@ class LoginControllerShould extends BaseSpringTest {
   }
 
   @Test
-  void publish_event_on_success() throws Exception {
-    var loginRequest = new LoginRequest("1561560156610", "fullName");
-
-    mockMvc
-        .perform(
-            post("/login")
-                .contentType(APPLICATION_JSON)
-                .content(mapper.writeValueAsString(loginRequest)))
-        .andExpect(status().isOk());
-
-    verify(telemetryClient).trackEvent("user logged in successfully");
-  }
-
-  @Test
   void publish_exception_on_error() throws Exception {
     var loginRequest = new LoginRequest("1561560156610", "fullName");
     IllegalStateException exception = new IllegalStateException("tested exception");

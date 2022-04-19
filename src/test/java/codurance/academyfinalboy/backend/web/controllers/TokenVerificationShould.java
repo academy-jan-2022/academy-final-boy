@@ -4,6 +4,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import com.microsoft.applicationinsights.TelemetryClient;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(TokenVerificationController.class)
-@Import(AuthenticatedUser.class)
+@Import(value = {AuthenticatedUser.class, TelemetryClient.class})
 class TokenVerificationShould {
   @Autowired MockMvc mockMvc;
 
