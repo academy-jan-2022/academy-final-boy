@@ -3,9 +3,8 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.team;
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import org.springframework.stereotype.Repository;
@@ -32,6 +31,15 @@ public class SpringTeamRepository implements TeamRepository {
 
   @Override
   public List<Team> findAllById(Set<TeamRef> teamIds) {
-    throw new UnsupportedOperationException();
+
+    List<Long> teamIdList = teamIds.stream()
+            .map(teamRef -> teamRef.getTeamId().getId())
+            .toList();
+
+    var result = new ArrayList<Team>();
+    repository.findAllById(teamIdList).forEach(result::add);
+
+    return result;
+
   }
 }
