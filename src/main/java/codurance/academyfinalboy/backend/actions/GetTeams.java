@@ -4,23 +4,21 @@ import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
-import java.util.Optional;
+import org.springframework.stereotype.Component;
 
 @Component
 public class GetTeams {
-    private  UserService userService;
-    private TeamRepository teamRepository;
+  private UserService userService;
+  private TeamRepository teamRepository;
 
-    public GetTeams(UserService userService, TeamRepository teamRepository) {
-        this.userService = userService;
-        this.teamRepository = teamRepository;
-    }
+  public GetTeams(UserService userService, TeamRepository teamRepository) {
+    this.userService = userService;
+    this.teamRepository = teamRepository;
+  }
 
-    public List<Team> execute() {
-        User currentUser = userService.getCurrentUser().orElseThrow();
-        return teamRepository.findAllById(currentUser.getTeams());
-    }
+  public List<Team> execute() {
+    User currentUser = userService.getCurrentUser().orElseThrow();
+    return teamRepository.findAllById(currentUser.getTeams());
+  }
 }
