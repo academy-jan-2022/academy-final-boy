@@ -2,7 +2,6 @@ package codurance.academyfinalboy.backend.web.controllers;
 
 import codurance.academyfinalboy.backend.actions.Login;
 import com.microsoft.applicationinsights.TelemetryClient;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,16 +18,9 @@ public class LoginController {
   }
 
   @PostMapping("/login")
-  private ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-
-    try {
-      login.execute(loginRequest.externalId(), loginRequest.fullName());
-      telemetryClient.trackEvent("user logged in successfully");
-      return ResponseEntity.ok().build();
-    } catch (Exception e) {
-      telemetryClient.trackException(e);
-      return ResponseEntity.badRequest().build();
-    }
+  private void login(@RequestBody LoginRequest loginRequest) {
+    login.execute(loginRequest.externalId(), loginRequest.fullName());
+    telemetryClient.trackEvent("user logged in successfully");
   }
 
   record LoginRequest(String externalId, String fullName) {}

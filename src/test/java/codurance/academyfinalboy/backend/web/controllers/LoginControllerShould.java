@@ -1,13 +1,5 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
-import static codurance.academyfinalboy.backend.web.controllers.LoginController.LoginRequest;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.Login;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,6 +8,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static codurance.academyfinalboy.backend.web.controllers.LoginController.LoginRequest;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.verify;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class LoginControllerShould extends BaseSpringTest {
   @Autowired MockMvc mockMvc;
@@ -56,7 +57,7 @@ class LoginControllerShould extends BaseSpringTest {
   @Test
   void publish_exception_on_error() throws Exception {
     var loginRequest = new LoginRequest("1561560156610", "fullName");
-    IllegalStateException exception = new IllegalStateException();
+    IllegalStateException exception = new IllegalStateException("tested exception");
     doThrow(exception).when(login).execute(anyString(), anyString());
 
     mockMvc
@@ -64,7 +65,8 @@ class LoginControllerShould extends BaseSpringTest {
             post("/login")
                 .contentType(APPLICATION_JSON)
                 .content(mapper.writeValueAsString(loginRequest)))
-        .andExpect(status().is4xxClientError());
+        .andExpect(status().is4xxClientError())
+        .andExpect(jsonPath("$.message").value(exception.getMessage()));
 
     verify(telemetryClient).trackException(exception);
   }
