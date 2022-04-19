@@ -2,9 +2,8 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.team;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class SpringTeamRepository implements TeamRepository {
