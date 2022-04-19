@@ -1,13 +1,15 @@
 package codurance.academyfinalboy.backend.infrastructure.repositories.team;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.model.team.Team;
-import java.util.Optional;
+import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TeamRepositoryShould extends BaseSpringTest {
 
