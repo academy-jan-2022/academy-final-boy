@@ -26,8 +26,8 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(GetTeamsController.class)
 @ActiveProfiles("test")
@@ -48,29 +48,26 @@ public class GetTeamsControllerShould {
 
     @Test
     void get_a_list_of_teams_on_request() throws Exception {
-        var expectedTeam1 = new Team("Team 1", "Team 1 description");
-        var expectedTeam2 = new Team("Team 2", "Team 2 description");
+        var expectedTeam1 = new Team("Team 1", "Team 1 description", 3L);
+        var expectedTeam2 = new Team("Team 2", "Team 2 description", 3L);
+
+        expectedTeam1.setId(11L);
+        expectedTeam2.setId(14L);
 
         List<Team> expectedTeams = new ArrayList<Team>(Arrays.asList(expectedTeam1, expectedTeam2));
+        ObjectMapper mapper = new ObjectMapper();
+        String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
         when(getTeams.execute()).thenReturn(expectedTeams);
 
-        var response = mockMvc
+        mockMvc
                 .perform(
                         get("/teams")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 )
                 .andExpect(status().isOk())
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-
-        assertThat(response, containsString("Team 1"));
-        assertThat(response, containsString("Team 1 description"));
-
-        assertThat(response, containsString("Team 2"));
-        assertThat(response, containsString("Team 2 description"));
-
+                .andExpect(content().json(expectedJSON));
     }
+
 
 }
