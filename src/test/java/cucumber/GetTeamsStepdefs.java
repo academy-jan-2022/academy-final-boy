@@ -24,8 +24,8 @@ public class GetTeamsStepdefs {
     @Autowired UserRepository userRepository;
 
     private Response response;
-    Team expectedTeam1;
-    Team expectedTeam2;
+    private Team expectedTeam1;
+    private Team expectedTeam2;
 
     @LocalServerPort private int port = 0;
 
