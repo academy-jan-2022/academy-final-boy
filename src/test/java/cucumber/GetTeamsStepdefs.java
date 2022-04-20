@@ -65,4 +65,14 @@ public class GetTeamsStepdefs {
         assertEquals(expectedJSON, bodyContent);
     }
 
+    @Then("no teams are returned from the database:")
+    public void noTeamsAreReturnedFromTheDatabase() throws JsonProcessingException {
+        List<Team> expectedTeams = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        String expectedJSON = mapper.writeValueAsString(expectedTeams);
+
+        var bodyContent = response.getBody().asString();
+
+        assertEquals(expectedJSON, bodyContent);
+    }
 }
