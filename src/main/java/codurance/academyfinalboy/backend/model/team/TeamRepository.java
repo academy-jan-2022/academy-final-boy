@@ -11,4 +11,6 @@ public interface TeamRepository {
   Long save(Team expectedTeam);
 
   List<Team> findAllById(Set<TeamRef> teamIds);
+  
+  void clear();
 }

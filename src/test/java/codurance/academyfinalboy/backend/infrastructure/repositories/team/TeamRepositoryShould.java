@@ -4,16 +4,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.model.team.Team;
-import codurance.academyfinalboy.backend.model.user.TeamRef;
-import java.util.List;
+import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import java.util.Optional;
-import java.util.Set;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class SpringTeamRepositoryShould extends BaseSpringTest {
+class TeamRepositoryShould extends BaseSpringTest {
 
-  @Autowired SpringTeamRepository repository;
+  @Autowired TeamRepository repository;
 
   @Test
   void save_team() {
@@ -36,13 +35,17 @@ class SpringTeamRepositoryShould extends BaseSpringTest {
   }
 
   @Test
-  void find_all_by_id() {
+  void clear() {
     Team team = new Team("team name", "team description", 3L);
     Long teamId = repository.save(team);
-    Set<TeamRef> teamRef = Set.of(new TeamRef(teamId));
 
-    var listOfTeams = repository.findAllById(teamRef);
+    repository.clear();
 
-    assertThat(listOfTeams).isEqualTo(List.of(team));
+    assertThat(repository.findById(teamId)).isEmpty();
+  }
+
+  @AfterEach
+  void tearDown() {
+    repository.clear();
   }
 }

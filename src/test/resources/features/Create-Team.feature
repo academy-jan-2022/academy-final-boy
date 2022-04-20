@@ -1,8 +1,5 @@
 Feature: Create team
 
-  Background:
-    Given database is clean
-
   Scenario: Team is created
     Given the following user exists:
       | externalId | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |

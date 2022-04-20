@@ -35,5 +35,9 @@ public class SpringTeamRepository implements TeamRepository {
     repository.findAllById(teamIdList).forEach(result::add);
 
     return result;
+    
+  @Override
+  public void clear() {
+    repository.deleteAll();
   }
 }

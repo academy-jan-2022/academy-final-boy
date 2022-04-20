@@ -1,15 +1,18 @@
-package cucumber;
+package cucumber.utils;
 
+import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
-import io.cucumber.java.en.Given;
+import io.cucumber.java.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class DatabaseStepdefs {
+public class DbUtils {
 
   @Autowired UserRepository userRepository;
+  @Autowired TeamRepository teamRepository;
 
-  @Given("database is clean")
+  @Before
   public void databaseIsClean() {
     userRepository.clear();
+    teamRepository.clear();
   }
 }
