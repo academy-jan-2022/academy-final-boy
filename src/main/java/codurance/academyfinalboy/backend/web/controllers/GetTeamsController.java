@@ -15,7 +15,10 @@ public class GetTeamsController {
   }
 
   @GetMapping("/teams")
-  public List<Team> getTeams() {
-    return getTeams.execute();
+  public TeamResponse getTeams() {
+
+    return new TeamResponse(getTeams.execute());
   }
+
+  public record TeamResponse(List<Team> teams) {}
 }

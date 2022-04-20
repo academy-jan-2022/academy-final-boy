@@ -10,8 +10,6 @@ import codurance.academyfinalboy.backend.infrastructure.services.GoogleTokenVali
 import codurance.academyfinalboy.backend.model.team.Team;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.applicationinsights.TelemetryClient;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +41,11 @@ public class GetTeamsControllerShould {
     expectedTeam1.setId(11L);
     expectedTeam2.setId(14L);
 
-    List<Team> expectedTeams = new ArrayList<Team>(Arrays.asList(expectedTeam1, expectedTeam2));
+    var expectedTeams = new GetTeamsController.TeamResponse(List.of(expectedTeam1, expectedTeam2));
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
-    when(getTeams.execute()).thenReturn(expectedTeams);
+    when(getTeams.execute()).thenReturn(expectedTeams.teams());
 
     mockMvc
         .perform(get("/teams").contentType(MediaType.APPLICATION_JSON))

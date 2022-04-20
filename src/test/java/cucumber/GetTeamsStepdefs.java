@@ -7,6 +7,7 @@ import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
+import codurance.academyfinalboy.backend.web.controllers.GetTeamsController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
@@ -66,7 +67,7 @@ public class GetTeamsStepdefs {
   @Then("the teams are returned from the database:")
   public void theTeamsAreReturnedFromTheDb() throws JsonProcessingException {
 
-    List<Team> expectedTeams = new ArrayList<>(Arrays.asList(expectedTeam1, expectedTeam2));
+    var expectedTeams = new GetTeamsController.TeamResponse(List.of(expectedTeam1, expectedTeam2));
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
@@ -78,7 +79,7 @@ public class GetTeamsStepdefs {
   @Then("the team are returned from the database:")
   public void theTeamAreReturnedFromTheDb() throws JsonProcessingException {
 
-    List<Team> expectedTeams = new ArrayList<>(Arrays.asList(expectedTeam1));
+    var expectedTeams = new GetTeamsController.TeamResponse(List.of(expectedTeam1));
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
@@ -89,7 +90,7 @@ public class GetTeamsStepdefs {
 
   @Then("no teams are returned from the database:")
   public void noTeamsAreReturnedFromTheDatabase() throws JsonProcessingException {
-    List<Team> expectedTeams = new ArrayList<>();
+    var expectedTeams = new GetTeamsController.TeamResponse(new ArrayList<>());
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
