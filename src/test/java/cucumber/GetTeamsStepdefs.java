@@ -60,7 +60,7 @@ public class GetTeamsStepdefs {
         ObjectMapper mapper = new ObjectMapper();
         String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
-        var bodyContent = response.getBody().toString();
+        var bodyContent = response.getBody().asString();
 
         assertEquals(expectedJSON, bodyContent);
     }
