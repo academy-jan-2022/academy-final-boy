@@ -1,8 +1,5 @@
 Feature: Get teams
 
-  Background:
-    Given database is clean
-
   Scenario: Teams for a user are fetched from the database
     Given the following user exists:
       | externalId | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |

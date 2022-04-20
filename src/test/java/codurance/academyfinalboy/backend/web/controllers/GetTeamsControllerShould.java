@@ -9,6 +9,7 @@ import codurance.academyfinalboy.backend.configurations.InterceptorConfiguration
 import codurance.academyfinalboy.backend.infrastructure.services.GoogleTokenValidator;
 import codurance.academyfinalboy.backend.model.team.Team;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microsoft.applicationinsights.TelemetryClient;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,6 +33,7 @@ public class GetTeamsControllerShould {
 
   @MockBean InterceptorConfiguration interceptorConfiguration;
   @MockBean GoogleTokenValidator googleTokenValidator;
+  @MockBean TelemetryClient telemetryClient;
 
   @Test
   void get_a_list_of_teams_on_request() throws Exception {
