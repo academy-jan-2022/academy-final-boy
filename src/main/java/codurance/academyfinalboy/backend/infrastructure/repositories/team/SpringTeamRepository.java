@@ -24,4 +24,9 @@ public class SpringTeamRepository implements TeamRepository {
     Team savedTeam = repository.save(team);
     return savedTeam.getId();
   }
+
+  @Override
+  public void clear() {
+    repository.deleteAll();
+  }
 }

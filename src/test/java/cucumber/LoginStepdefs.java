@@ -11,12 +11,10 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 
 public class LoginStepdefs {
 
   @Autowired UserRepository userRepository;
-  @LocalServerPort private int port = 0;
   private User savedUser;
   private Response response;
 
@@ -25,8 +23,7 @@ public class LoginStepdefs {
 
     var requestBody = new LoginRequest(data.get("externalId"), data.get("fullName"));
 
-    response =
-        given().port(port).when().contentType("application/json").body(requestBody).post("/login");
+    response = given().contentType("application/json").body(requestBody).when().post("/login");
   }
 
   @Then("the user is created in the db with:")

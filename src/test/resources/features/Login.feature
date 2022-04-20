@@ -1,8 +1,5 @@
 Feature: Login
 
-  Background:
-    Given database is clean
-
   Scenario: Login User for the first time
     When the login endpoint is called with:
       | externalId | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |
