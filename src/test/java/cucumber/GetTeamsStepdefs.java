@@ -29,6 +29,19 @@ public class GetTeamsStepdefs {
 
     @LocalServerPort private int port = 0;
 
+    @And("the user is part of one team")
+    public void theUserIsPartOfOneTeam (Map<String, String> data) {
+        User user = userRepository.findByExternalId(data.get("externalId")).orElseThrow();
+
+        expectedTeam1 = new Team(data.get("teamName"), data.get("teamDescription"), user.getId());
+
+        Long team1Id = teamService.createTeam(user.getId(), data.get("teamName"), data.get("teamDescription"));
+
+        teamService.createTeam(310L, "Boy","We love cakes");
+
+        expectedTeam1.setId(team1Id);
+    }
+
     @And("the user is part of two teams")
     public void theUserIsPartOfTwoTeams (Map<String, String> data) {
         User user = userRepository.findByExternalId(data.get("externalId")).orElseThrow();
@@ -43,8 +56,8 @@ public class GetTeamsStepdefs {
         expectedTeam2.setId(team2Id);
     }
 
-    @When("the teams endpoint is called with:")
-    public void theTeamsEndpointIsCalledWith (Map<String, String> data) {
+    @When("the teams endpoint is called with current logged user:")
+    public void theTeamsEndpointIsCalledWith () {
         response =
                 given()
                         .port(port)
@@ -57,6 +70,17 @@ public class GetTeamsStepdefs {
     public void theTeamsAreReturnedFromTheDb () throws JsonProcessingException {
 
         List<Team> expectedTeams = new ArrayList<>(Arrays.asList(expectedTeam1, expectedTeam2));
+        ObjectMapper mapper = new ObjectMapper();
+        String expectedJSON = mapper.writeValueAsString(expectedTeams);
+
+        var bodyContent = response.getBody().asString();
+
+        assertEquals(expectedJSON, bodyContent);
+    }
+    @Then("the team are returned from the database:")
+    public void theTeamAreReturnedFromTheDb () throws JsonProcessingException {
+
+        List<Team> expectedTeams = new ArrayList<>(Arrays.asList(expectedTeam1));
         ObjectMapper mapper = new ObjectMapper();
         String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
