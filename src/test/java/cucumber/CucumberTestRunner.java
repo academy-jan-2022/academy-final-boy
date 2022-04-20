@@ -14,4 +14,4 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 @Suite
 @SelectClasspathResource("features")
-class SpringContextConfiguration {}
+class CucumberTestRunner {}

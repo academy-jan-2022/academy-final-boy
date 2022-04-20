@@ -2,6 +2,7 @@ package cucumber;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
@@ -15,13 +16,11 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.server.LocalServerPort;
 
 public class CreateTeamStepdefs {
 
   @Autowired UserRepository userRepository;
   @Autowired TeamRepository teamRepository;
-  @LocalServerPort private int port = 0;
   private User savedUser;
   private Response response;
   private Long teamId;
@@ -32,20 +31,16 @@ public class CreateTeamStepdefs {
         new CreateTeamRequest(new Team(data.get("teamName"), data.get("teamDescription")));
 
     response =
-        given()
-            .port(port)
-            .when()
-            .contentType("application/json")
-            .body(requestBody)
-            .post("/create-team");
+        given().contentType("application/json").body(requestBody).when().post("/create-team");
   }
 
   @Then("the team is created in the db with:")
   public void theTeamIsCreatedInTheDbWith(Map<String, String> data) {
-    teamId = Long.parseLong(response.then().log().all().extract().path("teamId").toString());
-    String externalId = data.get("externalId");
-    savedUser = userRepository.findByExternalId(externalId).orElseThrow();
+    response.then().assertThat().statusCode(201).body("teamId", notNullValue());
 
+    savedUser = userRepository.findByExternalId(data.get("externalId")).orElseThrow();
+
+    teamId = response.jsonPath().getLong("teamId");
     Team team = teamRepository.findById(teamId).orElseThrow();
     assertThat(team.getId()).isEqualTo(teamId);
     assertThat(team.getName()).isEqualTo(data.get("teamName"));
@@ -59,6 +54,4 @@ public class CreateTeamStepdefs {
   }
 
   private record CreateTeamRequest(Team team) {}
-
-  private record CreateTeamResponse(Long teamId) {}
 }

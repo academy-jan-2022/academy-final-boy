@@ -34,6 +34,16 @@ class UserRepositoryShould extends BaseSpringTest {
     assertThat(foundUser).hasValue(savedUser);
   }
 
+  @Test
+  void clear() {
+    User user = new User("123123123123123", "fullname");
+    User savedUser = repository.save(user);
+
+    repository.clear();
+
+    assertThat(repository.findByExternalId(user.getExternalId())).isEmpty();
+  }
+
   @AfterEach
   void tearDown() {
     repository.clear();
