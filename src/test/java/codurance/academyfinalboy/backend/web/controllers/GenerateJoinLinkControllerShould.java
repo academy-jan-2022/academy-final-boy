@@ -20,7 +20,6 @@ class GenerateJoinLinkControllerShould extends BaseSpringTest {
   @Autowired MockMvc mockMvc;
   @Autowired ObjectMapper objectMapper;
   @MockBean GenerateJoinLink generateJoinLink;
-
   @Test
   void return_token() throws Exception {
     var teamId = 3L;

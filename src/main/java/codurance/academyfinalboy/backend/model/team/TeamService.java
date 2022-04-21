@@ -14,4 +14,8 @@ public class TeamService {
     Team team = new Team(name, description, userId);
     return teamRepository.save(team);
   }
+
+    public boolean verifyMembership(long teamId, long userId) {
+    throw new UnsupportedOperationException();
+    }
 }
