@@ -3,6 +3,7 @@ package codurance.academyfinalboy.backend.model.token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,12 +16,14 @@ class TokenServiceShould {
   private TokenRepository mockedTokenRepository;
   private TokenService tokenService;
   private TokenIdProvider mockedTokenIdProvider;
+  private TimeProvider mockedTimeProvider;
 
   @BeforeEach
   void setUp() {
     mockedTokenRepository = mock(TokenRepository.class);
     mockedTokenIdProvider = mock(TokenIdProvider.class);
-    tokenService = new TokenService(mockedTokenRepository, mockedTokenIdProvider);
+    mockedTimeProvider = mock(TimeProvider.class);
+    tokenService = new TokenService(mockedTokenRepository, mockedTokenIdProvider, mockedTimeProvider);
   }
 
   @Test
@@ -29,6 +32,11 @@ class TokenServiceShould {
     tokenService.generateToken(TEAM_ID);
 
     verify(mockedTokenRepository).save(new Token(TEAM_ID, TOKEN_ID));
+  }
+
+  @Test
+  void call_time_provider_to_generate_expiry_date() {
+    verify(mockedTimeProvider).getCurrentTime();
   }
 
   @Test
