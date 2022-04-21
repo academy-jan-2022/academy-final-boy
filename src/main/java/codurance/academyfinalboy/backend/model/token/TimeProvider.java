@@ -4,6 +4,6 @@ import java.time.LocalDateTime;
 
 public class TimeProvider {
     public LocalDateTime getCurrentTime() {
-        throw new UnsupportedOperationException();
+        return LocalDateTime.now();
     }
 }
