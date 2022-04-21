@@ -25,7 +25,10 @@ public class GenerateJoinLink {
   public UUID execute(long teamId) {
     User currentUser = userService.getCurrentUser().orElseThrow();
 
-    teamService.verifyMembership(teamId, currentUser.getId());
-    return tokenService.generateToken(teamId);
+    if (teamService.verifyMembership(teamId, currentUser.getId())) {
+      return tokenService.generateToken(teamId);
+    }
+
+    throw new IllegalStateException("current user isn't a member of the team");
   }
 }

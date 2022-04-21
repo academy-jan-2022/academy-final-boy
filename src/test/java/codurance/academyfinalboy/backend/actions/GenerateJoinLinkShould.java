@@ -37,6 +37,8 @@ class GenerateJoinLinkShould {
 
   @Test
   void check_that_current_user_is_member_of_team() {
+    when(mockedTeamService.verifyMembership(anyLong(), anyLong())).thenReturn(true);
+
     generateJoinLink.execute(TEAM_ID);
 
     verify(mockedTeamService).verifyMembership(TEAM_ID, USER.getId());
