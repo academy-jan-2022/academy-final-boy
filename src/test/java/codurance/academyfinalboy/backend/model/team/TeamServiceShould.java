@@ -1,21 +1,39 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
 class TeamServiceShould {
 
+  public static final long USER_ID = 1L;
+  public static final long TEAM_ID = 2L;
+  public static final Team EXPECTED_TEAM = new Team("team name", "description", USER_ID);
+  private TeamRepository mockedTeamRepository;
+  private TeamService teamService;
+
+  @BeforeEach
+  void setUp() {
+    mockedTeamRepository = mock(TeamRepository.class);
+    teamService = new TeamService(mockedTeamRepository);
+  }
+
   @Test
   void create_a_team() {
-    TeamRepository mockedTeamRepository = mock(TeamRepository.class);
-    TeamService teamService = new TeamService(mockedTeamRepository);
 
-    Team expectedTeam = new Team("team name", "description", 1L);
+    teamService.createTeam(USER_ID, "team name", "description");
 
-    teamService.createTeam(1L, "team name", "description");
+    verify(mockedTeamRepository).save(EXPECTED_TEAM);
+  }
 
-    verify(mockedTeamRepository).save(expectedTeam);
+  @Test
+  void return_true_if_user_is_member_of_team() {
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(EXPECTED_TEAM));
+
+    assertThat(teamService.verifyMembership(TEAM_ID, USER_ID)).isTrue();
   }
 }
