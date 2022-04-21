@@ -15,7 +15,8 @@ public class TokenService {
 
   public UUID generateToken(long teamId) {
     var tokenExpiryDate = timeProvider.getCurrentTime().plusMinutes(5);
-    tokenRepository.save(new Token(teamId, tokenIdProvider.random(), tokenExpiryDate));
-    return tokenIdProvider.random();
+    var tokenId = tokenIdProvider.random();
+    tokenRepository.save(new Token(teamId, tokenId, tokenExpiryDate));
+    return tokenId;
   }
 }
