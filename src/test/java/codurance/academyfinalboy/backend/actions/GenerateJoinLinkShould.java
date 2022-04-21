@@ -9,13 +9,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
+import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 class GenerateJoinLinkShould {
 
   public static final long TEAM_ID = 3L;
   public static final User USER = new UserBuilder().id(12L).build();
+  public static final UUID TOKEN = UUID.randomUUID();
   private TeamService mockedTeamService;
   private UserService mockedUserService;
   private GenerateJoinLink generateJoinLink;
@@ -46,4 +49,13 @@ class GenerateJoinLinkShould {
     verify(mockedTokenService).generateToken(TEAM_ID);
   }
 
+  @Test
+  void returns_generated_token() {
+    when(mockedTeamService.verifyMembership(anyLong(), anyLong())).thenReturn(true);
+    when(mockedTokenService.generateToken(TEAM_ID)).thenReturn(TOKEN);
+
+    UUID generatedToken = generateJoinLink.execute(TEAM_ID);
+
+    assertThat(generatedToken).isEqualTo(TOKEN);
+  }
 }
