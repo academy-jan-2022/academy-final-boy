@@ -15,7 +15,10 @@ public class TeamService {
     return teamRepository.save(team);
   }
 
-    public boolean verifyMembership(long teamId, long userId) {
-    throw new UnsupportedOperationException();
-    }
+  public boolean verifyMembership(long teamId, long userId) {
+    return teamRepository
+        .findById(teamId)
+        .map(team -> team.getMembers().contains(new UserRef(userId)))
+        .orElse(false);
+  }
 }
