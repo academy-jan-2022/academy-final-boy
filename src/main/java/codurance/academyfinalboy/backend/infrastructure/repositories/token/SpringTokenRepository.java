@@ -6,8 +6,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class SpringTokenRepository implements TokenRepository {
+    private SpringDataJdbcTokenRepository repository;
+
+    public SpringTokenRepository(SpringDataJdbcTokenRepository repository) {
+        this.repository = repository;
+    }
+
     @Override
     public Token save(Token token) {
-        throw new UnsupportedOperationException();
+        return repository.save(token);
     }
 }

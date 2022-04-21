@@ -11,7 +11,7 @@ import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TokenRepositoryShould extends BaseSpringTest {
+class TokenRepositoryShould extends BaseSpringTest {
   @Autowired TokenRepository repository;
 
   @Test

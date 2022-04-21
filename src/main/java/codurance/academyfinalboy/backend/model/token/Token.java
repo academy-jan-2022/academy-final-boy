@@ -8,12 +8,14 @@ import java.util.UUID;
 
 @Data
 public class Token {
-  private final long teamId;
+  private final Long teamId;
   private UUID joinId;
+  private LocalDateTime expiryDate;
   @Id private long id;
 
-  public Token(long teamId, UUID joinId, LocalDateTime tokenExpiryDate) {
+  public Token(long teamId, UUID joinId, LocalDateTime expiryDate) {
     this.teamId = teamId;
     this.joinId = joinId;
+    this.expiryDate = expiryDate;
   }
 }
