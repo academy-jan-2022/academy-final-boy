@@ -36,7 +36,7 @@ class TokenServiceShould {
 
   @Test
   void return_generated_token_id() {
-    when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
+    when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID, UUID.randomUUID());
     UUID generatedToken = tokenService.generateToken(TEAM_ID);
 
     assertThat(generatedToken).isEqualTo(TOKEN_ID);
