@@ -26,8 +26,6 @@ public class GenerateJoinLink {
     User currentUser = userService.getCurrentUser().orElseThrow();
 
     teamService.verifyMembership(teamId, currentUser.getId());
-    tokenService.generateToken(teamId);
-
-    return null;
+    return tokenService.generateToken(teamId);
   }
 }
