@@ -5,6 +5,7 @@ import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,12 +51,20 @@ class GenerateJoinLinkShould {
   }
 
   @Test
-  void returns_generated_token() {
+  void returns_generated_token_if_is_member() {
     when(mockedTeamService.verifyMembership(anyLong(), anyLong())).thenReturn(true);
     when(mockedTokenService.generateToken(TEAM_ID)).thenReturn(TOKEN);
 
     UUID generatedToken = generateJoinLink.execute(TEAM_ID);
 
     assertThat(generatedToken).isEqualTo(TOKEN);
+  }
+
+  @Test
+  void throws_exception_if_is_not_member() {
+    when(mockedTeamService.verifyMembership(anyLong(), anyLong())).thenReturn(false);
+    Assertions.assertThrows(IllegalStateException.class, () -> generateJoinLink.execute(TEAM_ID));
+
+    verify(mockedTokenService, never()).generateToken(TEAM_ID);
   }
 }
