@@ -19,7 +19,7 @@ public class GenerateJoinLinkController {
     this.generateJoinLink = generateJoinLink;
   }
 
-  @PostMapping("/generate-join_link")
+  @PostMapping("/generate-join-link")
   @ResponseStatus(CREATED)
   public GenerateJoinLinkResponse generate(@RequestBody GenerateJoinLinkRequest request) {
     return new GenerateJoinLinkResponse(generateJoinLink.execute(request.teamId()));

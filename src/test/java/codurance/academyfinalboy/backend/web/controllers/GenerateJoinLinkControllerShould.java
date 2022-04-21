@@ -29,7 +29,7 @@ class GenerateJoinLinkControllerShould extends BaseSpringTest {
 
     mockMvc
         .perform(
-            post("/generate-join_link")
+            post("/generate-join-link")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isCreated())
