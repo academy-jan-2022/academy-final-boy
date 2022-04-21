@@ -11,16 +11,16 @@ import static org.mockito.Mockito.*;
 class TokenServiceShould {
 
   public static final long TEAM_ID = 5L;
-  public static final UUID TOKEN = UUID.randomUUID();
+  public static final UUID TOKEN_ID = UUID.randomUUID();
   private TokenRepository mockedTokenRepository;
   private TokenService tokenService;
-  private TokenProvider mockedTokenProvider;
+  private TokenIdProvider mockedTokenIdProvider;
 
   @BeforeEach
   void setUp() {
     mockedTokenRepository = mock(TokenRepository.class);
-    mockedTokenProvider = mock(TokenProvider.class);
-    tokenService = new TokenService(mockedTokenRepository, mockedTokenProvider);
+    mockedTokenIdProvider = mock(TokenIdProvider.class);
+    tokenService = new TokenService(mockedTokenRepository, mockedTokenIdProvider);
   }
 
   @Test
@@ -32,9 +32,9 @@ class TokenServiceShould {
 
   @Test
   void generate_token() {
-    when(mockedTokenProvider.random()).thenReturn(TOKEN);
+    when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
     UUID generatedToken = tokenService.generateToken(TEAM_ID);
 
-    assertThat(generatedToken).isEqualTo(TOKEN);
+    assertThat(generatedToken).isEqualTo(TOKEN_ID);
   }
 }
