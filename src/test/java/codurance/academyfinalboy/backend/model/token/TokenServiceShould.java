@@ -25,13 +25,14 @@ class TokenServiceShould {
 
   @Test
   void save_token() {
+    when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
     tokenService.generateToken(TEAM_ID);
 
-    verify(mockedTokenRepository).save(new Token(TEAM_ID));
+    verify(mockedTokenRepository).save(new Token(TEAM_ID, TOKEN_ID));
   }
 
   @Test
-  void generate_token() {
+  void return_generated_token_id() {
     when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
     UUID generatedToken = tokenService.generateToken(TEAM_ID);
 

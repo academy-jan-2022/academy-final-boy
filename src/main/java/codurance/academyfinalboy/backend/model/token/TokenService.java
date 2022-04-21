@@ -12,7 +12,7 @@ public class TokenService {
   }
 
   public UUID generateToken(long teamId) {
-    tokenRepository.save(new Token(teamId));
+    tokenRepository.save(new Token(teamId, tokenIdProvider.random()));
     return tokenIdProvider.random();
   }
 }
