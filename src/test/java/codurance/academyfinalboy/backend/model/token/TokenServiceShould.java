@@ -13,6 +13,7 @@ class TokenServiceShould {
 
   public static final long TEAM_ID = 5L;
   public static final UUID TOKEN_ID = UUID.randomUUID();
+  public static final LocalDateTime CURRENT_TIME = LocalDateTime.now();
   private TokenRepository mockedTokenRepository;
   private TokenService tokenService;
   private TokenIdProvider mockedTokenIdProvider;
@@ -23,19 +24,13 @@ class TokenServiceShould {
     mockedTokenRepository = mock(TokenRepository.class);
     mockedTokenIdProvider = mock(TokenIdProvider.class);
     mockedTimeProvider = mock(TimeProvider.class);
+    when(mockedTimeProvider.getCurrentTime()).thenReturn(CURRENT_TIME);
     tokenService = new TokenService(mockedTokenRepository, mockedTokenIdProvider, mockedTimeProvider);
   }
 
   @Test
-  void save_token() {
-    when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
-    tokenService.generateToken(TEAM_ID);
-
-    verify(mockedTokenRepository).save(new Token(TEAM_ID, TOKEN_ID));
-  }
-
-  @Test
   void call_time_provider_to_generate_expiry_date() {
+    tokenService.generateToken(TEAM_ID);
     verify(mockedTimeProvider).getCurrentTime();
   }
 
@@ -45,5 +40,14 @@ class TokenServiceShould {
     UUID generatedToken = tokenService.generateToken(TEAM_ID);
 
     assertThat(generatedToken).isEqualTo(TOKEN_ID);
+  }
+
+  @Test
+  void save_token() {
+    LocalDateTime tokenExpiryDate = CURRENT_TIME.plusMinutes(5);
+    when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
+    tokenService.generateToken(TEAM_ID);
+
+    verify(mockedTokenRepository).save(new Token(TEAM_ID, TOKEN_ID, tokenExpiryDate));
   }
 }
