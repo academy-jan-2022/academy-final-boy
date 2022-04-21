@@ -5,7 +5,7 @@ import java.util.UUID;
 public class TokenService {
   private final TokenRepository tokenRepository;
 
-  public TokenService(TokenRepository tokenRepository) {
+  public TokenService(TokenRepository tokenRepository, TokenProvider mockedTokenProvider) {
     this.tokenRepository = tokenRepository;
   }
 
