@@ -3,10 +3,14 @@ package codurance.academyfinalboy.backend.model.token;
 import java.util.UUID;
 
 public class TokenService {
-  public TokenService(TokenRepository mockedTokenRepository) {
+  private final TokenRepository tokenRepository;
+
+  public TokenService(TokenRepository tokenRepository) {
+    this.tokenRepository = tokenRepository;
   }
 
   public UUID generateToken(long teamId) {
-    throw new UnsupportedOperationException();
+    tokenRepository.save(new Token(teamId));
+    return null;
   }
 }
