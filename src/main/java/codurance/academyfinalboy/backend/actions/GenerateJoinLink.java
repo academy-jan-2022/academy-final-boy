@@ -12,7 +12,7 @@ public class GenerateJoinLink {
   private final TeamService teamService;
   private final UserService userService;
 
-  public GenerateJoinLink(TeamService teamService, UserService userService) {
+  public GenerateJoinLink(TeamService teamService, UserService userService, Object mockedTokenService) {
 
     this.teamService = teamService;
     this.userService = userService;
@@ -22,6 +22,7 @@ public class GenerateJoinLink {
     User currentUser = userService.getCurrentUser().orElseThrow();
 
     teamService.verifyMembership(teamId, currentUser.getId());
+
 
     return null;
   }
