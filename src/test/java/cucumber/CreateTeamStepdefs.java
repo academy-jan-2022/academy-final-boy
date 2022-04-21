@@ -46,6 +46,8 @@ public class CreateTeamStepdefs {
     assertThat(team.getName()).isEqualTo(data.get("teamName"));
     assertThat(team.getDescription()).isEqualTo(data.get("teamDescription"));
     assertThat(team.getMembers()).contains(new UserRef(savedUser.getId()));
+
+    TeamWorld.storedTeam = team;
   }
 
   @And("the team is added on the user")
