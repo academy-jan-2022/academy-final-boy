@@ -1,11 +1,8 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
 import codurance.academyfinalboy.backend.BaseSpringTest;
-import codurance.academyfinalboy.backend.actions.CreateTeam;
 import codurance.academyfinalboy.backend.actions.GenerateJoinLink;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import cucumber.TeamWorld;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -14,13 +11,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class GenerateJoinLinkControllerShould extends BaseSpringTest {
+class GenerateJoinLinkControllerShould extends BaseSpringTest {
   @Autowired MockMvc mockMvc;
   @Autowired ObjectMapper objectMapper;
   @MockBean GenerateJoinLink generateJoinLink;
@@ -38,6 +34,6 @@ public class GenerateJoinLinkControllerShould extends BaseSpringTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
         .andExpect(status().isCreated())
-        .andExpect(jsonPath("$.token").value(token));
+        .andExpect(jsonPath("$.token").value(token.toString()));
   }
 }
