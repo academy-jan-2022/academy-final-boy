@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class SpringTokenRepository implements TokenRepository {
     @Override
-    public long save(Token token) {
+    public Token save(Token token) {
         throw new UnsupportedOperationException();
     }
 }

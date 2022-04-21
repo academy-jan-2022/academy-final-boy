@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class TokenRepositoryShould extends BaseSpringTest {
   @Autowired TokenRepository repository;
 
@@ -17,5 +19,7 @@ public class TokenRepositoryShould extends BaseSpringTest {
   void save_token() {
     Token token = new Token(3L, UUID.randomUUID(), LocalDateTime.now());
     Token savedToken = repository.save(token);
+
+    assertThat(savedToken.getId()).isNotNull();
   }
 }
