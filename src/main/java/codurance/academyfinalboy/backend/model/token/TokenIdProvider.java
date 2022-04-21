@@ -4,6 +4,6 @@ import java.util.UUID;
 
 public class TokenIdProvider {
   public UUID random() {
-    throw new UnsupportedOperationException();
+    return UUID.randomUUID();
   }
 }
