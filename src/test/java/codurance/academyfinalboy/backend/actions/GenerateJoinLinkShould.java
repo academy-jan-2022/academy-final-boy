@@ -45,4 +45,5 @@ class GenerateJoinLinkShould {
 
     verify(mockedTokenService).generateToken(TEAM_ID);
   }
+
 }
