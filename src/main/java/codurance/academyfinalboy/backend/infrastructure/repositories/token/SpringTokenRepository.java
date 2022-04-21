@@ -16,4 +16,9 @@ public class SpringTokenRepository implements TokenRepository {
     public Token save(Token token) {
         return repository.save(token);
     }
+
+    @Override
+    public void clear() {
+        repository.deleteAll();
+    }
 }

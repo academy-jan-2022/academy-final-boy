@@ -3,6 +3,7 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.token;
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.model.token.Token;
 import codurance.academyfinalboy.backend.model.token.TokenRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,5 +22,10 @@ class TokenRepositoryShould extends BaseSpringTest {
     token.setId(3L);
 
     assertThat(savedToken).isEqualTo(token);
+  }
+
+  @AfterEach
+  void tearDown() {
+    repository.clear();
   }
 }
