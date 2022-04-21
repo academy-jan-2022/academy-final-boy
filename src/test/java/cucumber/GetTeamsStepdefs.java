@@ -67,7 +67,8 @@ public class GetTeamsStepdefs {
   @Then("the teams are returned from the database:")
   public void theTeamsAreReturnedFromTheDb() throws JsonProcessingException {
 
-    var expectedTeams = new GetTeamsController.TeamResponse(List.of(expectedTeam1, expectedTeam2));
+    var expectedTeams =
+        new GetTeamsController.GetTeamsResponse(List.of(expectedTeam1, expectedTeam2));
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
@@ -79,7 +80,7 @@ public class GetTeamsStepdefs {
   @Then("the team are returned from the database:")
   public void theTeamAreReturnedFromTheDb() throws JsonProcessingException {
 
-    var expectedTeams = new GetTeamsController.TeamResponse(List.of(expectedTeam1));
+    var expectedTeams = new GetTeamsController.GetTeamsResponse(List.of(expectedTeam1));
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 
@@ -90,7 +91,7 @@ public class GetTeamsStepdefs {
 
   @Then("no teams are returned from the database:")
   public void noTeamsAreReturnedFromTheDatabase() throws JsonProcessingException {
-    var expectedTeams = new GetTeamsController.TeamResponse(new ArrayList<>());
+    var expectedTeams = new GetTeamsController.GetTeamsResponse(new ArrayList<>());
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 

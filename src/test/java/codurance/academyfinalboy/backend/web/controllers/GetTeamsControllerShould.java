@@ -41,7 +41,8 @@ public class GetTeamsControllerShould {
     expectedTeam1.setId(11L);
     expectedTeam2.setId(14L);
 
-    var expectedTeams = new GetTeamsController.TeamResponse(List.of(expectedTeam1, expectedTeam2));
+    var expectedTeams =
+        new GetTeamsController.GetTeamsResponse(List.of(expectedTeam1, expectedTeam2));
     ObjectMapper mapper = new ObjectMapper();
     String expectedJSON = mapper.writeValueAsString(expectedTeams);
 

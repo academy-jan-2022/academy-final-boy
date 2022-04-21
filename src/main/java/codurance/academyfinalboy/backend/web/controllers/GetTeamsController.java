@@ -15,10 +15,10 @@ public class GetTeamsController {
   }
 
   @GetMapping("/teams")
-  public TeamResponse getTeams() {
+  public GetTeamsResponse getTeams() {
 
-    return new TeamResponse(getTeams.execute());
+    return new GetTeamsResponse(getTeams.execute());
   }
 
-  public record TeamResponse(List<Team> teams) {}
+  public record GetTeamsResponse(List<Team> teams) {}
 }

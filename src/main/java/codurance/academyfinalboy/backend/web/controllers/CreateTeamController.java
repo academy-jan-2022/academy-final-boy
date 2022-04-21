@@ -19,8 +19,8 @@ public class CreateTeamController {
 
   @PostMapping("/create-team")
   @ResponseStatus(CREATED)
-  public TeamIdResponse createTeam(@RequestBody CreateTeamRequest request) {
-    return new TeamIdResponse(
+  public CreatedTeamResponse createTeam(@RequestBody CreateTeamRequest request) {
+    return new CreatedTeamResponse(
         createTeam.execute(request.team().name(), request.team().description()));
   }
 
@@ -28,5 +28,5 @@ public class CreateTeamController {
     public record TeamRequest(String name, String description) {}
   }
 
-  private record TeamIdResponse(Long teamId) {}
+  private record CreatedTeamResponse(Long teamId) {}
 }
