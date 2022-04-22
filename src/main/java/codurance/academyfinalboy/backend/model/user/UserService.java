@@ -1,7 +1,12 @@
 package codurance.academyfinalboy.backend.model.user;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
+import codurance.academyfinalboy.backend.model.team.UserRef;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,5 +36,9 @@ public class UserService {
   public void addTeamToUser(User user, Long teamId) {
     user.addTeam(teamId);
     userRepository.save(user);
+  }
+
+  public List<User> getAllById(Set<UserRef> ids) {
+      throw new UnsupportedOperationException();
   }
 }

@@ -14,7 +14,6 @@ public class TeamView {
         this.id = team.getId().toString();
         this.name = team.getName();
         this.description = team.getDescription();
-
         this.teamMembers = users;
     }
 }
