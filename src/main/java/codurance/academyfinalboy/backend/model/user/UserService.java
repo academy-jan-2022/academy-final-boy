@@ -39,6 +39,6 @@ public class UserService {
   }
 
   public List<User> getAllById(Set<UserRef> ids) {
-      throw new UnsupportedOperationException();
+    return userRepository.findAllById(ids);
   }
 }
