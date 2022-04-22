@@ -58,7 +58,7 @@ class UserRepositoryShould extends BaseSpringTest {
     User userTwoFromDatabase = repository.save(userTwo);
     List<User> expectedUsers = List.of(userOneFromDatabase, userTwoFromDatabase);
     Set<UserRef> userIds= Set.of(new UserRef(userOneFromDatabase.getId()),new UserRef(userTwoFromDatabase.getId()));
-    List<User> result = repository.findAllById(userIds);
+    List<User> result = repository.findAllByIdIn(userIds);
 
     assertEquals(expectedUsers, result);
   }

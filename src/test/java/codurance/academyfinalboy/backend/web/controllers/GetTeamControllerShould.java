@@ -1,6 +1,5 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
-
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.GetTeam;
 import codurance.academyfinalboy.backend.configurations.InterceptorConfiguration;
@@ -41,12 +40,12 @@ public class GetTeamControllerShould extends BaseSpringTest {
 
         TeamView team = new TeamView(expectedTeam, List.of(user));
 
-        when(getTeam.execute()).thenReturn(team);
+        when(getTeam.execute(expectedTeam.getId())).thenReturn(team);
 
         mockMvc
             .perform(get("/get-team?id=11")
             .contentType(MediaType.APPLICATION_JSON));
 
-        verify(getTeam).execute();
+        verify(getTeam).execute(expectedTeam.getId());
     }
 }

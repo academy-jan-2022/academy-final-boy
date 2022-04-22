@@ -15,10 +15,10 @@ public class GetTeamShould {
     @Test
     void call_get_team_team_service(){
         GetTeam action = new GetTeam(mockedTeamService);
-
-        action.execute();
-
         Long teamId = 12L;
+
+        action.execute(teamId);
+
         verify(mockedTeamService).getTeam(teamId);
     }
 }

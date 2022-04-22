@@ -6,11 +6,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GetTeam {
-    public GetTeam(TeamService teamService) {
 
+    private TeamService teamService;
+
+    public GetTeam(TeamService teamService) {
+        this.teamService = teamService;
     }
 
-    public TeamView execute() {
-        throw new UnsupportedOperationException();
+    public TeamView execute(Long id) {
+        return teamService.getTeam(id);
     }
 }

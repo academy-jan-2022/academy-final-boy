@@ -7,16 +7,18 @@ import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import codurance.academyfinalboy.backend.web.controllers.GetTeamController;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GetTeamStepdefs {
 
@@ -24,6 +26,8 @@ public class GetTeamStepdefs {
     UserRepository userRepository;
     @Autowired
     TeamRepository teamRepository;
+    @Autowired
+    ObjectMapper objectMapper;
 
     private Team savedTeam;
     private Long savedTeamId;
@@ -46,37 +50,48 @@ public class GetTeamStepdefs {
 
     @When("the get team endpoint is called with the team id")
     public void theGetTeamEndpointIsCalledWithTheTeamId() {
-        String path = "get-team/" + savedTeamId;
+        String path = "get-team?id=" + savedTeamId;
 
         response =
                 given().contentType("application/json").when().get(path);
     }
 
     @Then("the team is returned from the db with the members included")
-    public void theTeamIsReturnedFromTheDbWithTheMembersIncluded() {
+    public void theTeamIsReturnedFromTheDbWithTheMembersIncluded() throws JsonProcessingException {
         TeamView expectedTeam = new TeamView(savedTeam, List.of(teamMember));
         GetTeamController.GetTeamResponse expectedResponse = new GetTeamController.GetTeamResponse(expectedTeam);
 
+        var expectedJson = objectMapper.writeValueAsString(expectedResponse);
 
-        response.then().assertThat()
+        var actualResponse = response.then()
+                .assertThat()
                 .statusCode(200)
-                .body("team", equalTo(expectedResponse.team()));
+                .extract()
+                .asString();
+
+        assertEquals(actualResponse, expectedJson);
     }
 
     @When("the team endpoint is called with a non existing team id")
     public void theTeamEndpointIsCalledWithANonExistingTeamId() {
-        String path = "get-team/33";
+        String path = "get-team?id=33465";
 
         response =
                 given().contentType("application/json").when().get(path);
     }
 
     @Then("no team is returned from the database")
-    public void noTeamIsReturnedFromTheDatabase() {
+    public void noTeamIsReturnedFromTheDatabase() throws JsonProcessingException {
         GetTeamController.GetTeamResponse expectedResponse = new GetTeamController.GetTeamResponse(null);
 
-        response.then().assertThat()
-                .statusCode(204)
-                .body("team", equalTo(expectedResponse.team()));
+        var expectedJson = objectMapper.writeValueAsString(expectedResponse);
+
+        var actualResponse = response.then()
+                .assertThat()
+                .statusCode(200)
+                .extract()
+                .asString();
+
+        assertEquals(actualResponse, expectedJson);
     }
 }

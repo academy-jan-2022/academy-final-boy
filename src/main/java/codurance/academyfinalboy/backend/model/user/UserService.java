@@ -39,6 +39,6 @@ public class UserService {
   }
 
   public List<User> getAllById(Set<UserRef> ids) {
-    return userRepository.findAllById(ids);
+    return userRepository.findAllByIdIn(ids);
   }
 }

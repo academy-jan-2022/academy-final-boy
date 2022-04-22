@@ -10,5 +10,5 @@ public interface SpringDataJdbcUserRepository extends CrudRepository<User, Long>
 
   Optional<User> findByExternalId(String externalId);
 
-  List<User> findAllById(List<Long> userIds);
+  List<User> findAllByIdIn(List<Long> userIds);
 }

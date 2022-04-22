@@ -78,6 +78,6 @@ class UserServiceShould {
 
     userService.getAllById(usersRefs);
 
-    verify(userRepositoryMock).findAllById(usersRefs);
+    verify(userRepositoryMock).findAllByIdIn(usersRefs);
   }
 }

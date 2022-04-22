@@ -19,11 +19,13 @@ public class TeamService {
 
   public Long createTeam(Long userId, String name, String description) {
     Team team = new Team(name, description, userId);
+
     return teamRepository.save(team);
   }
 
   public TeamView getTeam(Long teamId) {
     Optional<Team> team = this.teamRepository.findById(teamId);
+
     if (team.isPresent()) {
       List<User> users= userService.getAllById(team.get().getMembers());
       return new TeamView(team.get(),users);

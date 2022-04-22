@@ -45,7 +45,6 @@ class TeamServiceShould {
 
     TeamView expectedTeam = new TeamView(teamFromRepository, List.of(user));
 
-
     TeamView team = teamService.getTeam(teamId);
 
     verify(mockedTeamRepository).findById(teamId);

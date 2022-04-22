@@ -35,10 +35,10 @@ public class SpringUserRepository implements UserRepository {
   }
 
   @Override
-  public List<User> findAllById(Set<UserRef> userIds) {
+  public List<User> findAllByIdIn(Set<UserRef> userIds) {
 
     List<Long> userIdList = userIds.stream().map(userRef -> userRef.getUserId().getId()).toList();
 
-    return repository.findAllById(userIdList);
+    return repository.findAllByIdIn(userIdList);
   }
 }

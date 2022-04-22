@@ -13,5 +13,5 @@ public interface UserRepository {
 
   void clear();
 
-  List<User> findAllById(Set<UserRef> userIds);
+  List<User> findAllByIdIn(Set<UserRef> userIds);
 }
