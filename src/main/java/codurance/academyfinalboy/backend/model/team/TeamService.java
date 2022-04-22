@@ -3,6 +3,8 @@ package codurance.academyfinalboy.backend.model.team;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class TeamService {
   private final TeamRepository teamRepository;
@@ -19,8 +21,10 @@ public class TeamService {
   }
 
   public TeamView getTeam(Long teamId) {
-    this.teamRepository.findById(teamId);
-
+    Optional<Team> team = this.teamRepository.findById(teamId);
+    if (team.isPresent()){
+      userService.getAllById(team.get().getMembers());
+    }
     return null;
   }
 }
