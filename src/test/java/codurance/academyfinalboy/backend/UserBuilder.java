@@ -2,7 +2,6 @@ package codurance.academyfinalboy.backend;
 
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
-
 import java.util.Set;
 
 public class UserBuilder {

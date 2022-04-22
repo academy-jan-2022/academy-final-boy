@@ -1,10 +1,9 @@
 package codurance.academyfinalboy.backend.model.token;
 
-import lombok.Data;
-import org.springframework.data.annotation.Id;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 @Data
 public class Token {

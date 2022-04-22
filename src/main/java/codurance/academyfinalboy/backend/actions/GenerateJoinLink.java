@@ -4,9 +4,8 @@ import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
+import org.springframework.stereotype.Component;
 
 @Component
 public class GenerateJoinLink {

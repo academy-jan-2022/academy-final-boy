@@ -1,8 +1,7 @@
 package codurance.academyfinalboy.backend.model.token;
 
-import org.springframework.stereotype.Service;
-
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TokenService {
@@ -10,7 +9,8 @@ public class TokenService {
   private final TokenIdProvider tokenIdProvider;
   private final TimeProvider timeProvider;
 
-  public TokenService(TokenRepository tokenRepository, TokenIdProvider tokenIdProvider, TimeProvider timeProvider) {
+  public TokenService(
+      TokenRepository tokenRepository, TokenIdProvider tokenIdProvider, TimeProvider timeProvider) {
     this.tokenRepository = tokenRepository;
     this.tokenIdProvider = tokenIdProvider;
     this.timeProvider = timeProvider;
