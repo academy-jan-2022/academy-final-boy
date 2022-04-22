@@ -1,6 +1,10 @@
 package codurance.academyfinalboy.backend.model.user;
 
+import codurance.academyfinalboy.backend.model.team.UserRef;
+
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface UserRepository {
   Optional<User> findByExternalId(String externalId);
@@ -8,4 +12,6 @@ public interface UserRepository {
   User save(User user);
 
   void clear();
+
+  List<User> findAllById(Set<UserRef> userIds);
 }

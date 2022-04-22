@@ -5,6 +5,9 @@ import static org.mockito.Mockito.*;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import java.util.Optional;
+import java.util.Set;
+
+import codurance.academyfinalboy.backend.model.team.UserRef;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -61,5 +64,20 @@ class UserServiceShould {
     userService.addTeamToUser(user, teamId);
     assertThat(user.getTeams()).contains(new TeamRef(teamId));
     verify(userRepositoryMock).save(user);
+  }
+
+  @Test
+  void find_all_users_by_id(){
+    var userOne = new User("externalIdOne", "full name");
+    var userTwo = new User("externalIdTwo", "name full");
+
+    userOne.setId(1L);
+    userTwo.setId(2L);
+
+    var usersRefs = Set.of(new UserRef(userOne.id), new UserRef(userTwo.id));
+
+    userService.getAllById(usersRefs);
+
+    verify(userRepositoryMock).findAllById(usersRefs);
   }
 }
