@@ -76,7 +76,7 @@ public class GetTeamStepdefs {
         GetTeamController.GetTeamResponse expectedResponse = new GetTeamController.GetTeamResponse(null);
 
         response.then().assertThat()
-                .statusCode(200)
+                .statusCode(204)
                 .body("team", equalTo(expectedResponse.team()));
     }
 }
