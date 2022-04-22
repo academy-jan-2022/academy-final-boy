@@ -1,23 +1,24 @@
 package codurance.academyfinalboy.backend.actions;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
-import java.util.List;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
-public class GetTeamsShould {
+class GetTeamsShould {
 
   @Mock private UserService mockedUserService;
   @Mock private TeamRepository mockedTeamRepository;
@@ -48,12 +49,12 @@ public class GetTeamsShould {
   }
 
   @Test
-  public void get_current_user_from_user_service() {
+  void get_current_user_from_user_service() {
     verify(mockedUserService).getCurrentUser();
   }
 
   @Test
-  public void get_teams_from_team_repository() {
+  void get_teams_from_team_repository() {
     verify(mockedTeamRepository).findAllById(currentUser.getTeams());
   }
 
