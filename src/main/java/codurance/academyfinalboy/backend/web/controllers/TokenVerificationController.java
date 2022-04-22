@@ -8,6 +8,6 @@ public class TokenVerificationController {
 
   @GetMapping("/tokenvalidator")
   public void isTokenValid() {
-    //for testing purposes
+    // for testing purposes
   }
 }
