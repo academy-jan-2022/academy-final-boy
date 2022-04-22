@@ -1,17 +1,14 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
 import codurance.academyfinalboy.backend.model.user.User;
-import codurance.academyfinalboy.backend.model.user.UserRepository;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.mockito.Mockito.*;
 
 class TeamServiceShould {
@@ -54,6 +51,6 @@ class TeamServiceShould {
     verify(mockedTeamRepository).findById(teamId);
     verify(mockedUserService).getAllById(teamFromRepository.getMembers());
 
-    assertEquals(expectedTeam, team);
+    assertThat(expectedTeam, samePropertyValuesAs(team));
   }
 }
