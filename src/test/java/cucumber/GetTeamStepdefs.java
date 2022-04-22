@@ -6,6 +6,7 @@ import codurance.academyfinalboy.backend.model.team.TeamView;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import codurance.academyfinalboy.backend.web.controllers.GetTeamController;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
