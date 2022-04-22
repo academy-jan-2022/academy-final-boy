@@ -16,9 +16,6 @@ import static org.mockito.Mockito.*;
 
 class TeamServiceShould {
 
-  @MockBean
-  AuthenticatedUser authenticatedUser;
-
   @Test
   void create_a_team() {
     TeamRepository mockedTeamRepository = mock(TeamRepository.class);
@@ -45,8 +42,6 @@ class TeamServiceShould {
     User user = new User("anExternalId", "Full Name");
     user.setId(2L);
 
-    authenticatedUser.setExternalId(user.getExternalId());
-
     when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
 
     when(mockedUserService.getAllById(teamFromRepository.getMembers())).thenReturn((List.of(user)));
@@ -56,6 +51,8 @@ class TeamServiceShould {
 
     TeamView team = teamService.getTeam(teamId);
 
+    verify(mockedTeamRepository).findById(teamId);
+    verify(mockedUserService).getAllById(teamFromRepository.getMembers());
 
     assertEquals(expectedTeam, team);
   }

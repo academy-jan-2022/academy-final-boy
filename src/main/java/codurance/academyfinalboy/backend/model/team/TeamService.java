@@ -19,8 +19,8 @@ public class TeamService {
   }
 
   public TeamView getTeam(Long teamId) {
-    throw new UnsupportedOperationException();
+    this.teamRepository.findById(teamId);
 
-
+    return null;
   }
 }
