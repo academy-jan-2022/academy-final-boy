@@ -21,4 +21,8 @@ public class TeamService {
         .map(team -> team.getMembers().contains(new UserRef(userId)))
         .orElse(false);
   }
+
+  public void addActivity(long teamId, Activity activity) {
+    throw new UnsupportedOperationException();
+  }
 }
