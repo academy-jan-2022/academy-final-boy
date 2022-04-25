@@ -3,11 +3,10 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.user;
 import codurance.academyfinalboy.backend.model.team.UserRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class SpringUserRepository implements UserRepository {

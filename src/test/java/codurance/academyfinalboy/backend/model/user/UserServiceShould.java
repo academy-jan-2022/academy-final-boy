@@ -4,10 +4,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
+import codurance.academyfinalboy.backend.model.team.UserRef;
 import java.util.Optional;
 import java.util.Set;
-
-import codurance.academyfinalboy.backend.model.team.UserRef;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -58,7 +57,7 @@ class UserServiceShould {
 
   @Test
   void add_team_to_a_user() {
-    var user = new User("external id", "full name");
+    var user = new User("external id", "full fullName");
     var teamId = 3L;
 
     userService.addTeamToUser(user, teamId);
@@ -67,9 +66,9 @@ class UserServiceShould {
   }
 
   @Test
-  void find_all_users_by_id(){
-    var userOne = new User("externalIdOne", "full name");
-    var userTwo = new User("externalIdTwo", "name full");
+  void find_all_users_by_id() {
+    var userOne = new User("externalIdOne", "full fullName");
+    var userTwo = new User("externalIdTwo", "fullName full");
 
     userOne.setId(1L);
     userTwo.setId(2L);

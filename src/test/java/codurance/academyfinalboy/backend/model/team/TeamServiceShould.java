@@ -1,27 +1,25 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import codurance.academyfinalboy.backend.UserBuilder;
-import codurance.academyfinalboy.backend.model.user.User;
-import codurance.academyfinalboy.backend.model.user.UserService;
 import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import java.util.List;
-import java.util.Optional;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+import codurance.academyfinalboy.backend.UserBuilder;
+import codurance.academyfinalboy.backend.model.user.User;
+import codurance.academyfinalboy.backend.model.user.UserService;
+import java.util.List;
+import java.util.Optional;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
 class TeamServiceShould {
 
   public static final long USER_ID = 1L;
   public static final long TEAM_ID = 2L;
-  public static final Team TEAM = new Team("team name", "description", USER_ID);
+  public static final Team TEAM = new Team("team fullName", "description", USER_ID);
   private TeamRepository mockedTeamRepository;
   private UserService mockedUserService;
   private TeamService teamService;
@@ -35,7 +33,7 @@ class TeamServiceShould {
 
   @Test
   void create_a_team() {
-    teamService.createTeam(USER_ID, "team name", "description");
+    teamService.createTeam(USER_ID, "team fullName", "description");
 
     verify(mockedTeamRepository).save(TEAM);
   }
@@ -62,8 +60,8 @@ class TeamServiceShould {
   @Test
   void get_a_team_with_members() throws Exception {
     Long teamId = 1L;
-    
-    Team teamFromRepository = new Team("team name", "description", 1L);
+
+    Team teamFromRepository = new Team("team fullName", "description", 1L);
 
     teamFromRepository.setId(teamId);
 
@@ -72,22 +70,23 @@ class TeamServiceShould {
     when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
 
     when(mockedUserService.getAllById(teamFromRepository.getMembers())).thenReturn((List.of(user)));
+    when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
     TeamView expectedTeam = new TeamView(teamFromRepository, List.of(user));
 
     TeamView team = teamService.getTeam(teamId);
 
-    verify(mockedTeamRepository).findById(teamId);
+    verify(mockedTeamRepository, times(2)).findById(teamId);
     verify(mockedUserService).getAllById(teamFromRepository.getMembers());
 
     assertThat(expectedTeam, samePropertyValuesAs(team));
   }
 
-  @Test void
-  not_get_team_if_the_user_requesting_is_not_a_member_of_the_team() {
+  @Test
+  void not_get_team_if_the_user_requesting_is_not_a_member_of_the_team() {
     Long teamId = 1L;
 
-    Team teamFromRepository = new Team("team name", "description", 1L);
+    Team teamFromRepository = new Team("team fullName", "description", 1L);
 
     teamFromRepository.setId(teamId);
 
@@ -96,9 +95,10 @@ class TeamServiceShould {
     when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
-    Exception exception = assertThrows(Exception.class, () -> {
-      teamService.getTeam(teamId);
-    });
+    Exception exception =
+        assertThrows(
+            Exception.class,
+            () -> teamService.getTeam(teamId));
 
     String expectedMessage = "Logged in user doesn't belong to this team";
     String actualMessage = exception.getMessage();

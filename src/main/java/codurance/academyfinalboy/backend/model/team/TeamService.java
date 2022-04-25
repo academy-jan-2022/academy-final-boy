@@ -2,10 +2,9 @@ package codurance.academyfinalboy.backend.model.team;
 
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class TeamService {
@@ -24,10 +23,10 @@ public class TeamService {
   }
 
   public TeamView getTeam(Long teamId) throws Exception {
-    Optional<User> currentUser = userService.getCurrentUser();
-    Long currentUserId = currentUser.get().getId();
+    User currentUser = userService.getCurrentUser().orElseThrow();
+    Long currentUserId = currentUser.getId();
 
-    if(verifyMembership(teamId, currentUserId)) {
+    if (verifyMembership(teamId, currentUserId)) {
       Optional<Team> team = this.teamRepository.findById(teamId);
 
       if (team.isPresent()) {

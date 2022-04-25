@@ -1,10 +1,8 @@
 package codurance.academyfinalboy.backend.model.team;
 
 import codurance.academyfinalboy.backend.model.user.User;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class TeamView {
@@ -12,21 +10,18 @@ public class TeamView {
   String id;
   String name;
   String description;
-  List<Member> teamMembers;
+  List<Member> members;
 
   public TeamView(Team team, List<User> users) {
     this.id = team.getId().toString();
     this.name = team.getName();
     this.description = team.getDescription();
-    this.teamMembers = createMembers(users);
+    this.members = createMembers(users);
   }
 
   private List<Member> createMembers(List<User> users) {
-    return users
-            .stream()
-            .map(user -> new Member(user.getId(), user.getFullName()))
-            .toList();
+    return users.stream().map(user -> new Member(user.getId(), user.getFullName())).toList();
   }
 
-  public record Member(Long id, String name){};
+  public record Member(Long id, String fullName) {}
 }

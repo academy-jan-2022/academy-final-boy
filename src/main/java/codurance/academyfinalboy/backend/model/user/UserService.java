@@ -1,12 +1,10 @@
 package codurance.academyfinalboy.backend.model.user;
 
 import codurance.academyfinalboy.backend.configurations.AuthenticatedUser;
-
+import codurance.academyfinalboy.backend.model.team.UserRef;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-
-import codurance.academyfinalboy.backend.model.team.UserRef;
 import org.springframework.stereotype.Service;
 
 @Service

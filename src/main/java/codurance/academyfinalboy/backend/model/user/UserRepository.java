@@ -1,7 +1,6 @@
 package codurance.academyfinalboy.backend.model.user;
 
 import codurance.academyfinalboy.backend.model.team.UserRef;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;

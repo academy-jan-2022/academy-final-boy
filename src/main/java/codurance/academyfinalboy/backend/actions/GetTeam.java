@@ -7,13 +7,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class GetTeam {
 
-    private TeamService teamService;
+  private final TeamService teamService;
 
-    public GetTeam(TeamService teamService) {
-        this.teamService = teamService;
-    }
+  public GetTeam(TeamService teamService) {
+    this.teamService = teamService;
+  }
 
-    public TeamView execute(Long id) throws Exception {
-        return teamService.getTeam(id);
-    }
+  public TeamView execute(Long id) throws Exception {
+    return teamService.getTeam(id);
+  }
 }

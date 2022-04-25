@@ -20,5 +20,5 @@ Feature: Get team
       | fullName   | Manuel Sanchez Ramirez               |
       | username   | ManuelSR                             |
     When the team endpoint is called with a non existing team id
-    Then no team is returned from the database
+    Then an exception is thrown
 
