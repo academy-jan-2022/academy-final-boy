@@ -27,10 +27,7 @@ public class TeamService {
     Long currentUserId = currentUser.getId();
 
     if (verifyMembership(teamId, currentUserId)) {
-      Team team = this.teamRepository.findById(teamId).orElseThrow();
-      List<User> users = userService.getAllById(team.getMembers());
-
-      return new TeamWithMembers(team, users);
+      return createTeamWithMembers(teamId);
     }
 
     throw new Exception("Logged in user doesn't belong to this team");
@@ -41,5 +38,12 @@ public class TeamService {
         .findById(teamId)
         .map(team -> team.getMembers().contains(new UserRef(userId)))
         .orElse(false);
+  }
+
+  private TeamWithMembers createTeamWithMembers(Long teamId) {
+    Team team = this.teamRepository.findById(teamId).orElseThrow();
+    List<User> users = userService.getAllById(team.getMembers());
+
+    return new TeamWithMembers(team, users);
   }
 }

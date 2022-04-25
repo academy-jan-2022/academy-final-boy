@@ -19,7 +19,7 @@ class TeamServiceShould {
 
   public static final long USER_ID = 1L;
   public static final long TEAM_ID = 2L;
-  public static final Team TEAM = new Team("team fullName", "description", USER_ID);
+  public Team savedTeam;
   private TeamRepository mockedTeamRepository;
   private UserService mockedUserService;
   private TeamService teamService;
@@ -29,18 +29,19 @@ class TeamServiceShould {
     mockedTeamRepository = mock(TeamRepository.class);
     mockedUserService = mock(UserService.class);
     teamService = new TeamService(mockedTeamRepository, mockedUserService);
+    savedTeam = new Team("team fullName", "description", USER_ID);
   }
 
   @Test
   void create_a_team() {
     teamService.createTeam(USER_ID, "team fullName", "description");
 
-    verify(mockedTeamRepository).save(TEAM);
+    verify(mockedTeamRepository).save(savedTeam);
   }
 
   @Test
   void return_true_if_user_is_member_of_team() {
-    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(TEAM));
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
 
     assertThat(teamService.verifyMembership(TEAM_ID, USER_ID)).isTrue();
   }
@@ -52,53 +53,43 @@ class TeamServiceShould {
 
   @Test
   void return_false_if_user_does_not_exist() {
-    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(TEAM));
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
 
     assertThat(teamService.verifyMembership(TEAM_ID, 123L)).isFalse();
   }
 
   @Test
   void get_a_team_with_members() throws Exception {
-    Long teamId = 1L;
+    savedTeam.setId(TEAM_ID);
+    User user = new UserBuilder().id(USER_ID).build();
 
-    Team teamFromRepository = new Team("team fullName", "description", 1L);
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
 
-    teamFromRepository.setId(teamId);
-
-    User user = new UserBuilder().id(1L).build();
-
-    when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
-
-    when(mockedUserService.getAllById(teamFromRepository.getMembers())).thenReturn((List.of(user)));
+    when(mockedUserService.getAllById(savedTeam.getMembers())).thenReturn((List.of(user)));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
-    TeamWithMembers expectedTeam = new TeamWithMembers(teamFromRepository, List.of(user));
+    TeamWithMembers expectedTeam = new TeamWithMembers(savedTeam, List.of(user));
 
-    TeamWithMembers team = teamService.getTeam(teamId);
+    TeamWithMembers team = teamService.getTeam(TEAM_ID);
 
-    verify(mockedTeamRepository, times(2)).findById(teamId);
-    verify(mockedUserService).getAllById(teamFromRepository.getMembers());
+    verify(mockedTeamRepository, times(2)).findById(TEAM_ID);
+    verify(mockedUserService).getAllById(savedTeam.getMembers());
 
     assertThat(expectedTeam, samePropertyValuesAs(team));
   }
 
   @Test
   void not_get_team_if_the_user_requesting_is_not_a_member_of_the_team() {
-    Long teamId = 1L;
-
-    Team teamFromRepository = new Team("team fullName", "description", 1L);
-
-    teamFromRepository.setId(teamId);
-
+    savedTeam.setId(TEAM_ID);
     User user = new UserBuilder().id(2L).build();
 
-    when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
     Exception exception =
         assertThrows(
             Exception.class,
-            () -> teamService.getTeam(teamId));
+            () -> teamService.getTeam(TEAM_ID));
 
     String expectedMessage = "Logged in user doesn't belong to this team";
     String actualMessage = exception.getMessage();
