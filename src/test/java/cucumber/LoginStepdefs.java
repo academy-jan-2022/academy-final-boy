@@ -64,5 +64,6 @@ public class LoginStepdefs {
     assertThat(user.getId()).isEqualTo(savedUser.getId());
   }
 
+
   private record LoginRequest(String externalId, String fullName) {}
 }

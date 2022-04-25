@@ -3,6 +3,7 @@ package cucumber;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
+import cucumber.worlds.TeamWorld;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;

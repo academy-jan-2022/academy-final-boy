@@ -1,6 +1,7 @@
 package codurance.academyfinalboy.backend.model.team;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,5 +31,9 @@ public class Team {
   public Team(String name, String description, long userId) {
     this(name, description);
     members.add(new UserRef(userId));
+  }
+
+  public List<Activity> getActivities() {
+    throw new UnsupportedOperationException();
   }
 }

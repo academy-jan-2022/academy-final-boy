@@ -11,10 +11,7 @@ Feature: Create activity
       | externalId      | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |
       | teamName        | extreme cowboy association           |
       | teamDescription | yeehaw                               |
-    And the users are added to the team:
-  team.invite(users)
     When the activity is created with the users and the following information:
       | activityName   | fizzBuzz |
       | numberOfGroups | 2        |
     Then the activity gets added to the team
-    And all activities are returned
