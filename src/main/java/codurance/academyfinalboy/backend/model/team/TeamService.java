@@ -31,5 +31,11 @@ public class TeamService {
       return new TeamView(team.get(),users);
     }
     return null;
+    
+  public boolean verifyMembership(long teamId, long userId) {
+    return teamRepository
+        .findById(teamId)
+        .map(team -> team.getMembers().contains(new UserRef(userId)))
+        .orElse(false);
   }
 }
