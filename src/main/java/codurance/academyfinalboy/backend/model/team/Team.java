@@ -12,12 +12,12 @@ import org.springframework.data.relational.core.mapping.Table;
 @Table
 @NoArgsConstructor
 public class Team {
-  @Id Long id;
-  String name;
-  String description;
+  @Id private Long id;
+  private String name;
+  private String description;
 
   @MappedCollection(idColumn = "team_id")
-  Set<UserRef> members;
+  private Set<UserRef> members;
 
   public Team(String name, String description) {
     this.id = null;

@@ -15,7 +15,7 @@ public class LoginController {
   }
 
   @PostMapping("/login")
-  private void login(@RequestBody LoginRequest loginRequest) {
+  void login(@RequestBody LoginRequest loginRequest) {
     login.execute(loginRequest.externalId(), loginRequest.fullName());
   }
 

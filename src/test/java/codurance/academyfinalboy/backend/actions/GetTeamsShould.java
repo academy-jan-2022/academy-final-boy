@@ -17,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class GetTeamsShould {
+class GetTeamsShould {
 
   @Mock private UserService mockedUserService;
   @Mock private TeamRepository mockedTeamRepository;
@@ -48,12 +48,12 @@ public class GetTeamsShould {
   }
 
   @Test
-  public void get_current_user_from_user_service() {
+  void get_current_user_from_user_service() {
     verify(mockedUserService).getCurrentUser();
   }
 
   @Test
-  public void get_teams_from_team_repository() {
+  void get_teams_from_team_repository() {
     verify(mockedTeamRepository).findAllById(currentUser.getTeams());
   }
 

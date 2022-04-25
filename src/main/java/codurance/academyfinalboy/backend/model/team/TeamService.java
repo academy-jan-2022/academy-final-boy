@@ -14,4 +14,11 @@ public class TeamService {
     Team team = new Team(name, description, userId);
     return teamRepository.save(team);
   }
+
+  public boolean verifyMembership(long teamId, long userId) {
+    return teamRepository
+        .findById(teamId)
+        .map(team -> team.getMembers().contains(new UserRef(userId)))
+        .orElse(false);
+  }
 }

@@ -2,7 +2,8 @@ package codurance.academyfinalboy.backend.web.controllers;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import codurance.academyfinalboy.backend.actions.GetTeams;
 import codurance.academyfinalboy.backend.configurations.InterceptorConfiguration;
@@ -23,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(GetTeamsController.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-public class GetTeamsControllerShould {
+class GetTeamsControllerShould {
 
   @Autowired MockMvc mockMvc;
   @Autowired ObjectMapper objectMapper;
