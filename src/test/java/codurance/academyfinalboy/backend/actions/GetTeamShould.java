@@ -13,7 +13,7 @@ public class GetTeamShould {
     @Mock private TeamService mockedTeamService;
 
     @Test
-    void call_get_team_team_service(){
+    void call_get_team_team_service() throws Exception {
         GetTeam action = new GetTeam(mockedTeamService);
         Long teamId = 12L;
 

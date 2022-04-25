@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import codurance.academyfinalboy.backend.UserBuilder;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,6 +13,8 @@ import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 class TeamServiceShould {
@@ -57,15 +60,14 @@ class TeamServiceShould {
   }
 
   @Test
-  void get_a_team_with_members() {
+  void get_a_team_with_members() throws Exception {
     Long teamId = 1L;
     
     Team teamFromRepository = new Team("team name", "description", 1L);
 
     teamFromRepository.setId(teamId);
 
-    User user = new User("anExternalId", "Full Name");
-    user.setId(2L);
+    User user = new UserBuilder().id(1L).build();
 
     when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
 
@@ -79,5 +81,28 @@ class TeamServiceShould {
     verify(mockedUserService).getAllById(teamFromRepository.getMembers());
 
     assertThat(expectedTeam, samePropertyValuesAs(team));
+  }
+
+  @Test void
+  not_get_team_if_the_user_requesting_is_not_a_member_of_the_team() {
+    Long teamId = 1L;
+
+    Team teamFromRepository = new Team("team name", "description", 1L);
+
+    teamFromRepository.setId(teamId);
+
+    User user = new UserBuilder().id(2L).build();
+
+    when(mockedTeamRepository.findById(teamId)).thenReturn(Optional.of(teamFromRepository));
+    when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
+
+    Exception exception = assertThrows(Exception.class, () -> {
+      teamService.getTeam(teamId);
+    });
+
+    String expectedMessage = "Logged in user doesn't belong to this team";
+    String actualMessage = exception.getMessage();
+
+    assertTrue(actualMessage.contains(expectedMessage));
   }
 }

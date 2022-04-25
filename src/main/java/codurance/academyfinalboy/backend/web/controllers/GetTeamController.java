@@ -18,7 +18,7 @@ public class GetTeamController {
     }
 
     @GetMapping("/get-team")
-    public GetTeamResponse getTeam(@RequestParam Long id){
+    public GetTeamResponse getTeam(@RequestParam Long id) throws Exception {
         TeamView team = this.action.execute(id);
         return new GetTeamResponse(team);
     }

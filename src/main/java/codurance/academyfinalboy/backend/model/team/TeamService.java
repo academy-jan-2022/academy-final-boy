@@ -23,16 +23,22 @@ public class TeamService {
     return teamRepository.save(team);
   }
 
-  public TeamView getTeam(Long teamId) {
-    Optional<Team> team = this.teamRepository.findById(teamId);
+  public TeamView getTeam(Long teamId) throws Exception {
+    Optional<User> currentUser = userService.getCurrentUser();
+    Long currentUserId = currentUser.get().getId();
 
-    if (team.isPresent()) {
-      List<User> users = userService.getAllById(team.get().getMembers());
-      return new TeamView(team.get(), users);
+    if(verifyMembership(teamId, currentUserId)) {
+      Optional<Team> team = this.teamRepository.findById(teamId);
+
+      if (team.isPresent()) {
+        List<User> users = userService.getAllById(team.get().getMembers());
+        return new TeamView(team.get(), users);
+      }
+      return null;
     }
-    return null;
-    }
-    
+    throw new Exception("Logged in user doesn't belong to this team");
+  }
+
   public boolean verifyMembership(long teamId, long userId) {
     return teamRepository
         .findById(teamId)

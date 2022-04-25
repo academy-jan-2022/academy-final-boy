@@ -13,7 +13,7 @@ public class GetTeam {
         this.teamService = teamService;
     }
 
-    public TeamView execute(Long id) {
+    public TeamView execute(Long id) throws Exception {
         return teamService.getTeam(id);
     }
 }
