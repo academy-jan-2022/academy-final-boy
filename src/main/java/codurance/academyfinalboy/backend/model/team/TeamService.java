@@ -27,10 +27,11 @@ public class TeamService {
     Optional<Team> team = this.teamRepository.findById(teamId);
 
     if (team.isPresent()) {
-      List<User> users= userService.getAllById(team.get().getMembers());
-      return new TeamView(team.get(),users);
+      List<User> users = userService.getAllById(team.get().getMembers());
+      return new TeamView(team.get(), users);
     }
     return null;
+    }
     
   public boolean verifyMembership(long teamId, long userId) {
     return teamRepository
