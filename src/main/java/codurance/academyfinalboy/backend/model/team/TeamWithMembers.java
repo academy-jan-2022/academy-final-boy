@@ -5,14 +5,14 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class TeamView {
+public class TeamWithMembers {
 
   String id;
   String name;
   String description;
   List<Member> members;
 
-  public TeamView(Team team, List<User> users) {
+  public TeamWithMembers(Team team, List<User> users) {
     this.id = team.getId().toString();
     this.name = team.getName();
     this.description = team.getDescription();

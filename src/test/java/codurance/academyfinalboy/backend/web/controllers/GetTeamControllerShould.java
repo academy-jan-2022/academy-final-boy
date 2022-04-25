@@ -9,7 +9,7 @@ import codurance.academyfinalboy.backend.actions.GetTeam;
 import codurance.academyfinalboy.backend.configurations.InterceptorConfiguration;
 import codurance.academyfinalboy.backend.infrastructure.services.GoogleTokenValidator;
 import codurance.academyfinalboy.backend.model.team.Team;
-import codurance.academyfinalboy.backend.model.team.TeamView;
+import codurance.academyfinalboy.backend.model.team.TeamWithMembers;
 import codurance.academyfinalboy.backend.model.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microsoft.applicationinsights.TelemetryClient;
@@ -37,7 +37,7 @@ public class GetTeamControllerShould extends BaseSpringTest {
     user.setId(4L);
     expectedTeam.setId(11L);
 
-    TeamView team = new TeamView(expectedTeam, List.of(user));
+    TeamWithMembers team = new TeamWithMembers(expectedTeam, List.of(user));
 
     when(getTeam.execute(expectedTeam.getId())).thenReturn(team);
 

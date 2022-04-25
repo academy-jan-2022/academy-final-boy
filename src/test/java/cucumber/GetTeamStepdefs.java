@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
-import codurance.academyfinalboy.backend.model.team.TeamView;
+import codurance.academyfinalboy.backend.model.team.TeamWithMembers;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import codurance.academyfinalboy.backend.web.controllers.GetTeamController;
@@ -54,7 +54,7 @@ public class GetTeamStepdefs {
 
   @Then("the team is returned from the db with the members included")
   public void theTeamIsReturnedFromTheDbWithTheMembersIncluded() throws JsonProcessingException {
-    TeamView expectedTeam = new TeamView(savedTeam, List.of(teamMember));
+    TeamWithMembers expectedTeam = new TeamWithMembers(savedTeam, List.of(teamMember));
     GetTeamController.GetTeamResponse expectedResponse =
         new GetTeamController.GetTeamResponse(expectedTeam);
 

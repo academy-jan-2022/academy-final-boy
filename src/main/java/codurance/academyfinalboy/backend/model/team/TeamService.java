@@ -3,7 +3,7 @@ package codurance.academyfinalboy.backend.model.team;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.List;
-import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,19 +22,17 @@ public class TeamService {
     return teamRepository.save(team);
   }
 
-  public TeamView getTeam(Long teamId) throws Exception {
+  public TeamWithMembers getTeam(Long teamId) throws Exception {
     User currentUser = userService.getCurrentUser().orElseThrow();
     Long currentUserId = currentUser.getId();
 
     if (verifyMembership(teamId, currentUserId)) {
-      Optional<Team> team = this.teamRepository.findById(teamId);
+      Team team = this.teamRepository.findById(teamId).orElseThrow();
+      List<User> users = userService.getAllById(team.getMembers());
 
-      if (team.isPresent()) {
-        List<User> users = userService.getAllById(team.get().getMembers());
-        return new TeamView(team.get(), users);
-      }
-      return null;
+      return new TeamWithMembers(team, users);
     }
+
     throw new Exception("Logged in user doesn't belong to this team");
   }
 
