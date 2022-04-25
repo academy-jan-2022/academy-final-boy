@@ -3,7 +3,6 @@ package codurance.academyfinalboy.backend.model.team;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
 
 @Service

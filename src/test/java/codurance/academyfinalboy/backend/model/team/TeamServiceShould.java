@@ -88,10 +88,7 @@ class TeamServiceShould {
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
-    Exception exception =
-        assertThrows(
-            Exception.class,
-            () -> teamService.getTeam(TEAM_ID));
+    Exception exception = assertThrows(Exception.class, () -> teamService.getTeam(TEAM_ID));
 
     String expectedMessage = "Logged in user doesn't belong to this team";
     String actualMessage = exception.getMessage();
