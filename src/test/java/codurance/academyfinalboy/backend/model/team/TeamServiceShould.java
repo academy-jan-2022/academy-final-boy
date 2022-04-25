@@ -19,6 +19,8 @@ class TeamServiceShould {
 
   public static final long USER_ID = 1L;
   public static final long TEAM_ID = 2L;
+  public static final String TEAM_NAME = "team fullName";
+  public static final String TEAM_DESCRIPTION = "description";
   public Team savedTeam;
   private TeamRepository mockedTeamRepository;
   private UserService mockedUserService;
@@ -29,12 +31,12 @@ class TeamServiceShould {
     mockedTeamRepository = mock(TeamRepository.class);
     mockedUserService = mock(UserService.class);
     teamService = new TeamService(mockedTeamRepository, mockedUserService);
-    savedTeam = new Team("team fullName", "description", USER_ID);
+    savedTeam = new Team(TEAM_NAME, TEAM_DESCRIPTION, USER_ID);
   }
 
   @Test
   void create_a_team() {
-    teamService.createTeam(USER_ID, "team fullName", "description");
+    teamService.createTeam(USER_ID, TEAM_NAME, TEAM_DESCRIPTION);
 
     verify(mockedTeamRepository).save(savedTeam);
   }
