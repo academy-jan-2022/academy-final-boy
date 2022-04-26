@@ -16,7 +16,12 @@ public class Activity {
     }
     for(var i = 0; i < numberOfGroups; i++) {
       groups.add(new ArrayList<ActivityMember>());
-
+    }
+    while(members.size() != 0) {
+      for (var group : groups) {
+          group.add(members.get(0));
+          members.remove(0);
+      }
     }
 
 

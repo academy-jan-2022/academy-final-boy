@@ -4,6 +4,7 @@ import codurance.academyfinalboy.backend.web.controllers.CreateActivityControlle
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -35,10 +36,10 @@ class ActivityShould {
 
   @Test
   void shuffles_team_members_into_specified_number_of_groups() {
-    var activityMembers = List.of(new ActivityMember("Jon"),
+    var activityMembers = new ArrayList<>(List.of(new ActivityMember("Jon"),
             new ActivityMember("Juan"),
             new ActivityMember("Jose"),
-            new ActivityMember("Carl"));
+            new ActivityMember("Carl")));
     var numberOfGroups = 2;
     var activity = new Activity("ECA", activityMembers, numberOfGroups);
 
