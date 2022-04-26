@@ -1,4 +1,14 @@
 package codurance.academyfinalboy.backend.model.team;
 
-public record ActivityMember(String name) {
+import lombok.Data;
+import org.springframework.data.annotation.Id;
+
+@Data
+public class ActivityMember {
+  @Id private Long id;
+  private String name;
+
+  public ActivityMember(String name) {
+    this.name = name;
+  }
 }

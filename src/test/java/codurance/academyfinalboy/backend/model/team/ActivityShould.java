@@ -1,12 +1,13 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import codurance.academyfinalboy.backend.builders.ActivityBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.IntStream;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import static codurance.academyfinalboy.backend.builders.ActivityBuilder.generateActivityMembersBy;
 import static codurance.academyfinalboy.backend.model.team.Activity.partitionBasedOnSize;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -14,12 +15,10 @@ class ActivityShould {
 
   @Test
   void throw_exception_on_team_smaller_than_3() {
-    List<ActivityMember> members = generateActivityMembersBy(2);
-    int numberOfGroups = 2;
+    ActivityBuilder activityBuilder = new ActivityBuilder().withMembers(2).withNumberOfGroups(1);
 
     var actualException =
-        Assertions.assertThrows(
-            IllegalStateException.class, () -> new Activity("name", members, numberOfGroups));
+        Assertions.assertThrows(IllegalStateException.class, activityBuilder::build);
 
     var exceptionMessage = "can't generate teams with current configuration";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
@@ -27,42 +26,33 @@ class ActivityShould {
 
   @Test
   void returns_number_of_groups_specified() {
-    var activityMembers = generateActivityMembersBy(4);
-    var numberOfGroups = 2;
-    var activity = new Activity("ECA", activityMembers, numberOfGroups);
+    int numberOfGroups = 2;
+    var activity = new ActivityBuilder().withNumberOfGroups(numberOfGroups).build();
 
     assertThat(activity.getGroups()).hasSize(numberOfGroups);
   }
 
   @Test
   void splits_evenly_team_members_into_specified_number_of_groups() {
-    var activityMembers = generateActivityMembersBy(4);
-    var numberOfGroups = 2;
-    var activity = new Activity("ECA", activityMembers, numberOfGroups);
+    var activity = new ActivityBuilder().withMembers(4).withNumberOfGroups(2).build();
 
-    assertThat(activity.getGroups().get(0)).hasSize(2);
-    assertThat(activity.getGroups().get(1)).hasSize(2);
+    activity.getGroups().forEach(group -> assertThat(group).hasSize(2));
   }
 
   @Test
   void splits_unevenly_team_members_into_specified_number_of_groups() {
-    var activityMembers = generateActivityMembersBy(5);
-    var numberOfGroups = 3;
-    var activity = new Activity("ECA", activityMembers, numberOfGroups);
+    var activity = new ActivityBuilder().withMembers(5).withNumberOfGroups(3).build();
 
-    assertThat(activity.getGroups().get(0)).hasSize(2);
-    assertThat(activity.getGroups().get(1)).hasSize(2);
-    assertThat(activity.getGroups().get(2)).hasSize(1);
+    activity
+        .getGroups()
+        .forEach(group -> assertThat(group).hasAtLeastOneElementOfType(ActivityMember.class));
   }
 
   @Test
   void throw_exception_on_number_of_teams_equal_to_members() {
-    var activityMembers = generateActivityMembersBy(3);
-    var numberOfGroups = 3;
+    var activityBuilder = new ActivityBuilder().withMembers(3).withNumberOfGroups(3);
     var actualException =
-        Assertions.assertThrows(
-            IllegalStateException.class,
-            () -> new Activity("ECA", activityMembers, numberOfGroups));
+        Assertions.assertThrows(IllegalStateException.class, activityBuilder::build);
 
     var exceptionMessage = "can't generate teams with current configuration";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
@@ -70,12 +60,10 @@ class ActivityShould {
 
   @Test
   void throw_exception_on_number_of_teams_greater_to_members() {
-    var activityMembers = generateActivityMembersBy(3);
-    var numberOfGroups = 4;
+    var activityBuilder = new ActivityBuilder().withMembers(3).withNumberOfGroups(4);
+
     var actualException =
-        Assertions.assertThrows(
-            IllegalStateException.class,
-            () -> new Activity("ECA", activityMembers, numberOfGroups));
+        Assertions.assertThrows(IllegalStateException.class, activityBuilder::build);
 
     var exceptionMessage = "can't generate teams with current configuration";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
@@ -86,17 +74,13 @@ class ActivityShould {
     var activityMembers = generateActivityMembersBy(30);
     var numberOfGroups = 5;
 
-    List<List<ActivityMember>> groups = partitionBasedOnSize(activityMembers, numberOfGroups);
+    Set<Set<ActivityMember>> groups =
+        partitionBasedOnSize(activityMembers, numberOfGroups).stream()
+            .map(Group::getGrouping)
+            .collect(Collectors.toSet());
 
     Activity activity = new Activity("ECA", activityMembers, numberOfGroups);
 
     assertThat(activity.getGroups()).isNotEqualTo(groups);
-  }
-
-  List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
-    return new ArrayList<>(
-        IntStream.range(0, numberOfMembers)
-            .mapToObj(index -> new ActivityMember(String.valueOf(index)))
-            .toList());
   }
 }
