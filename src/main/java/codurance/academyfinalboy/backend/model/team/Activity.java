@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Activity {
@@ -8,9 +9,15 @@ public class Activity {
 
   public Activity(String name, List<ActivityMember> members, int numberOfGroups) {
     this.name = name;
+    this.groups = new ArrayList<>();
     if(members.size() < 3) {
       throw new IllegalStateException("You can't make groups with less than 3 team members");
     }
+    for(var i = 0; i < numberOfGroups; i++) {
+      groups.add(new ArrayList<ActivityMember>());
+    }
+
+
   }
 
   public List<List<ActivityMember>> getGroups() {
