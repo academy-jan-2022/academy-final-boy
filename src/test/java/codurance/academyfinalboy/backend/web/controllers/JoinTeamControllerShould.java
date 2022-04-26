@@ -34,8 +34,7 @@ public class JoinTeamControllerShould extends BaseSpringTest {
                 .perform(
                         post("/join-team")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isCreated());
+                                .content(objectMapper.writeValueAsString(request)));
 
         verify(joinTeamAction).execute(joinTokenId);
     }
