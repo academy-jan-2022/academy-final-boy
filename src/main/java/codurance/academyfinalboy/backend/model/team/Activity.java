@@ -2,6 +2,7 @@ package codurance.academyfinalboy.backend.model.team;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Activity {
   private String name;
@@ -15,6 +16,7 @@ public class Activity {
     }
     for(var i = 0; i < numberOfGroups; i++) {
       groups.add(new ArrayList<ActivityMember>());
+
     }
 
 
