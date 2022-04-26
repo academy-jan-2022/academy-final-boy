@@ -12,13 +12,14 @@ class ActivityShould {
 
   @Test
   void throw_exception_on_team_smaller_than_3() {
-    var exceptionMessage = "You can't make groups with less than 3 team members";
+    List<ActivityMember> members = generateActivityMembersBy(2);
+    int numberOfGroups = 2;
 
     var actualException =
         Assertions.assertThrows(
-            IllegalStateException.class,
-            () ->
-                new Activity("name", generateActivityMembersBy(2), 2));
+            IllegalStateException.class, () -> new Activity("name", members, numberOfGroups));
+
+    var exceptionMessage = "You can't make groups with less than 3 team members";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
   }
 
