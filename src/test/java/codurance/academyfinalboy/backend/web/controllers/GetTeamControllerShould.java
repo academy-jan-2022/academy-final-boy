@@ -6,13 +6,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.GetTeam;
-import codurance.academyfinalboy.backend.configurations.InterceptorConfiguration;
-import codurance.academyfinalboy.backend.infrastructure.services.GoogleTokenValidator;
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamWithMembers;
 import codurance.academyfinalboy.backend.model.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.microsoft.applicationinsights.TelemetryClient;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
