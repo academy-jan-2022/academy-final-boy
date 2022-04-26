@@ -2,6 +2,8 @@ package codurance.academyfinalboy.backend.model.team;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class TeamService {
   private final TeamRepository teamRepository;
@@ -23,6 +25,8 @@ public class TeamService {
   }
 
   public void addActivity(long teamId, Activity activity) {
-    throw new UnsupportedOperationException();
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.addActivity(activity);
+    teamRepository.save(team);
   }
 }

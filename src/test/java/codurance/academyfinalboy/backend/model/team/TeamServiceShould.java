@@ -3,7 +3,11 @@ package codurance.academyfinalboy.backend.model.team;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.IntStream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -46,5 +50,26 @@ class TeamServiceShould {
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(TEAM));
 
     assertThat(teamService.verifyMembership(TEAM_ID, 123L)).isFalse();
+  }
+
+  @Test
+  void add_activity_to_team() {
+    var team = new Team("team name", "description", USER_ID);
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(team));
+    var members = generateActivityMembersBy(4);
+
+    var activity = new Activity("FizzBuzz", members, 2);
+
+    teamService.addActivity(TEAM_ID, activity);
+    team.addActivity(activity);
+
+    verify(mockedTeamRepository).save(team);
+  }
+
+  List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
+    return new ArrayList<>(
+            IntStream.range(0, numberOfMembers)
+                    .mapToObj(index -> new ActivityMember(String.valueOf(index)))
+                    .toList());
   }
 }

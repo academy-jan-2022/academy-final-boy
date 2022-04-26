@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -34,11 +35,6 @@ class CreateActivityShould {
 
     createActivity.execute(request);
 
-    ArgumentCaptor<Activity> captor = ArgumentCaptor.forClass(Activity.class);
-
-    verify(mockedTeamService).addActivity(eq(TEAM_ID), captor.capture());
-
-    assertThat(captor.getValue().getName()).isEqualTo(request.activityName());
-    assertThat(captor.getValue().getGroups()).hasSize(2);
+    verify(mockedTeamService).addActivity(eq(TEAM_ID), any(Activity.class));
   }
 }

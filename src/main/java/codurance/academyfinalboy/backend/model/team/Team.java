@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ public class Team {
   @Id private Long id;
   private String name;
   private String description;
+  private List<Activity> activities;
 
   @MappedCollection(idColumn = "team_id")
   private Set<UserRef> members;
@@ -24,6 +26,7 @@ public class Team {
     this.id = null;
     this.name = name;
     this.description = description;
+    this.activities = new ArrayList<>();
 
     this.members = new HashSet<>();
   }
@@ -33,7 +36,7 @@ public class Team {
     members.add(new UserRef(userId));
   }
 
-  public List<Activity> getActivities() {
-    throw new UnsupportedOperationException();
+  public void addActivity(Activity activity) {
+    activities.add(activity);
   }
 }

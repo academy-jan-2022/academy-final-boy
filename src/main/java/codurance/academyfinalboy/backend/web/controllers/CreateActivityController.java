@@ -24,5 +24,5 @@ public class CreateActivityController {
   public record CreateActivityRequest(
           long teamId, String activityName, int numberOfGroups, List<ActivityMemberRequest> members) {}
 
-  public record ActivityMemberRequest(long userId, String fullName) {}
+  public record ActivityMemberRequest(long id, String fullName) {}
 }
