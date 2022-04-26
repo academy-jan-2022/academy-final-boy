@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static codurance.academyfinalboy.backend.model.team.Activity.partitionBasedOnSize;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ActivityShould {
@@ -58,12 +59,39 @@ class ActivityShould {
     var activityMembers = generateActivityMembersBy(3);
     var numberOfGroups = 3;
     var actualException =
-            Assertions.assertThrows(
-                    IllegalStateException.class, () -> new Activity("ECA", activityMembers, numberOfGroups));
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new Activity("ECA", activityMembers, numberOfGroups));
+
+    var exceptionMessage = "can't generate teams with current configuration";
+    assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
+  }
+
+  @Test
+  void throw_exception_on_number_of_teams_greater_to_members() {
+    var activityMembers = generateActivityMembersBy(3);
+    var numberOfGroups = 4;
+    var actualException =
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () -> new Activity("ECA", activityMembers, numberOfGroups));
 
     var exceptionMessage = "can't generate teams with current configuration";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
 
+
+  }
+
+  @Test
+  void randomize_the_groupings() {
+    var activityMembers = generateActivityMembersBy(30);
+    var numberOfGroups = 5;
+
+    List<List<ActivityMember>> groups = partitionBasedOnSize(activityMembers, numberOfGroups);
+
+    Activity activity = new Activity("ECA", activityMembers, numberOfGroups);
+
+    assertThat(activity.getGroups()).isNotEqualTo(groups);
   }
 
   List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
