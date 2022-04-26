@@ -7,6 +7,7 @@ import codurance.academyfinalboy.backend.web.controllers.CreateActivityControlle
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +24,7 @@ class CreateActivityShould {
     var mockedTeamService = mock(TeamService.class);
 
     var activityMembers =
-        IntStream.of(4).mapToObj(i -> new ActivityMemberRequest(i, "Juan" + i)).toList();
+        new ArrayList<>(IntStream.range(0, 4).mapToObj(i -> new ActivityMemberRequest(i, "Juan" + i)).toList());
 
     var request =
         new CreateActivityController.CreateActivityRequest(

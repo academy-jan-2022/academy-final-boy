@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -13,6 +14,7 @@ public class Activity {
       throw new IllegalStateException("can't generate teams with current configuration");
     }
 
+    Collections.shuffle(members);
     this.name = name;
     this.groups = partitionBasedOnSize(members, numberOfGroups);
   }

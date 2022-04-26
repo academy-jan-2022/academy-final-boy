@@ -3,6 +3,7 @@ package codurance.academyfinalboy.backend.model.team;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -78,8 +79,6 @@ class ActivityShould {
 
     var exceptionMessage = "can't generate teams with current configuration";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
-
-
   }
 
   @Test
@@ -95,8 +94,9 @@ class ActivityShould {
   }
 
   List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
-    return IntStream.range(0, numberOfMembers)
-        .mapToObj(index -> new ActivityMember(String.valueOf(index)))
-        .toList();
+    return new ArrayList<>(
+        IntStream.range(0, numberOfMembers)
+            .mapToObj(index -> new ActivityMember(String.valueOf(index)))
+            .toList());
   }
 }
