@@ -11,8 +11,8 @@ public class Activity {
   private List<List<ActivityMember>> groups;
 
   public Activity(String name, List<ActivityMember> members, int numberOfGroups) {
-    if(members.size() < 3) {
-      throw new IllegalStateException("You can't make groups with less than 3 team members");
+    if(members.size() < 3 || members.size() == numberOfGroups) {
+      throw new IllegalStateException("can't generate teams with current configuration");
     }
 
     this.name = name;
@@ -22,7 +22,7 @@ public class Activity {
   static List<List<ActivityMember>> partitionBasedOnSize(List<ActivityMember> inputList, int size) {
     final AtomicInteger counter = new AtomicInteger(0);
     return inputList.stream()
-            .collect(Collectors.groupingBy(s -> counter.getAndIncrement()/size))
+            .collect(Collectors.groupingBy(s -> counter.getAndIncrement() % size))
             .values().stream().toList();
   }
 

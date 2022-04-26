@@ -19,7 +19,7 @@ class ActivityShould {
         Assertions.assertThrows(
             IllegalStateException.class, () -> new Activity("name", members, numberOfGroups));
 
-    var exceptionMessage = "You can't make groups with less than 3 team members";
+    var exceptionMessage = "can't generate teams with current configuration";
     assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
   }
 
@@ -33,13 +33,37 @@ class ActivityShould {
   }
 
   @Test
-  void splits_team_members_into_specified_number_of_groups() {
+  void splits_evenly_team_members_into_specified_number_of_groups() {
     var activityMembers = generateActivityMembersBy(4);
     var numberOfGroups = 2;
     var activity = new Activity("ECA", activityMembers, numberOfGroups);
 
     assertThat(activity.getGroups().get(0)).hasSize(2);
     assertThat(activity.getGroups().get(1)).hasSize(2);
+  }
+
+  @Test
+  void splits_unevenly_team_members_into_specified_number_of_groups() {
+    var activityMembers = generateActivityMembersBy(5);
+    var numberOfGroups = 3;
+    var activity = new Activity("ECA", activityMembers, numberOfGroups);
+
+    assertThat(activity.getGroups().get(0)).hasSize(2);
+    assertThat(activity.getGroups().get(1)).hasSize(2);
+    assertThat(activity.getGroups().get(2)).hasSize(1);
+  }
+
+  @Test
+  void throw_exception_on_number_of_teams_equal_to_members() {
+    var activityMembers = generateActivityMembersBy(3);
+    var numberOfGroups = 3;
+    var actualException =
+            Assertions.assertThrows(
+                    IllegalStateException.class, () -> new Activity("ECA", activityMembers, numberOfGroups));
+
+    var exceptionMessage = "can't generate teams with current configuration";
+    assertThat(actualException.getMessage()).isEqualTo(exceptionMessage);
+
   }
 
   List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
