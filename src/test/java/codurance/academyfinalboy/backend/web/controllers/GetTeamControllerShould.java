@@ -25,10 +25,6 @@ public class GetTeamControllerShould extends BaseSpringTest {
   @Autowired ObjectMapper objectMapper;
   @MockBean GetTeam getTeam;
 
-  @MockBean InterceptorConfiguration interceptorConfiguration;
-  @MockBean GoogleTokenValidator googleTokenValidator;
-  @MockBean TelemetryClient telemetryClient;
-
   @Test
   void call_get_team_action() throws Exception {
     Team expectedTeam = new Team("Team 1", "Team 1 description", 4L);
