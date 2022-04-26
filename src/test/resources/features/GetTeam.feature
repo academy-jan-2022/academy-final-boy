@@ -20,6 +20,5 @@ Feature: Get team
       | fullName   | Manuel Sanchez Ramirez               |
       | username   | ManuelSR                             |
     When the team endpoint is called with a non existing team id
-    Then an exception is thrown with message
-      | message            | Logged in user doesn't belong to this team  |
+    Then an exception is thrown
 
