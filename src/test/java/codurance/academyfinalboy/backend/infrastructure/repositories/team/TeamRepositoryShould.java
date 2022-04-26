@@ -16,7 +16,7 @@ class TeamRepositoryShould extends BaseSpringTest {
 
   @Test
   void save_team() {
-    Team team = new Team("team name", "team description", 3L);
+    Team team = new Team("team fullName", "team description", 3L);
 
     Long teamId = repository.save(team);
 
@@ -25,7 +25,7 @@ class TeamRepositoryShould extends BaseSpringTest {
 
   @Test
   void find_by_id() {
-    Team team = new Team("team name", "team description", 3L);
+    Team team = new Team("team fullName", "team description", 3L);
     Long teamId = repository.save(team);
 
     Optional<Team> foundTeam = repository.findById(teamId);
@@ -36,7 +36,7 @@ class TeamRepositoryShould extends BaseSpringTest {
 
   @Test
   void clear() {
-    Team team = new Team("team name", "team description", 3L);
+    Team team = new Team("team fullName", "team description", 3L);
     Long teamId = repository.save(team);
 
     repository.clear();

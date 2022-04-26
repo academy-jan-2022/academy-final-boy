@@ -1,8 +1,11 @@
 package codurance.academyfinalboy.backend.infrastructure.repositories.user;
 
+import codurance.academyfinalboy.backend.model.team.UserRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -28,5 +31,13 @@ public class SpringUserRepository implements UserRepository {
   @Override
   public void clear() {
     repository.deleteAll();
+  }
+
+  @Override
+  public List<User> findAllByIdIn(Set<UserRef> userIds) {
+
+    List<Long> userIdList = userIds.stream().map(userRef -> userRef.getUserId().getId()).toList();
+
+    return repository.findAllByIdIn(userIdList);
   }
 }

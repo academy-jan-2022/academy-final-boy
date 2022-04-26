@@ -10,5 +10,6 @@ public class HttpUtils {
   @Before
   public void setupRestAssured() {
     RestAssured.port = port;
+    RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
   }
 }
