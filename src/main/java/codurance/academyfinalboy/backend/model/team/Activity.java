@@ -8,6 +8,9 @@ public class Activity {
 
   public Activity(String name, List<ActivityMember> members, int numberOfGroups) {
     this.name = name;
+    if(members.size() < 3) {
+      throw new IllegalStateException("You can't make groups with less than 3 team members");
+    }
   }
 
   public List<List<ActivityMember>> getGroups() {
