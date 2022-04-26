@@ -32,4 +32,19 @@ class ActivityShould {
 
     assertThat(activity.getGroups()).hasSize(numberOfGroups);
   }
+
+  @Test
+  void shuffles_team_members_into_specified_number_of_groups() {
+    var activityMembers = List.of(new ActivityMember("Jon"),
+            new ActivityMember("Juan"),
+            new ActivityMember("Jose"),
+            new ActivityMember("Carl"));
+    var numberOfGroups = 2;
+    var activity = new Activity("ECA", activityMembers, numberOfGroups);
+
+    assertThat(activity.getGroups().get(0)).hasSize(2);
+    assertThat(activity.getGroups().get(1)).hasSize(2);
+
+  }
+
 }
