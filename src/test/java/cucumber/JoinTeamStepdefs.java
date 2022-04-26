@@ -78,6 +78,21 @@ public class JoinTeamStepdefs {
         assertThat(teamIdInResponse, equalTo(teamId));
     }
 
+    @Then("an exception is thrown with message")
+    public void noTeamIsReturnedFromTheDatabase(Map<String, String> data) {
+        var expectedJson = data.get("message");
+
+        response.then().assertThat().statusCode(400).body("message", equalTo(expectedJson));
+    }
+
+    @And("the token is expired:")
+    public void theTokenIsExpired(Map<String, String> data){
+        LocalDateTime expiryDate = new TimeProvider().getCurrentTime().minusMinutes(5);
+        joinId = UUID. fromString(data.get("joinId"));
+
+        tokenRepository.save(new Token(teamId, joinId, expiryDate));
+    }
+
     private record JoinTeamRequest(UUID joinTokenId) {
     }
 }

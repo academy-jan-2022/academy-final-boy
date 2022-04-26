@@ -24,4 +24,36 @@ Feature: Join Team
       | teamDescription   | We love cake                          |
 
     When the join team endpoint is called with the join token id
-    Then an exception is thrown
+    Then an exception is thrown with message
+      | message        | User to add does not exist  |
+
+  Scenario: An expired toke is used
+    Given the following user exists:
+      | externalId | ba222e1f-85a2-463a-8e7d-53d3d8a16408    |
+      | fullName   | Manuel Sanchez Ramirez                  |
+      | username   | ManuelSR                                |
+
+    And the following team exists:
+      | teamName          | Cow                              |
+      | teamDescription   | We love cake                     |
+
+    And the token is expired:
+      | joinId        | ce222e1f-85a2-463a-8e7d-53d3d8a16428 |
+
+    When the join team endpoint is called with the join token id
+    Then an exception is thrown with message
+      | message        | Token is expired  |
+
+  Scenario: Token does not exist
+    Given the following user exists:
+      | externalId | ba222e1f-85a2-463a-8e7d-53d3d8a16408    |
+      | fullName   | Manuel Sanchez Ramirez                  |
+      | username   | ManuelSR                                |
+
+    And the following team exists:
+      | teamName          | Cow                              |
+      | teamDescription   | We love cake                     |
+
+    When the join team endpoint is called with the join token id
+    Then an exception is thrown with message
+      | message        | Invalid token  |
