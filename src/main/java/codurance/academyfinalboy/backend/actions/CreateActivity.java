@@ -6,6 +6,8 @@ import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.web.controllers.CreateActivityController;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class CreateActivity {
   private final TeamService teamService;
@@ -15,8 +17,8 @@ public class CreateActivity {
   }
 
   public void execute(CreateActivityController.CreateActivityRequest request) {
-    var members =
-        request.members().stream().map(member -> new ActivityMember(member.fullName())).toList();
+    var members = new ArrayList<>(
+        request.members().stream().map(member -> new ActivityMember(member.fullName())).toList());
 
     teamService.addActivity(
         request.teamId(), new Activity(request.activityName(), members, request.numberOfGroups()));
