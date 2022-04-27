@@ -19,6 +19,8 @@ class TokenServiceShould {
   private TokenService tokenService;
   private TokenIdProvider mockedTokenIdProvider;
   private TimeProvider mockedTimeProvider;
+  private UUID joinTokenID;
+  private Optional<Token> validToken;
 
   @BeforeEach
   void setUp() {
@@ -28,6 +30,8 @@ class TokenServiceShould {
     when(mockedTimeProvider.getCurrentTime()).thenReturn(CURRENT_TIME);
     tokenService =
         new TokenService(mockedTokenRepository, mockedTokenIdProvider, mockedTimeProvider);
+    joinTokenID = UUID.randomUUID();
+    validToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
   }
 
   @Test
@@ -48,6 +52,7 @@ class TokenServiceShould {
   void save_token() {
     LocalDateTime tokenExpiryDate = CURRENT_TIME.plusMinutes(5);
     when(mockedTokenIdProvider.random()).thenReturn(TOKEN_ID);
+
     tokenService.generateToken(TEAM_ID);
 
     verify(mockedTokenRepository).save(new Token(TEAM_ID, TOKEN_ID, tokenExpiryDate));
@@ -55,8 +60,6 @@ class TokenServiceShould {
 
   @Test
   void get_the_token_from_the_repo() throws InvalidTokenException {
-    UUID joinTokenID = UUID.randomUUID();
-    Optional<Token> validToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
     when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
 
     tokenService.getToken(joinTokenID);
@@ -66,10 +69,6 @@ class TokenServiceShould {
 
   @Test
   void get_and_return_a_token_if_it_is_valid() throws InvalidTokenException {
-    UUID joinTokenID = UUID.randomUUID();
-
-    Optional<Token> validToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
-
     when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
 
     Token token = tokenService.getToken(joinTokenID);
@@ -79,8 +78,6 @@ class TokenServiceShould {
 
   @Test
   void throw_an_error_if_token_is_expired() {
-    UUID joinTokenID = UUID.randomUUID();
-
     Optional<Token> expiredToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().minusMinutes(5)));
     when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(expiredToken);
 
@@ -94,8 +91,6 @@ class TokenServiceShould {
 
   @Test
   void throw_an_error_if_token_does_not_exist() {
-    UUID joinTokenID = UUID.randomUUID();
-
     when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(Optional.empty());
 
     Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
