@@ -43,17 +43,15 @@ public class JoinTeamControllerShould extends BaseSpringTest {
     @Test void
     return_a_join_team_response_with_team_id() throws Exception {
         Long teamId = 2L;
+        JoinTeamController.JoinTeamResponse joinTeamResponse = new JoinTeamController.JoinTeamResponse(teamId);
+
         UUID joinTokenId = UUID.randomUUID();
         JoinTeamController.JoinTeamRequest request = new JoinTeamController.JoinTeamRequest(joinTokenId);
 
         when(joinTeamAction.execute(joinTokenId)).thenReturn(teamId);
 
         ObjectMapper objectMapper = new ObjectMapper();
-
-
-        var response = new JoinTeamController.JoinTeamResponse(teamId);
-
-        String expectedJSON = objectMapper.writeValueAsString(response);
+        String expectedJSON = objectMapper.writeValueAsString(joinTeamResponse);
 
         mockMvc
                 .perform(
