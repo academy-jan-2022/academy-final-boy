@@ -22,4 +22,8 @@ public class TokenService {
     tokenRepository.save(new Token(teamId, tokenId, tokenExpiryDate));
     return tokenId;
   }
+
+  public void getToken(UUID joinTokenId) {
+    throw new UnsupportedOperationException();
+  }
 }
