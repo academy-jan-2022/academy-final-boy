@@ -1,8 +1,11 @@
 package codurance.academyfinalboy.backend.model.team;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,6 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Data
+@Table
+@NoArgsConstructor
 public class Activity {
   @Id private Long id;
   private String name;
@@ -43,7 +48,4 @@ public class Activity {
     return new Group(new HashSet<>(grouping));
   }
 
-  public Set<Set<ActivityMember>> getGroups() {
-    return groups.stream().map(Group::getGrouping).collect(Collectors.toSet());
-  }
 }

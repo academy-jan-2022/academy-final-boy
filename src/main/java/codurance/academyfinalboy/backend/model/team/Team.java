@@ -1,8 +1,8 @@
 package codurance.academyfinalboy.backend.model.team;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -13,7 +13,6 @@ import java.util.Set;
 
 @Data
 @Table
-@NoArgsConstructor
 public class Team {
   @Id private Long id;
   private String name;
@@ -24,6 +23,16 @@ public class Team {
 
   @MappedCollection(idColumn = "team_id")
   private Set<UserRef> members;
+
+  @PersistenceConstructor
+  public Team(
+      Long id, String name, String description, List<Activity> activities, Set<UserRef> members) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.activities = activities;
+    this.members = members;
+  }
 
   public Team(String name, String description) {
     this.id = null;
