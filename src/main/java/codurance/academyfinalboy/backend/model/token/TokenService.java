@@ -27,13 +27,13 @@ public class TokenService {
 
   public Token getToken(UUID joinTokenId) throws InvalidTokenException {
 
-    Optional<Token> token = tokenRepository.getToken(joinTokenId);
+    Optional<Token> token = tokenRepository.findByJoinId(joinTokenId);
 
     if (token.isEmpty()) {
       throw new InvalidTokenException("Invalid token");
     }
 
-    if (isTokenExpired(token.get()))  {
+    if (isTokenExpired(token.get())) {
       throw new InvalidTokenException("Token is expired");
     }
     return token.get();

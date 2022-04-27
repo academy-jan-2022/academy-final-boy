@@ -2,10 +2,9 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.token;
 
 import codurance.academyfinalboy.backend.model.token.Token;
 import codurance.academyfinalboy.backend.model.token.TokenRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class SpringTokenRepository implements TokenRepository {
@@ -26,7 +25,7 @@ public class SpringTokenRepository implements TokenRepository {
   }
 
   @Override
-  public Optional<Token> getToken(UUID joinTokenID) {
-    throw new UnsupportedOperationException();
+  public Optional<Token> findByJoinId(UUID joinTokenID) {
+    return repository.findByJoinId(joinTokenID);
   }
 }

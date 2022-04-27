@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import codurance.academyfinalboy.backend.BaseSpringTest;
+import codurance.academyfinalboy.backend.model.token.TimeProvider;
 import codurance.academyfinalboy.backend.model.token.Token;
 import codurance.academyfinalboy.backend.model.token.TokenRepository;
 import java.time.LocalDateTime;
@@ -25,16 +26,16 @@ class TokenRepositoryShould extends BaseSpringTest {
     assertThat(savedToken).isEqualTo(token);
   }
 
-    @Test void
-    find_token_by_join_id() {
-      Token token = new Token(3L, UUID.randomUUID(), LocalDateTime.now());
-      Token savedToken = repository.save(token);
-      token.setId(3L);
+  @Test
+  void find_token_by_join_id() {
+    var tokenExpiryDate = new TimeProvider().getCurrentTime().plusMinutes(5);
+    Token token = new Token(3L, UUID.randomUUID(), tokenExpiryDate);
+    Token savedToken = repository.save(token);
 
-      Optional<Token> foundToken = repository.getToken(savedToken.getJoinId());
+    Optional<Token> foundToken = repository.findByJoinId(savedToken.getJoinId());
 
-      assertEquals(foundToken, savedToken);
-    }
+    assertEquals(savedToken, foundToken.get());
+  }
 
   @AfterEach
   void tearDown() {

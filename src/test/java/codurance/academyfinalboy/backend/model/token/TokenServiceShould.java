@@ -31,7 +31,8 @@ class TokenServiceShould {
     tokenService =
         new TokenService(mockedTokenRepository, mockedTokenIdProvider, mockedTimeProvider);
     joinTokenID = UUID.randomUUID();
-    validToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
+    validToken =
+        Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
   }
 
   @Test
@@ -60,16 +61,16 @@ class TokenServiceShould {
 
   @Test
   void get_the_token_from_the_repo() throws InvalidTokenException {
-    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
+    when(mockedTokenRepository.findByJoinId(joinTokenID)).thenReturn(validToken);
 
     tokenService.getToken(joinTokenID);
 
-    verify(mockedTokenRepository).getToken(joinTokenID);
+    verify(mockedTokenRepository).findByJoinId(joinTokenID);
   }
 
   @Test
   void get_and_return_a_token_if_it_is_valid() throws InvalidTokenException {
-    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
+    when(mockedTokenRepository.findByJoinId(joinTokenID)).thenReturn(validToken);
 
     Token token = tokenService.getToken(joinTokenID);
 
@@ -78,10 +79,13 @@ class TokenServiceShould {
 
   @Test
   void throw_an_error_if_token_is_expired() {
-    Optional<Token> expiredToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().minusMinutes(5)));
-    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(expiredToken);
+    Optional<Token> expiredToken =
+        Optional.of(
+            new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().minusMinutes(5)));
+    when(mockedTokenRepository.findByJoinId(joinTokenID)).thenReturn(expiredToken);
 
-    Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
+    Exception exception =
+        assertThrows(InvalidTokenException.class, () -> tokenService.getToken(joinTokenID));
 
     String expectedMessage = "Token is expired";
     String actualMessage = exception.getMessage();
@@ -91,9 +95,10 @@ class TokenServiceShould {
 
   @Test
   void throw_an_error_if_token_does_not_exist() {
-    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(Optional.empty());
+    when(mockedTokenRepository.findByJoinId(joinTokenID)).thenReturn(Optional.empty());
 
-    Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
+    Exception exception =
+        assertThrows(InvalidTokenException.class, () -> tokenService.getToken(joinTokenID));
     String expectedMessage = "Invalid token";
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);

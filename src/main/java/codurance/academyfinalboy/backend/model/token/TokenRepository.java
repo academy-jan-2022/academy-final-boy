@@ -8,5 +8,5 @@ public interface TokenRepository {
 
   void clear();
 
-  Optional<Token> getToken(UUID joinTokenID);
+  Optional<Token> findByJoinId(UUID joinTokenID);
 }
