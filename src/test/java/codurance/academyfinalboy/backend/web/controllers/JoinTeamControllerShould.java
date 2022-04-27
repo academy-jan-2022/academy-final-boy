@@ -14,7 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.UUID;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class JoinTeamControllerShould extends BaseSpringTest {
@@ -35,8 +37,25 @@ public class JoinTeamControllerShould extends BaseSpringTest {
                         post("/join-team")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request)));
-
         verify(joinTeamAction).execute(joinTokenId);
+    }
+
+    @Test void
+    return_a_join_team_response_with_team_id() throws Exception {
+        Long teamId = 2L;
+        UUID joinTokenId = UUID.randomUUID();
+        JoinTeamController.JoinTeamRequest request = new JoinTeamController.JoinTeamRequest(joinTokenId);
+
+        when(joinTeamAction.execute(joinTokenId)).thenReturn(teamId);
+
+        var expectedJSON = new JoinTeamController.JoinTeamResponse(teamId).toString();
+
+        mockMvc
+                .perform(
+                        post("/join-team")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(objectMapper.writeValueAsString(request)))
+                                .andExpect(content().json(expectedJSON));
     }
 
 }
