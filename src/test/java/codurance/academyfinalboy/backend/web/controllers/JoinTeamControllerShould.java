@@ -48,7 +48,12 @@ public class JoinTeamControllerShould extends BaseSpringTest {
 
         when(joinTeamAction.execute(joinTokenId)).thenReturn(teamId);
 
-        var expectedJSON = new JoinTeamController.JoinTeamResponse(teamId).toString();
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+        var response = new JoinTeamController.JoinTeamResponse(teamId);
+
+        String expectedJSON = objectMapper.writeValueAsString(response);
 
         mockMvc
                 .perform(

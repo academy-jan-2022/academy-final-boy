@@ -20,9 +20,10 @@ public class JoinTeamController {
   }
 
   @PostMapping("/join-team")
-  public void joinTeam(@RequestBody JoinTeamRequest request) throws Exception {
+  public JoinTeamResponse joinTeam(@RequestBody JoinTeamRequest request) throws Exception {
     Long teamId = joinTeam.execute(request.joinTokenId());
 
+    return new JoinTeamResponse(teamId);
   }
 
   public record JoinTeamRequest(UUID joinTokenId) {
