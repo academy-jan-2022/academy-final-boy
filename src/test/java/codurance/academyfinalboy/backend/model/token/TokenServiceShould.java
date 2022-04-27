@@ -56,6 +56,9 @@ class TokenServiceShould {
   @Test
   void get_the_token_from_the_repo() throws InvalidTokenException {
     UUID joinTokenID = UUID.randomUUID();
+    Optional<Token> validToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
+    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
+
     tokenService.getToken(joinTokenID);
 
     verify(mockedTokenRepository).getToken(joinTokenID);
@@ -99,6 +102,5 @@ class TokenServiceShould {
     String expectedMessage = "Invalid token";
     String actualMessage = exception.getMessage();
     assertEquals(expectedMessage, actualMessage);
-
   }
 }

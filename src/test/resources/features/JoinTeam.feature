@@ -27,7 +27,7 @@ Feature: Join Team
     Then an exception is thrown with message
       | message        | User to add does not exist  |
 
-  Scenario: An expired toke is used
+  Scenario: An expired token is used
     Given the following user exists:
       | externalId | ba222e1f-85a2-463a-8e7d-53d3d8a16408    |
       | fullName   | Manuel Sanchez Ramirez                  |
