@@ -10,7 +10,7 @@ import java.util.UUID;
 public class JoinTeam {
 
     private final UserService userService;
-    private TokenService tokenService;
+    private final TokenService tokenService;
 
     public JoinTeam(UserService userService, TokenService tokenService) {
         this.userService = userService;

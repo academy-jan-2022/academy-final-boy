@@ -50,4 +50,12 @@ class TokenServiceShould {
 
     verify(mockedTokenRepository).save(new Token(TEAM_ID, TOKEN_ID, tokenExpiryDate));
   }
+
+  @Test
+  void get_the_token_from_the_repo() {
+    UUID joinTokenID = UUID.randomUUID();
+    tokenService.getToken(joinTokenID);
+
+    verify(mockedTokenRepository).getToken(joinTokenID);
+  }
 }
