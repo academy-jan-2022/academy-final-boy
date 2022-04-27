@@ -31,13 +31,14 @@ public class JoinTeamStepdefs {
     @Autowired private TokenRepository tokenRepository;
     @Autowired private UserService userService;
 
+    private final long teamCreatorId = 999L;
     private Long teamId;
     private Response response;
     private UUID joinId;
 
     @And("the following team exists:")
     public void theFollowingTeamExists(Map<String, String> data){
-        Team team = new Team(data.get("teamName"), data.get("teamDescription"), 999L);
+        Team team = new Team(data.get("teamName"), data.get("teamDescription"), teamCreatorId);
 
         teamId = teamRepository.save(team);
     }
@@ -63,9 +64,10 @@ public class JoinTeamStepdefs {
         Team currentTeam = teamRepository.findById(teamId).orElseThrow();
 
         UserRef currentUserRef = new UserRef(currentUser.getId());
+        UserRef teamCreatorRef = new UserRef(teamCreatorId);
         TeamRef currentTeamRef = new TeamRef(currentTeam.getId());
 
-        assertThat(currentTeam.getMembers(), contains(currentUserRef));
+        assertThat(currentTeam.getMembers(), contains(teamCreatorRef, currentUserRef));
         assertThat(currentUser.getTeams(), contains(currentTeamRef));
     }
 
