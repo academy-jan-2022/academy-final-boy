@@ -44,5 +44,4 @@ public class TokenService {
 
     return tokenExpiry.compareTo(timeProvider.getCurrentTime()) < 0;
   }
-
 }
