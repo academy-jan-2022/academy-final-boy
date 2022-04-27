@@ -87,4 +87,16 @@ class TokenServiceShould {
     assertEquals(expectedMessage, actualMessage);
   }
 
+  @Test
+  void throw_an_error_if_token_does_not_exist() {
+    UUID joinTokenID = UUID.randomUUID();
+
+    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(null);
+
+    Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
+    String expectedMessage = "Invalid token";
+    String actualMessage = exception.getMessage();
+    assertEquals(expectedMessage, actualMessage);
+
+  }
 }
