@@ -1,28 +1,22 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
-
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @Table
 @NoArgsConstructor
 public class Activity {
-  @Id private Long id;
   private String name;
 
-  @MappedCollection(idColumn = "activity_id")
-  private Set<Group> groups;
+  @MappedCollection(idColumn = "team_id", keyColumn = "activity_key")
+  private List<Group> groups;
 
   public Activity(String name, List<ActivityMember> members, int numberOfGroups) {
     if (members.size() < 3 || members.size() <= numberOfGroups) {
@@ -34,18 +28,17 @@ public class Activity {
     this.groups = partitionBasedOnSize(members, numberOfGroups);
   }
 
-  static Set<Group> partitionBasedOnSize(List<ActivityMember> inputList, int size) {
+  static List<Group> partitionBasedOnSize(List<ActivityMember> inputList, int size) {
     final AtomicInteger counter = new AtomicInteger(0);
     return inputList.stream()
         .collect(Collectors.groupingBy(s -> counter.getAndIncrement() % size))
         .values()
         .stream()
         .map(Activity::toGroup)
-        .collect(Collectors.toSet());
+        .toList();
   }
 
   private static Group toGroup(List<ActivityMember> grouping) {
-    return new Group(new HashSet<>(grouping));
+    return new Group(grouping);
   }
-
 }

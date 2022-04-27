@@ -1,7 +1,10 @@
 package cucumber;
 
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.*;
+
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
-import codurance.academyfinalboy.backend.model.team.TeamView;
 import cucumber.worlds.TeamWorld;
 import cucumber.worlds.UserWorld;
 import io.cucumber.java.en.And;
@@ -9,14 +12,9 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.util.List;
 import java.util.Map;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CreateActivityStepdefs {
 
@@ -56,10 +54,7 @@ public class CreateActivityStepdefs {
   public void theActivityIsReturnedInTheTeamView() {
     String path = "get-team?id=" + TeamWorld.storedTeam.getId();
 
-    RestAssured.get(path)
-            .then()
-            .statusCode(200)
-            .body("team.activities", notNullValue());
+    RestAssured.get(path).then().statusCode(200).body("team.activities", notNullValue());
   }
 
   private record CreateActivityRequest(

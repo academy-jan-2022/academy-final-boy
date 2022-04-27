@@ -1,13 +1,12 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import codurance.academyfinalboy.backend.builders.ActivityBuilder;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
+import codurance.academyfinalboy.backend.builders.ActivityBuilder;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class ActivityViewShould {
 

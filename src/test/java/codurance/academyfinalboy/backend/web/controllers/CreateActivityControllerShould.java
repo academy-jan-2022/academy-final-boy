@@ -1,20 +1,19 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.CreateActivity;
 import codurance.academyfinalboy.backend.web.controllers.CreateActivityController.CreateActivityRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.List;
-
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class CreateActivityControllerShould extends BaseSpringTest {
 
@@ -24,8 +23,7 @@ class CreateActivityControllerShould extends BaseSpringTest {
 
   @Test
   void call_create_activity_action() throws Exception {
-    var request =
-        new CreateActivityRequest(1L, "activityName", 2, List.of());
+    var request = new CreateActivityRequest(1L, "activityName", 2, List.of());
 
     mockMvc
         .perform(

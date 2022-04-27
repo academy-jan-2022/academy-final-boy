@@ -7,16 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import codurance.academyfinalboy.backend.builders.ActivityBuilder;
 import codurance.academyfinalboy.backend.builders.UserBuilder;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -120,8 +118,8 @@ class TeamServiceShould {
 
   List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
     return new ArrayList<>(
-            IntStream.range(0, numberOfMembers)
-                    .mapToObj(index -> new ActivityMember(String.valueOf(index)))
-                    .toList());
+        IntStream.range(0, numberOfMembers)
+            .mapToObj(index -> new ActivityMember(String.valueOf(index)))
+            .toList());
   }
 }

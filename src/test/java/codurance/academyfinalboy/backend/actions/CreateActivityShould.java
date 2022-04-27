@@ -1,20 +1,17 @@
 package codurance.academyfinalboy.backend.actions;
 
-import codurance.academyfinalboy.backend.model.team.Activity;
-import codurance.academyfinalboy.backend.model.team.TeamService;
-import codurance.academyfinalboy.backend.web.controllers.CreateActivityController;
-import codurance.academyfinalboy.backend.web.controllers.CreateActivityController.ActivityMemberRequest;
-import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-
-import java.util.ArrayList;
-import java.util.stream.IntStream;
-
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+
+import codurance.academyfinalboy.backend.model.team.Activity;
+import codurance.academyfinalboy.backend.model.team.TeamService;
+import codurance.academyfinalboy.backend.web.controllers.CreateActivityController;
+import codurance.academyfinalboy.backend.web.controllers.CreateActivityController.ActivityMemberRequest;
+import java.util.ArrayList;
+import java.util.stream.IntStream;
+import org.junit.jupiter.api.Test;
 
 class CreateActivityShould {
 
@@ -25,7 +22,8 @@ class CreateActivityShould {
     var mockedTeamService = mock(TeamService.class);
 
     var activityMembers =
-        new ArrayList<>(IntStream.range(0, 4).mapToObj(i -> new ActivityMemberRequest(i, "Juan" + i)).toList());
+        new ArrayList<>(
+            IntStream.range(0, 4).mapToObj(i -> new ActivityMemberRequest(i, "Juan" + i)).toList());
 
     var request =
         new CreateActivityController.CreateActivityRequest(

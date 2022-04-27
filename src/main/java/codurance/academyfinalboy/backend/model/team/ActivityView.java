@@ -1,8 +1,7 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class ActivityView {

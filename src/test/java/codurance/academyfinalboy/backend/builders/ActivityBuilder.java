@@ -2,7 +2,6 @@ package codurance.academyfinalboy.backend.builders;
 
 import codurance.academyfinalboy.backend.model.team.Activity;
 import codurance.academyfinalboy.backend.model.team.ActivityMember;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -19,7 +18,8 @@ public class ActivityBuilder {
   }
 
   public Activity build() {
-    return new Activity(name, members, numberOfGroups);
+    Activity activity = new Activity(name, members, numberOfGroups);
+    return activity;
   }
 
   public static List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
@@ -36,6 +36,11 @@ public class ActivityBuilder {
 
   public ActivityBuilder withNumberOfGroups(int numberOfGroups) {
     this.numberOfGroups = numberOfGroups;
+    return this;
+  }
+
+  public ActivityBuilder withName(String name) {
+    this.name = name;
     return this;
   }
 }

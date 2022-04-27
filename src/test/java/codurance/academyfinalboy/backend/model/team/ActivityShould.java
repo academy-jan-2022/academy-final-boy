@@ -1,15 +1,12 @@
 package codurance.academyfinalboy.backend.model.team;
 
-import codurance.academyfinalboy.backend.builders.ActivityBuilder;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.util.Set;
-import java.util.stream.Collectors;
-
 import static codurance.academyfinalboy.backend.builders.ActivityBuilder.generateActivityMembersBy;
 import static codurance.academyfinalboy.backend.model.team.Activity.partitionBasedOnSize;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import codurance.academyfinalboy.backend.builders.ActivityBuilder;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class ActivityShould {
 
@@ -45,7 +42,9 @@ class ActivityShould {
 
     activity
         .getGroups()
-        .forEach(group -> assertThat(group.getGrouping()).hasAtLeastOneElementOfType(ActivityMember.class));
+        .forEach(
+            group ->
+                assertThat(group.getGrouping()).hasAtLeastOneElementOfType(ActivityMember.class));
   }
 
   @Test
@@ -74,10 +73,7 @@ class ActivityShould {
     var activityMembers = generateActivityMembersBy(30);
     var numberOfGroups = 5;
 
-    Set<Set<ActivityMember>> groups =
-        partitionBasedOnSize(activityMembers, numberOfGroups).stream()
-            .map(Group::getGrouping)
-            .collect(Collectors.toSet());
+    var groups = partitionBasedOnSize(activityMembers, numberOfGroups).stream().toList();
 
     Activity activity = new Activity("ECA", activityMembers, numberOfGroups);
 

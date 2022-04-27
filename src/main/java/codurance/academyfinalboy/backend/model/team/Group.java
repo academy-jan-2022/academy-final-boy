@@ -1,21 +1,17 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import java.util.List;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
-
-import java.util.Set;
 
 @Data
 @Table("activity_group")
 public class Group {
-  @Id private Long id;
+  @MappedCollection(idColumn = "team_id", keyColumn = "group_key")
+  private List<ActivityMember> grouping;
 
-  @MappedCollection(idColumn = "group_id")
-  private Set<ActivityMember> grouping;
-
-  public Group(Set<ActivityMember> grouping) {
+  public Group(List<ActivityMember> grouping) {
     this.grouping = grouping;
   }
 }
