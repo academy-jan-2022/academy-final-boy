@@ -7,6 +7,7 @@ import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -23,10 +24,16 @@ public class JoinTeam {
     }
 
     public Long execute(UUID joinTokenId) throws Exception {
-        User user = userService.getCurrentUser().orElseThrow();
+        Optional<User> user = userService.getCurrentUser();
+
+        if(user.isEmpty()) {
+            throw new InvalidUserException("User to add does not exist");
+        }
+
+        Long userId = user.get().getId();
         Token token = tokenService.getToken(joinTokenId);
-        teamService.addUserToTeam(user.getId(), token.getTeamId());
-        userService.addTeamToUser(user, token.getTeamId());
+        teamService.addUserToTeam(userId, token.getTeamId());
+        userService.addTeamToUser(user.get(), token.getTeamId());
 
         return token.getTeamId();
     }
