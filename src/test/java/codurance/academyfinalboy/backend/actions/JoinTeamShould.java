@@ -5,12 +5,14 @@ import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
 import codurance.academyfinalboy.backend.model.token.TimeProvider;
 import codurance.academyfinalboy.backend.model.token.Token;
 import codurance.academyfinalboy.backend.model.token.TokenService;
+import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.mockito.Mock;
@@ -20,6 +22,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class JoinTeamShould {
 
+  public static final long TEAM_ID = 3L;
   @Mock private UserService mockedUserService;
 
   @Mock private TokenService mockedTokenService;
@@ -33,7 +36,7 @@ public class JoinTeamShould {
   void setUp() throws Exception {
     JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
     joinTokenId = UUID.randomUUID();
-    token = new Token(3L, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
+    token = new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
     when(mockedTokenService.getToken(joinTokenId)).thenReturn(token);
     joinTeamAction.execute(joinTokenId);
   }
@@ -51,5 +54,14 @@ public class JoinTeamShould {
   @Test
   void find_team_to_join() throws Exception {
     verify(mockedTeamService).getTeam(token.getTeamId());
+  }
+
+  @Test void
+  add_user_to_the_team() {
+    User user = new User("3234LK", "Full name");
+    user.setId(2L);
+    when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
+
+    verify(mockedTeamService).addUser(user.getId(),TEAM_ID);
   }
 }
