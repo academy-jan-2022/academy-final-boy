@@ -35,7 +35,7 @@ public class JoinTeamShould {
   private UUID joinTokenId;
   private Token token;
   private User user;
-  private String actionResult;
+  private Long actionResult;
 
   @BeforeEach
   void setUp() throws Exception {

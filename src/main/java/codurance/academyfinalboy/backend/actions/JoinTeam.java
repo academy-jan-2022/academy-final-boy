@@ -22,10 +22,12 @@ public class JoinTeam {
         this.teamService = teamService;
     }
 
-    public String execute(UUID joinTokenId) throws Exception {
+    public Long execute(UUID joinTokenId) throws Exception {
         User user = userService.getCurrentUser().orElseThrow();
         Token token = tokenService.getToken(joinTokenId);
         teamService.addUserToTeam(user.getId(), token.getTeamId());
         userService.addTeamToUser(user, token.getTeamId());
+
+        return token.getTeamId();
     }
 }
