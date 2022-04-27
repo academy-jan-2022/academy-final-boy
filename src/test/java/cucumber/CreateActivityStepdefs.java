@@ -3,8 +3,10 @@ package cucumber;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import cucumber.worlds.TeamWorld;
 import cucumber.worlds.UserWorld;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +15,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class CreateActivityStepdefs {
 
@@ -46,6 +49,19 @@ public class CreateActivityStepdefs {
 
     assertThat(team.getActivities()).hasSize(1);
     response.then().statusCode(200);
+  }
+
+  @And("the activity is returned in the team view")
+  public void theActivityIsReturnedInTheTeamView() {
+    String path = "get-team?id=" + TeamWorld.storedTeam.getId();
+
+    var team = teamRepository.findById(TeamWorld.storedTeam.getId()).orElseThrow();
+    var activities = team.getActivities();
+
+    RestAssured.get(path)
+            .then()
+            .statusCode(200)
+            .body("activities", hasItem(is(in(activities))));
   }
 
   private record CreateActivityRequest(

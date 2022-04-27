@@ -73,9 +73,9 @@ class TeamServiceShould {
     when(mockedUserService.getAllById(savedTeam.getMembers())).thenReturn((List.of(user)));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
-    TeamWithMembers expectedTeam = new TeamWithMembers(savedTeam, List.of(user));
+    TeamView expectedTeam = new TeamView(savedTeam, List.of(user));
 
-    TeamWithMembers team = teamService.getTeam(TEAM_ID);
+    TeamView team = teamService.getTeam(TEAM_ID);
 
     verify(mockedTeamRepository, times(2)).findById(TEAM_ID);
     verify(mockedUserService).getAllById(savedTeam.getMembers());

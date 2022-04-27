@@ -19,3 +19,4 @@ Feature: Create activity
       | activityName   | fizzBuzz |
       | numberOfGroups | 2        |
     Then the activity gets added to the team
+    And the activity is returned in the team view

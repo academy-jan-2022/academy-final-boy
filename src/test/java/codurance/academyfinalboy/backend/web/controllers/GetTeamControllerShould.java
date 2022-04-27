@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.GetTeam;
 import codurance.academyfinalboy.backend.model.team.Team;
-import codurance.academyfinalboy.backend.model.team.TeamWithMembers;
+import codurance.academyfinalboy.backend.model.team.TeamView;
 import codurance.academyfinalboy.backend.model.user.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -30,7 +30,7 @@ public class GetTeamControllerShould extends BaseSpringTest {
     user.setId(4L);
     expectedTeam.setId(11L);
 
-    TeamWithMembers team = new TeamWithMembers(expectedTeam, List.of(user));
+    TeamView team = new TeamView(expectedTeam, List.of(user));
 
     when(getTeam.execute(expectedTeam.getId())).thenReturn(team);
 

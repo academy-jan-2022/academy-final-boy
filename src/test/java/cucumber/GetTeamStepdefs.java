@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
-import codurance.academyfinalboy.backend.model.team.TeamWithMembers;
+import codurance.academyfinalboy.backend.model.team.TeamView;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import codurance.academyfinalboy.backend.web.controllers.GetTeamController;
@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import java.util.List;
 import java.util.Map;
@@ -49,12 +50,12 @@ public class GetTeamStepdefs {
   public void theGetTeamEndpointIsCalledWithTheTeamId() {
     String path = "get-team?id=" + savedTeamId;
 
-    response = given().contentType("application/json").when().get(path);
+    response = RestAssured.get(path);
   }
 
   @Then("the team is returned from the db with the members included")
   public void theTeamIsReturnedFromTheDbWithTheMembersIncluded() throws JsonProcessingException {
-    TeamWithMembers expectedTeam = new TeamWithMembers(savedTeam, List.of(teamMember));
+    TeamView expectedTeam = new TeamView(savedTeam, List.of(teamMember));
     GetTeamController.GetTeamResponse expectedResponse =
         new GetTeamController.GetTeamResponse(expectedTeam);
 
