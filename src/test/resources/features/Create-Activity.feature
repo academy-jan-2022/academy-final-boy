@@ -11,6 +11,10 @@ Feature: Create activity
       | externalId      | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |
       | teamName        | extreme cowboy association           |
       | teamDescription | yeehaw                               |
+    And the team is created in the db with:
+      | teamName        | extreme cowboy association           |
+      | teamDescription | yeehaw                               |
+      | externalId      | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |
     When the activity is created with the users and the following information:
       | activityName   | fizzBuzz |
       | numberOfGroups | 2        |
