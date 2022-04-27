@@ -15,6 +15,6 @@ public class TeamShould {
 
         team.addMember(newMemberId);
 
-        assertThat(team.getMembers(), contains(new UserRef(newMemberId)));
+        assertThat(team.getMembers(), contains(new UserRef(newMemberId), new UserRef(teamCreatorId)));
     }
 }

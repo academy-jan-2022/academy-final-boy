@@ -2,6 +2,7 @@ package codurance.academyfinalboy.backend.model.team;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.samePropertyValuesAs;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -102,15 +103,13 @@ class TeamServiceShould {
   void add_a_user_to_a_team_if_the_team_exists() {
     long newMemberId = 50L;
 
-    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
-
-    Set<UserRef> updatedMembers = Set.of(new UserRef(USER_ID), new UserRef(newMemberId));
-    savedTeam.setMembers(updatedMembers);
+    Team mockedTeam = mock(Team.class);
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(mockedTeam));
 
     teamService.addUserToTeam(newMemberId, TEAM_ID);
 
     verify(mockedTeamRepository).findById(TEAM_ID);
-    verify(mockedTeamRepository).save(savedTeam);
-
+    verify(mockedTeam).addMember(newMemberId);
+    verify(mockedTeamRepository).save(mockedTeam);
   }
 }
