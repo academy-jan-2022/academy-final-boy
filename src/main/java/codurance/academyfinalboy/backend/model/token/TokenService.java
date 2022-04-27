@@ -26,11 +26,17 @@ public class TokenService {
 
   public Token getToken(UUID joinTokenId) throws InvalidTokenException {
     Token token = tokenRepository.getToken(joinTokenId);
-    LocalDateTime tokenExpiry = token.getExpiryDate();
-    if (tokenExpiry.compareTo(timeProvider.getCurrentTime()) < 0)  {
+
+    if (isTokenExpired(token))  {
       throw new InvalidTokenException("Token is expired");
     }
     return token;
+  }
+
+  private boolean isTokenExpired(Token token) {
+    LocalDateTime tokenExpiry = token.getExpiryDate();
+
+    return tokenExpiry.compareTo(timeProvider.getCurrentTime()) < 0;
   }
 
 }
