@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.GetTeam;
+import codurance.academyfinalboy.backend.builders.ActivityBuilder;
+import codurance.academyfinalboy.backend.model.team.Activity;
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamView;
 import codurance.academyfinalboy.backend.model.user.User;
@@ -26,6 +28,7 @@ public class GetTeamControllerShould extends BaseSpringTest {
   void call_get_team_action() throws Exception {
     Team expectedTeam = new Team("Team 1", "Team 1 description", 4L);
     User user = new User("externalId", "Full Name");
+    Activity activity = new ActivityBuilder().build();
 
     user.setId(4L);
     expectedTeam.setId(11L);

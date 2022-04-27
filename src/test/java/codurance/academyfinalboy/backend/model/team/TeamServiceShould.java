@@ -9,6 +9,8 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import codurance.academyfinalboy.backend.builders.ActivityBuilder;
 import codurance.academyfinalboy.backend.builders.UserBuilder;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
@@ -64,8 +66,11 @@ class TeamServiceShould {
   }
 
   @Test
-  void get_a_team_with_members() throws Exception {
+  void get_a_teamview() throws Exception {
+    Activity activity = new ActivityBuilder().build();
     savedTeam.setId(TEAM_ID);
+    savedTeam.addActivity(activity);
+
     User user = new UserBuilder().id(USER_ID).build();
 
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
