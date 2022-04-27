@@ -47,6 +47,8 @@ public class TeamService {
   }
 
   public void addUserToTeam(long userId, long teamId) {
-    throw new UnsupportedOperationException();
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.addMember(userId);
+    teamRepository.save(team);
   }
 }

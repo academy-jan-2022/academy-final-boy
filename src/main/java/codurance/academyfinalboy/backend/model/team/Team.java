@@ -31,4 +31,8 @@ public class Team {
     this(name, description);
     members.add(new UserRef(userId));
   }
+
+  public void addMember(long userId) {
+
+  }
 }
