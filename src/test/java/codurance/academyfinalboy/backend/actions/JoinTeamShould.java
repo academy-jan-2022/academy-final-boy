@@ -16,6 +16,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.mockito.Mock;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -32,6 +35,7 @@ public class JoinTeamShould {
   private UUID joinTokenId;
   private Token token;
   private User user;
+  private String actionResult;
 
   @BeforeEach
   void setUp() throws Exception {
@@ -44,7 +48,7 @@ public class JoinTeamShould {
 
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
     when(mockedTokenService.getToken(joinTokenId)).thenReturn(token);
-    joinTeamAction.execute(joinTokenId);
+    actionResult = joinTeamAction.execute(joinTokenId);
   }
 
   @Test
@@ -65,5 +69,10 @@ public class JoinTeamShould {
   @Test void
   add_team_to_the_user() {
     verify(mockedUserService).addTeamToUser(user, TEAM_ID);
+  }
+
+  @Test void
+  return_the_team_id() {
+    assertThat(actionResult, equalTo(TEAM_ID));
   }
 }

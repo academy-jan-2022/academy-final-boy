@@ -22,7 +22,7 @@ public class JoinTeam {
         this.teamService = teamService;
     }
 
-    public void execute(UUID joinTokenId) throws Exception {
+    public String execute(UUID joinTokenId) throws Exception {
         User user = userService.getCurrentUser().orElseThrow();
         Token token = tokenService.getToken(joinTokenId);
         teamService.addUserToTeam(user.getId(), token.getTeamId());
