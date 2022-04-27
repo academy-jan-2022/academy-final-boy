@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.UUID;
 
@@ -23,7 +22,7 @@ public class JoinTeamShould {
 
     @Test void
     get_the_current_user() {
-        JoinTeam joinTeamAction = new JoinTeam(mockedUserService);
+        JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService);
         UUID joinTokenId = UUID.randomUUID();
 
         joinTeamAction.execute(joinTokenId);
@@ -33,7 +32,7 @@ public class JoinTeamShould {
 
     @Test void
     call_the_token_service_to_validate_the_token() {
-        JoinTeam joinTeamAction = new JoinTeam(mockedUserService);
+        JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService);
         UUID joinTokenId = UUID.randomUUID();
 
         joinTeamAction.execute(joinTokenId);
