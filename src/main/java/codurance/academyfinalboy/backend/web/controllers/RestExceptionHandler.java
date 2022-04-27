@@ -16,7 +16,7 @@ public class RestExceptionHandler {
   }
 
   @ExceptionHandler(value = {Exception.class})
-  protected ResponseEntity<Object> handleIllegalState(RuntimeException ex, WebRequest request) {
+  public ResponseEntity<Object> handleIllegalState(Exception ex, WebRequest request) {
     telemetryClient.trackException(ex);
 
     return ResponseEntity.badRequest().body(new ErrorResponse(ex.getMessage()));

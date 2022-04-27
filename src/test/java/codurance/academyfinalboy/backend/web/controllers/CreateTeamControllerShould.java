@@ -25,7 +25,7 @@ class CreateTeamControllerShould extends BaseSpringTest {
 
   @Test
   void return_team_id() throws Exception {
-    var request = new CreateTeamRequest(new TeamRequest("team name", "team description"));
+    var request = new CreateTeamRequest(new TeamRequest("team fullName", "team description"));
     when(createTeam.execute(any(), any())).thenReturn(1L);
 
     mockMvc
@@ -39,7 +39,7 @@ class CreateTeamControllerShould extends BaseSpringTest {
 
   @Test
   void call_create_team_action() throws Exception {
-    var request = new CreateTeamRequest(new TeamRequest("team name", "team description"));
+    var request = new CreateTeamRequest(new TeamRequest("team fullName", "team description"));
     when(createTeam.execute(any(), any())).thenReturn(1L);
 
     mockMvc.perform(
