@@ -20,7 +20,7 @@ public class JoinTeamController {
   }
 
   @PostMapping("/join-team")
-  public void joinTeam(@RequestBody JoinTeamRequest request) throws InvalidTokenException {
+  public void joinTeam(@RequestBody JoinTeamRequest request) throws Exception {
 
     joinTeam.execute(request.joinTokenId());
   }
