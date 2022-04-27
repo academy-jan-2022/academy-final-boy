@@ -1,18 +1,21 @@
 package codurance.academyfinalboy.backend.actions;
 
 import codurance.academyfinalboy.backend.model.team.TeamService;
-import codurance.academyfinalboy.backend.model.token.*;
+import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
+import codurance.academyfinalboy.backend.model.token.TimeProvider;
+import codurance.academyfinalboy.backend.model.token.Token;
+import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
 import java.util.UUID;
 
-import static org.mockito.Mockito.*;
+import org.mockito.Mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class JoinTeamShould {
@@ -42,7 +45,6 @@ public class JoinTeamShould {
 
   @Test
   void call_the_token_service_to_validate_the_token() throws InvalidTokenException {
-
     verify(mockedTokenService).getToken(joinTokenId);
   }
 
