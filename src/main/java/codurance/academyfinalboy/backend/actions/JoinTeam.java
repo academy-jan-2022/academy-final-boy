@@ -25,6 +25,5 @@ public class JoinTeam {
     public void execute(UUID joinTokenId) throws Exception {
         userService.getCurrentUser();
         Token token = tokenService.getToken(joinTokenId);
-        teamService.getTeam(token.getTeamId());
     }
 }

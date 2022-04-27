@@ -51,11 +51,6 @@ public class JoinTeamShould {
     verify(mockedTokenService).getToken(joinTokenId);
   }
 
-  @Test
-  void find_team_to_join() throws Exception {
-    verify(mockedTeamService).getTeam(token.getTeamId());
-  }
-
   @Test void
   add_user_to_the_team() {
     User user = new User("3234LK", "Full name");
