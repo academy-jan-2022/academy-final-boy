@@ -46,7 +46,7 @@ public class TeamService {
     return new TeamWithMembers(team, users);
   }
 
-  public void addUser(long teamId, long id) {
+  public void addUserToTeam(long userId, long teamId) {
     throw new UnsupportedOperationException();
   }
 }

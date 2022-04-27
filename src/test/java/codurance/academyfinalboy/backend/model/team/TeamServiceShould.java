@@ -12,6 +12,8 @@ import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -94,5 +96,21 @@ class TeamServiceShould {
     String actualMessage = exception.getMessage();
 
     assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+  @Test
+  void add_a_user_to_a_team_if_the_team_exists() {
+    long newMemberId = 50L;
+
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
+
+    Set<UserRef> updatedMembers = Set.of(new UserRef(USER_ID), new UserRef(newMemberId));
+    savedTeam.setMembers(updatedMembers);
+
+    teamService.addUserToTeam(newMemberId, TEAM_ID);
+
+    verify(mockedTeamRepository).findById(TEAM_ID);
+    verify(mockedTeamRepository).save(savedTeam);
+
   }
 }

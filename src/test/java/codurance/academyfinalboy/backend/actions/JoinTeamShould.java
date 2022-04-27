@@ -31,12 +31,18 @@ public class JoinTeamShould {
 
   private UUID joinTokenId;
   private Token token;
+  private User user;
 
   @BeforeEach
   void setUp() throws Exception {
     JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
+
     joinTokenId = UUID.randomUUID();
     token = new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
+    user = new User("3234LK", "Full name");
+    user.setId(2L);
+
+    when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
     when(mockedTokenService.getToken(joinTokenId)).thenReturn(token);
     joinTeamAction.execute(joinTokenId);
   }
@@ -53,10 +59,6 @@ public class JoinTeamShould {
 
   @Test void
   add_user_to_the_team() {
-    User user = new User("3234LK", "Full name");
-    user.setId(2L);
-    when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
-
-    verify(mockedTeamService).addUser(user.getId(),TEAM_ID);
+    verify(mockedTeamService).addUserToTeam(user.getId(),TEAM_ID);
   }
 }
