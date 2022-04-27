@@ -61,4 +61,9 @@ public class JoinTeamShould {
   add_user_to_the_team() {
     verify(mockedTeamService).addUserToTeam(user.getId(),TEAM_ID);
   }
+
+  @Test void
+  add_team_to_the_user() {
+    verify(mockedUserService).addTeamToUser(user, TEAM_ID);
+  }
 }

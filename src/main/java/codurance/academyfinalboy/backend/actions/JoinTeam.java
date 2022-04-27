@@ -26,5 +26,6 @@ public class JoinTeam {
         User user = userService.getCurrentUser().orElseThrow();
         Token token = tokenService.getToken(joinTokenId);
         teamService.addUserToTeam(user.getId(), token.getTeamId());
+
     }
 }
