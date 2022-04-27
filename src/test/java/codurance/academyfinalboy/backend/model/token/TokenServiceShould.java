@@ -1,6 +1,8 @@
 package codurance.academyfinalboy.backend.model.token;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
@@ -58,4 +60,19 @@ class TokenServiceShould {
 
     verify(mockedTokenRepository).getToken(joinTokenID);
   }
+
+  @Test
+  void get_and_return_a_token_if_it_is_valid() {
+    UUID joinTokenID = UUID.randomUUID();
+
+    Token validToken = new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5));
+    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
+
+    Token token = tokenService.getToken(joinTokenID);
+
+    assertEquals(token, validToken);
+  }
+
+
+
 }

@@ -25,7 +25,7 @@ public class SpringTokenRepository implements TokenRepository {
   }
 
   @Override
-  public void getToken(UUID joinTokenID) {
+  public Token getToken(UUID joinTokenID) {
     throw new UnsupportedOperationException();
   }
 }

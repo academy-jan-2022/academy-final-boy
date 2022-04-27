@@ -7,5 +7,5 @@ public interface TokenRepository {
 
   void clear();
 
-  void getToken(UUID joinTokenID);
+  Token getToken(UUID joinTokenID);
 }

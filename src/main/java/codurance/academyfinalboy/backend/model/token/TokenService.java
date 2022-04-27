@@ -23,7 +23,8 @@ public class TokenService {
     return tokenId;
   }
 
-  public void getToken(UUID joinTokenId) {
-    tokenRepository.getToken(joinTokenId);
+  public Token getToken(UUID joinTokenId) {
+    return tokenRepository.getToken(joinTokenId);
   }
+
 }
