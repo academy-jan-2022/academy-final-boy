@@ -8,7 +8,7 @@ import java.util.UUID;
 
 @Repository
 public class SpringTokenRepository implements TokenRepository {
-  private SpringDataJdbcTokenRepository repository;
+  private final SpringDataJdbcTokenRepository repository;
 
   public SpringTokenRepository(SpringDataJdbcTokenRepository repository) {
     this.repository = repository;

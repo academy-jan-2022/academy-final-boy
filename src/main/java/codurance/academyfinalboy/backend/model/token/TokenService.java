@@ -23,7 +23,7 @@ public class TokenService {
     return tokenId;
   }
 
-  public Token getToken(UUID joinTokenId) {
-    throw new UnsupportedOperationException();
+  public void getToken(UUID joinTokenId) {
+    tokenRepository.getToken(joinTokenId);
   }
 }
