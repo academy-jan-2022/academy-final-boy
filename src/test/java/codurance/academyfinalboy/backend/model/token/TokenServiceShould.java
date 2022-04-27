@@ -53,7 +53,7 @@ class TokenServiceShould {
   }
 
   @Test
-  void get_the_token_from_the_repo() {
+  void get_the_token_from_the_repo() throws InvalidTokenException {
     UUID joinTokenID = UUID.randomUUID();
     tokenService.getToken(joinTokenID);
 
@@ -61,7 +61,7 @@ class TokenServiceShould {
   }
 
   @Test
-  void get_and_return_a_token_if_it_is_valid() {
+  void get_and_return_a_token_if_it_is_valid() throws InvalidTokenException {
     UUID joinTokenID = UUID.randomUUID();
 
     Token validToken = new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5));

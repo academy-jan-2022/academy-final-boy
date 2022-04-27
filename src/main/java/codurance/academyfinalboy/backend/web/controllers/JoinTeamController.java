@@ -2,6 +2,7 @@ package codurance.academyfinalboy.backend.web.controllers;
 
 
 import codurance.academyfinalboy.backend.actions.JoinTeam;
+import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +20,7 @@ public class JoinTeamController {
   }
 
   @PostMapping("/join-team")
-  public void joinTeam(@RequestBody JoinTeamRequest request){
+  public void joinTeam(@RequestBody JoinTeamRequest request) throws InvalidTokenException {
 
     joinTeam.execute(request.joinTokenId());
   }

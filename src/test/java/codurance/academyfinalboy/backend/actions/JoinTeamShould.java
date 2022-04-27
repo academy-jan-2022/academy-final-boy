@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.actions;
 
+import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
 import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,7 +25,7 @@ public class JoinTeamShould {
     private UUID joinTokenId;
 
   @BeforeEach
-  void setUp() {
+  void setUp() throws InvalidTokenException {
       JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService);
       joinTokenId = UUID.randomUUID();
 
@@ -37,7 +38,7 @@ public class JoinTeamShould {
     }
 
     @Test void
-    call_the_token_service_to_validate_the_token() {
+    call_the_token_service_to_validate_the_token() throws InvalidTokenException {
         verify(mockedTokenService).getToken(joinTokenId);
     }
 

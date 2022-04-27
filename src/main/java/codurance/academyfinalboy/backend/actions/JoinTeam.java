@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.actions;
 
+import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
 import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import org.springframework.stereotype.Component;
@@ -17,7 +18,7 @@ public class JoinTeam {
         this.tokenService = tokenService;
     }
 
-    public void execute(UUID joinTokenId) {
+    public void execute(UUID joinTokenId) throws InvalidTokenException {
         userService.getCurrentUser();
         tokenService.getToken(joinTokenId);
     }
