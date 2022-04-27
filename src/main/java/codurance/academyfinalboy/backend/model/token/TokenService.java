@@ -1,6 +1,7 @@
 package codurance.academyfinalboy.backend.model.token;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -25,12 +26,17 @@ public class TokenService {
   }
 
   public Token getToken(UUID joinTokenId) throws InvalidTokenException {
-    Token token = tokenRepository.getToken(joinTokenId);
 
-    if (isTokenExpired(token))  {
+    Optional<Token> token = tokenRepository.getToken(joinTokenId);
+
+    if (token.isEmpty()) {
+      throw new InvalidTokenException("Invalid token");
+    }
+
+    if (isTokenExpired(token.get()))  {
       throw new InvalidTokenException("Token is expired");
     }
-    return token;
+    return token.get();
   }
 
   private boolean isTokenExpired(Token token) {

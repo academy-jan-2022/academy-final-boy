@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,19 +65,20 @@ class TokenServiceShould {
   void get_and_return_a_token_if_it_is_valid() throws InvalidTokenException {
     UUID joinTokenID = UUID.randomUUID();
 
-    Token validToken = new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5));
+    Optional<Token> validToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().plusMinutes(5)));
+
     when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(validToken);
 
     Token token = tokenService.getToken(joinTokenID);
 
-    assertEquals(token, validToken);
+    assertEquals(token, validToken.get());
   }
 
   @Test
   void throw_an_error_if_token_is_expired() {
     UUID joinTokenID = UUID.randomUUID();
 
-    Token expiredToken = new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().minusMinutes(5));
+    Optional<Token> expiredToken = Optional.of(new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().minusMinutes(5)));
     when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(expiredToken);
 
     Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
@@ -91,7 +93,7 @@ class TokenServiceShould {
   void throw_an_error_if_token_does_not_exist() {
     UUID joinTokenID = UUID.randomUUID();
 
-    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(null);
+    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(Optional.empty());
 
     Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
     String expectedMessage = "Invalid token";

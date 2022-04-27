@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.token;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface TokenRepository {
@@ -7,5 +8,5 @@ public interface TokenRepository {
 
   void clear();
 
-  Token getToken(UUID joinTokenID);
+  Optional<Token> getToken(UUID joinTokenID);
 }
