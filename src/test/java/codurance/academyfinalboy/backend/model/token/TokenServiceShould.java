@@ -1,8 +1,7 @@
 package codurance.academyfinalboy.backend.model.token;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
@@ -73,6 +72,19 @@ class TokenServiceShould {
     assertEquals(token, validToken);
   }
 
+  @Test
+  void throw_an_error_if_token_is_expired() {
+    UUID joinTokenID = UUID.randomUUID();
 
+    Token expiredToken = new Token(3L, joinTokenID, new TimeProvider().getCurrentTime().minusMinutes(5));
+    when(mockedTokenRepository.getToken(joinTokenID)).thenReturn(expiredToken);
+
+    Exception exception = assertThrows(InvalidTokenException.class, () ->  tokenService.getToken(joinTokenID));
+
+    String expectedMessage = "Token is expired";
+    String actualMessage = exception.getMessage();
+
+    assertEquals(expectedMessage, actualMessage);
+  }
 
 }
