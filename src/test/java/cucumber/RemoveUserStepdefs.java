@@ -36,7 +36,7 @@ public class RemoveUserStepdefs {
 
     assertThat(team.getMembers()).hasSize(1);
     assertThat(team.getMembers()).doesNotContain(new UserRef(UserWorld.currentUser.getId()));
-    assertThat(team.getMembers()).hasSize(1);
+    assertThat(user.getTeams()).isEmpty();
     assertThat(user.getTeams()).doesNotContain(new TeamRef(TeamWorld.storedTeam.getId()));
   }
 }
