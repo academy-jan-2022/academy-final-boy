@@ -17,7 +17,7 @@ public class Team {
   private String description;
 
   @MappedCollection(idColumn = "team_id")
-  private Set<UserRef> members;
+  Set<UserRef> members;
 
   public Team(String name, String description) {
     this.id = null;
@@ -29,6 +29,10 @@ public class Team {
 
   public Team(String name, String description, long userId) {
     this(name, description);
+    members.add(new UserRef(userId));
+  }
+
+  public void addMember(long userId) {
     members.add(new UserRef(userId));
   }
 }

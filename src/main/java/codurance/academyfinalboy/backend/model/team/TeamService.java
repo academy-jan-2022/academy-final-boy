@@ -45,4 +45,10 @@ public class TeamService {
 
     return new TeamWithMembers(team, users);
   }
+
+  public void addUserToTeam(long userId, long teamId) {
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.addMember(userId);
+    teamRepository.save(team);
+  }
 }
