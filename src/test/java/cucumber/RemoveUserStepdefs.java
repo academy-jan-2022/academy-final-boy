@@ -7,6 +7,7 @@ import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.team.UserRef;
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
+import codurance.academyfinalboy.backend.model.user.UserRepository;
 import cucumber.worlds.TeamWorld;
 import cucumber.worlds.UserWorld;
 import io.cucumber.java.en.Then;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class RemoveUserStepdefs {
   @Autowired TeamRepository teamRepository;
+  @Autowired UserRepository userRepository;
   private Response response;
 
   @When("the user requests to be removed from the team")
@@ -29,7 +31,8 @@ public class RemoveUserStepdefs {
     response.then().assertThat().statusCode(200);
 
     Team team = teamRepository.findById(TeamWorld.storedTeam.getId()).orElseThrow();
-    User user = UserWorld.currentUser;
+    User user =
+        userRepository.findByExternalId(UserWorld.currentUser.getExternalId()).orElseThrow();
 
     assertThat(team.getMembers()).hasSize(1);
     assertThat(team.getMembers()).doesNotContain(new UserRef(UserWorld.currentUser.getId()));
