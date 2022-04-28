@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
 import codurance.academyfinalboy.backend.UserBuilder;
+import codurance.academyfinalboy.backend.actions.InvalidUserException;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.List;
@@ -61,7 +62,7 @@ class TeamServiceShould {
   }
 
   @Test
-  void get_a_team_with_members() throws Exception {
+  void get_a_team_with_members() throws InvalidUserException, UserNotMemberOfTeamException {
     savedTeam.setId(TEAM_ID);
     User user = new UserBuilder().id(USER_ID).build();
 

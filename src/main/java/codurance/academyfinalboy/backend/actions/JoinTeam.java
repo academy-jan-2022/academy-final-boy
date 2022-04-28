@@ -26,7 +26,7 @@ public class JoinTeam {
     Optional<User> user = userService.getCurrentUser();
 
     if (user.isEmpty()) {
-      throw new InvalidUserException("User to add does not exist");
+      throw new InvalidUserException();
     }
 
     Long userId = user.get().getId();

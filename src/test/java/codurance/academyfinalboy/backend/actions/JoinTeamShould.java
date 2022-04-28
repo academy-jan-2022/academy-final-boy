@@ -34,7 +34,6 @@ public class JoinTeamShould {
   @Mock private TeamService mockedTeamService;
 
   private UUID joinTokenId;
-  private Token token;
   private User user;
   private Long actionResult;
 
@@ -46,7 +45,7 @@ public class JoinTeamShould {
           new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
 
       joinTokenId = UUID.randomUUID();
-      token = new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
+      Token token = new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
       user = new User("3234LK", "Full name");
       user.setId(2L);
 
@@ -84,7 +83,7 @@ public class JoinTeamShould {
   @Nested
   class UserDoesNotExist {
     @Test
-    void throw_invalid_user_exception_when_user_does_not_exist() throws Exception {
+    void throw_invalid_user_exception_when_user_does_not_exist() {
       JoinTeam joinTeamAction =
           new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
 
@@ -92,7 +91,7 @@ public class JoinTeamShould {
 
       Exception exception =
           assertThrows(InvalidUserException.class, () -> joinTeamAction.execute(joinTokenId));
-      String expectedMessage = "User to add does not exist";
+      String expectedMessage = "User does not exist";
       String actualMessage = exception.getMessage();
 
       assertEquals(expectedMessage, actualMessage);

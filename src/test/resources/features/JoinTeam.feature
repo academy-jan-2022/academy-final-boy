@@ -25,7 +25,7 @@ Feature: Join Team
 
     When the join team endpoint is called with the join token id
     Then an exception is thrown with message
-      | message        | User to add does not exist  |
+      | message        | User does not exist  |
 
   Scenario: An expired token is used
     Given the following user exists:
