@@ -5,10 +5,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
+import cucumber.worlds.UserWorld;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +19,16 @@ public class LoginStepdefs {
   @Autowired UserRepository userRepository;
   private User savedUser;
   private Response response;
+
+  @Given("the following users exist:")
+  public void theFollowingUsersExist(List<Map<String, String>> data) {
+    data.forEach(this::theLoginEndpointIsCalledWith);
+    data.forEach(
+        row -> {
+          UserWorld.storedUsers.add(
+              userRepository.findByExternalId(row.get("externalId")).orElseThrow());
+        });
+  }
 
   @When("the login endpoint is called with:")
   public void theLoginEndpointIsCalledWith(Map<String, String> data) {

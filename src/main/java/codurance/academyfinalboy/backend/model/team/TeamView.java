@@ -5,18 +5,24 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class TeamWithMembers {
+public class TeamView {
 
   String id;
   String name;
   String description;
   List<Member> members;
+  List<ActivityView> activities;
 
-  public TeamWithMembers(Team team, List<User> users) {
+  public TeamView(Team team, List<User> users) {
     this.id = team.getId().toString();
     this.name = team.getName();
     this.description = team.getDescription();
+    this.activities = createActivityViews(team);
     this.members = createMembers(users);
+  }
+
+  private List<ActivityView> createActivityViews(Team team) {
+    return team.getActivities().stream().map(ActivityView::new).toList();
   }
 
   private List<Member> createMembers(List<User> users) {

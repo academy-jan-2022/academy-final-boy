@@ -1,4 +1,4 @@
-package cucumber;
+package cucumber.worlds;
 
 import codurance.academyfinalboy.backend.model.team.Team;
 

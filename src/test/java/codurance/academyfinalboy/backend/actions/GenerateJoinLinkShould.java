@@ -3,7 +3,7 @@ package codurance.academyfinalboy.backend.actions;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import codurance.academyfinalboy.backend.UserBuilder;
+import codurance.academyfinalboy.backend.builders.UserBuilder;
 import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.User;

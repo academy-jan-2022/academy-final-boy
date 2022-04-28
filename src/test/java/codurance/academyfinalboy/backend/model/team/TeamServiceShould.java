@@ -7,7 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
-import codurance.academyfinalboy.backend.UserBuilder;
+import codurance.academyfinalboy.backend.builders.ActivityBuilder;
+import codurance.academyfinalboy.backend.builders.UserBuilder;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.List;
@@ -61,8 +62,11 @@ class TeamServiceShould {
   }
 
   @Test
-  void get_a_team_with_members() throws Exception {
+  void get_a_teamview() throws Exception {
+    Activity activity = new ActivityBuilder().build();
     savedTeam.setId(TEAM_ID);
+    savedTeam.addActivity(activity);
+
     User user = new UserBuilder().id(USER_ID).build();
 
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
@@ -70,9 +74,9 @@ class TeamServiceShould {
     when(mockedUserService.getAllById(savedTeam.getMembers())).thenReturn((List.of(user)));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
-    TeamWithMembers expectedTeam = new TeamWithMembers(savedTeam, List.of(user));
+    TeamView expectedTeam = new TeamView(savedTeam, List.of(user));
 
-    TeamWithMembers team = teamService.getTeam(TEAM_ID);
+    TeamView team = teamService.getTeam(TEAM_ID);
 
     verify(mockedTeamRepository, times(2)).findById(TEAM_ID);
     verify(mockedUserService).getAllById(savedTeam.getMembers());
@@ -94,6 +98,19 @@ class TeamServiceShould {
     String actualMessage = exception.getMessage();
 
     assertTrue(actualMessage.contains(expectedMessage));
+  }
+
+  @Test
+  void add_activity_to_team() {
+    var team = new Team("team name", "description", USER_ID);
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(team));
+
+    Activity activity = new ActivityBuilder().build();
+
+    teamService.addActivity(TEAM_ID, activity);
+    team.addActivity(activity);
+
+    verify(mockedTeamRepository).save(team);
   }
 
   @Test

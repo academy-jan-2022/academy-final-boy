@@ -1,7 +1,7 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
 import codurance.academyfinalboy.backend.actions.GetTeam;
-import codurance.academyfinalboy.backend.model.team.TeamWithMembers;
+import codurance.academyfinalboy.backend.model.team.TeamView;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,9 +17,9 @@ public class GetTeamController {
 
   @GetMapping("/get-team")
   public GetTeamResponse getTeam(@RequestParam Long id) throws Exception {
-    TeamWithMembers team = this.action.execute(id);
+    TeamView team = this.action.execute(id);
     return new GetTeamResponse(team);
   }
 
-  public record GetTeamResponse(TeamWithMembers team) {}
+  public record GetTeamResponse(TeamView team) {}
 }
