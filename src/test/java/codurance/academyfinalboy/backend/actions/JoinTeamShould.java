@@ -45,7 +45,8 @@ public class JoinTeamShould {
           new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
 
       joinTokenId = UUID.randomUUID();
-      Token token = new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
+      Token token =
+          new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
       user = new User("3234LK", "Full name");
       user.setId(2L);
 
