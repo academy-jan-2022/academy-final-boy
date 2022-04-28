@@ -17,4 +17,17 @@ public class TeamShould {
 
     assertThat(team.getMembers(), contains(new UserRef(newMemberId), new UserRef(teamCreatorId)));
   }
+
+  @Test
+  void remove_a_user_to_a_team() {
+    long teamCreatorId = 1L;
+    long currentMemberId = 30L;
+    Team team = new Team("Name", "Description", teamCreatorId);
+
+    team.addMember(currentMemberId);
+    assertThat(team.getMembers(), contains(new UserRef(currentMemberId), new UserRef(teamCreatorId)));
+
+    team.removeMember(currentMemberId);
+    assertThat(team.getMembers(), contains(new UserRef(teamCreatorId)));
+  }
 }
