@@ -11,10 +11,8 @@ import codurance.academyfinalboy.backend.builders.ActivityBuilder;
 import codurance.academyfinalboy.backend.builders.UserBuilder;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -114,6 +112,4 @@ class TeamServiceShould {
 
     verify(mockedTeamRepository).save(team);
   }
-
-
 }
