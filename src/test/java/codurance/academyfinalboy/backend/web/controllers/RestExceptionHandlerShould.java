@@ -2,6 +2,7 @@ package codurance.academyfinalboy.backend.web.controllers;
 
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.InvalidUserException;
+import codurance.academyfinalboy.backend.model.team.UserNotMemberOfTeamException;
 import com.microsoft.applicationinsights.TelemetryClient;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,6 +24,17 @@ public class RestExceptionHandlerShould extends BaseSpringTest {
         HttpStatus expectedResponseStatus = HttpStatus.UNAUTHORIZED;
         RestExceptionHandler restExceptionHandler = new RestExceptionHandler(telemetryClient);
         InvalidUserException exception = new InvalidUserException();
+
+        var response = restExceptionHandler.handleIllegalState(exception, request);
+
+        assertThat(response.getStatusCode(), equalTo(expectedResponseStatus));
+    }
+
+    @Test void
+    return_FORBIDDEN_status_on_invalid_user_exception(){
+        HttpStatus expectedResponseStatus = HttpStatus.FORBIDDEN;
+        RestExceptionHandler restExceptionHandler = new RestExceptionHandler(telemetryClient);
+        UserNotMemberOfTeamException exception = new UserNotMemberOfTeamException();
 
         var response = restExceptionHandler.handleIllegalState(exception, request);
 
