@@ -53,7 +53,7 @@ class TeamRepositoryShould extends BaseSpringTest {
   }
 
   @Test
-  void store_multiple_activities() {
+  void store_team_with_multiple_activities() {
     Team team = new Team("team fullName", "team description", 3L);
     Activity activity = new ActivityBuilder().build();
     Activity activity2 = new ActivityBuilder().withMembers(5).withName("failing activity").build();

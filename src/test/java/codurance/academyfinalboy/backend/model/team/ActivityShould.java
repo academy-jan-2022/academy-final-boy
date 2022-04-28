@@ -45,6 +45,11 @@ class ActivityShould {
         .forEach(
             group ->
                 assertThat(group.getGrouping()).hasAtLeastOneElementOfType(ActivityMember.class));
+
+    assertThat(activity.getGroups()).hasSize(3);
+    assertThat(activity.getGroups().get(0).getGrouping()).hasSize(2);
+    assertThat(activity.getGroups().get(1).getGrouping()).hasSize(2);
+    assertThat(activity.getGroups().get(2).getGrouping()).hasSize(1);
   }
 
   @Test
