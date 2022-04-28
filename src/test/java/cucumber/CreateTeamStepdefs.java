@@ -10,6 +10,7 @@ import codurance.academyfinalboy.backend.model.team.UserRef;
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
+import cucumber.worlds.TeamWorld;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;

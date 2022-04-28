@@ -22,7 +22,7 @@ public class TeamService {
     return teamRepository.save(team);
   }
 
-  public TeamWithMembers getTeam(Long teamId) throws InvalidUserException, UserNotMemberOfTeamException {
+  public TeamView getTeam(Long teamId) throws InvalidUserException, UserNotMemberOfTeamException {
     User currentUser = userService.getCurrentUser().orElseThrow(InvalidUserException::new);
     Long currentUserId = currentUser.getId();
 
@@ -40,16 +40,28 @@ public class TeamService {
         .orElse(false);
   }
 
-  private TeamWithMembers createTeamWithMembers(Long teamId) {
+  private TeamView createTeamWithMembers(Long teamId) {
     Team team = this.teamRepository.findById(teamId).orElseThrow();
     List<User> users = userService.getAllById(team.getMembers());
 
-    return new TeamWithMembers(team, users);
+    return new TeamView(team, users);
+  }
+
+  public void addActivity(long teamId, Activity activity) {
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.addActivity(activity);
+    teamRepository.save(team);
   }
 
   public void addUserToTeam(long userId, long teamId) {
     Team team = teamRepository.findById(teamId).orElseThrow();
     team.addMember(userId);
+    teamRepository.save(team);
+  }
+
+  public void removeUserFromTeam(long userId, long teamId) {
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.removeMember(userId);
     teamRepository.save(team);
   }
 }

@@ -10,7 +10,6 @@ Feature: Create team
       | teamName        | extreme cowboy association           |
       | teamDescription | yeehaw                               |
     Then the team is created in the db with:
-      | members         | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |
       | teamName        | extreme cowboy association           |
       | teamDescription | yeehaw                               |
       | externalId      | ba222e1f-85a2-463a-8e7d-53d3d8a16408 |

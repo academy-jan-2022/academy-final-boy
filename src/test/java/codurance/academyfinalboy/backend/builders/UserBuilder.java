@@ -1,4 +1,4 @@
-package codurance.academyfinalboy.backend;
+package codurance.academyfinalboy.backend.builders;
 
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;

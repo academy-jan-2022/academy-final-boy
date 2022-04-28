@@ -15,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-public class JoinTeamControllerShould extends BaseSpringTest {
+class JoinTeamControllerShould extends BaseSpringTest {
   @Autowired MockMvc mockMvc;
   @Autowired ObjectMapper objectMapper;
   @MockBean JoinTeam joinTeamAction;

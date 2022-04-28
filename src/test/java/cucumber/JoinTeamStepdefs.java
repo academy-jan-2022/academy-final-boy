@@ -14,6 +14,7 @@ import codurance.academyfinalboy.backend.model.token.TokenRepository;
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import cucumber.worlds.TeamWorld;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -39,6 +40,8 @@ public class JoinTeamStepdefs {
     Team team = new Team(data.get("teamName"), data.get("teamDescription"), teamCreatorId);
 
     teamId = teamRepository.save(team);
+    team.setId(teamId);
+    TeamWorld.storedTeam = team;
   }
 
   @And("the token exists:")

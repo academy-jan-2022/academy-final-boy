@@ -17,3 +17,8 @@ test:
 	./gradlew test
 
 run-test: start-db test down
+
+format-gradlew:
+	dos2unix ./gradlew
+
+format-for-windows: format-gradlew format
