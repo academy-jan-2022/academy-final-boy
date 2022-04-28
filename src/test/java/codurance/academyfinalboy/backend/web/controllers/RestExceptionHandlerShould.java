@@ -4,6 +4,7 @@ import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.InvalidUserException;
 import codurance.academyfinalboy.backend.model.team.UserNotMemberOfTeamException;
 import com.microsoft.applicationinsights.TelemetryClient;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,11 +19,16 @@ public class RestExceptionHandlerShould extends BaseSpringTest {
 
     @MockBean TelemetryClient telemetryClient;
     @Mock WebRequest request;
+    private RestExceptionHandler restExceptionHandler;
+
+    @BeforeEach
+    void setUp() {
+        restExceptionHandler = new RestExceptionHandler(telemetryClient);
+    }
 
     @Test void
     return_UNAUTHORIZED_status_on_invalid_user_exception(){
         HttpStatus expectedResponseStatus = HttpStatus.UNAUTHORIZED;
-        RestExceptionHandler restExceptionHandler = new RestExceptionHandler(telemetryClient);
         InvalidUserException exception = new InvalidUserException();
 
         var response = restExceptionHandler.handleIllegalState(exception, request);
@@ -33,7 +39,6 @@ public class RestExceptionHandlerShould extends BaseSpringTest {
     @Test void
     return_FORBIDDEN_status_on_invalid_user_exception(){
         HttpStatus expectedResponseStatus = HttpStatus.FORBIDDEN;
-        RestExceptionHandler restExceptionHandler = new RestExceptionHandler(telemetryClient);
         UserNotMemberOfTeamException exception = new UserNotMemberOfTeamException();
 
         var response = restExceptionHandler.handleIllegalState(exception, request);
