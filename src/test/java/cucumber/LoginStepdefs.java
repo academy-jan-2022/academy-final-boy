@@ -1,8 +1,5 @@
 package cucumber;
 
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserRepository;
 import cucumber.worlds.UserWorld;
@@ -10,9 +7,13 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static io.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginStepdefs {
 
@@ -58,6 +59,7 @@ public class LoginStepdefs {
     User user = new User(externalId, data.get("fullName"));
 
     savedUser = userRepository.save(user);
+    UserWorld.currentUser = savedUser;
   }
 
   @Then("the user is not created")

@@ -1,10 +1,5 @@
 package cucumber;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.equalTo;
-
 import codurance.academyfinalboy.backend.model.team.Team;
 import codurance.academyfinalboy.backend.model.team.TeamRepository;
 import codurance.academyfinalboy.backend.model.team.UserRef;
@@ -14,14 +9,21 @@ import codurance.academyfinalboy.backend.model.token.TokenRepository;
 import codurance.academyfinalboy.backend.model.user.TeamRef;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import cucumber.worlds.TeamWorld;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.response.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.equalTo;
 
 public class JoinTeamStepdefs {
 
@@ -39,6 +41,8 @@ public class JoinTeamStepdefs {
     Team team = new Team(data.get("teamName"), data.get("teamDescription"), teamCreatorId);
 
     teamId = teamRepository.save(team);
+    team.setId(teamId);
+    TeamWorld.storedTeam = team;
   }
 
   @And("the token exists:")
