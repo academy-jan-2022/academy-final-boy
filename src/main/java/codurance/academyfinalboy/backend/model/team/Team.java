@@ -56,6 +56,6 @@ public class Team {
   }
 
     public void removeMember(long userId) {
-      throw new UnsupportedOperationException();
+      members.remove(new UserRef(userId));
     }
 }
