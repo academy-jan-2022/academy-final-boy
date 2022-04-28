@@ -57,4 +57,10 @@ public class TeamService {
     team.addMember(userId);
     teamRepository.save(team);
   }
+
+  public void removeUserFromTeam(long userId, long teamId) {
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.removeMember(userId);
+    teamRepository.save(team);
+  }
 }

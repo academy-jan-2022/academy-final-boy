@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class GetTeamsController {
 
-  private GetTeams getTeams;
+  private final GetTeams getTeams;
 
   public GetTeamsController(GetTeams getTeams) {
     this.getTeams = getTeams;

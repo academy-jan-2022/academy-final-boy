@@ -6,4 +6,5 @@ import java.util.List;
 
 public class UserWorld {
   public static List<User> storedUsers = new ArrayList<>();
+  public static User currentUser;
 }

@@ -58,6 +58,7 @@ public class LoginStepdefs {
     User user = new User(externalId, data.get("fullName"));
 
     savedUser = userRepository.save(user);
+    UserWorld.currentUser = savedUser;
   }
 
   @Then("the user is not created")
