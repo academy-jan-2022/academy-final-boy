@@ -57,4 +57,8 @@ public class TeamService {
     team.addMember(userId);
     teamRepository.save(team);
   }
+
+  public void removeUserFromTeam(long userId, long teamId) {
+    throw new UnsupportedOperationException();
+  }
 }
