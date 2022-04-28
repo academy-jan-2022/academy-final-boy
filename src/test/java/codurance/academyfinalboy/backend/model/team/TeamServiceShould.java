@@ -126,4 +126,17 @@ class TeamServiceShould {
     verify(mockedTeam).addMember(newMemberId);
     verify(mockedTeamRepository).save(mockedTeam);
   }
+
+  @Test
+  void remove_a_user_from_a_team() {
+    long currentMemberId = 5L;
+
+    Team mockedTeam = mock(Team.class);
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(mockedTeam));
+
+    teamService.removeUserFromTeam(currentMemberId,TEAM_ID);
+    verify(mockedTeamRepository).findById(TEAM_ID);
+    verify(mockedTeam).removeMember(currentMemberId);
+    verify(mockedTeamRepository).save(mockedTeam);
+  }
 }
