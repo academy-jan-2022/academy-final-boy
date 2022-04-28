@@ -17,8 +17,12 @@ public class TeamView {
     this.id = team.getId().toString();
     this.name = team.getName();
     this.description = team.getDescription();
-    this.activities = team.getActivities().stream().map(ActivityView::new).toList();
+    this.activities = createActivityViews(team);
     this.members = createMembers(users);
+  }
+
+  private List<ActivityView> createActivityViews(Team team) {
+    return team.getActivities().stream().map(ActivityView::new).toList();
   }
 
   private List<Member> createMembers(List<User> users) {

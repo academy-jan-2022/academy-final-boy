@@ -24,7 +24,7 @@ public class Team {
   private Set<UserRef> members;
 
   @PersistenceConstructor
-  public Team(
+  private Team(
       Long id, String name, String description, List<Activity> activities, Set<UserRef> members) {
     this.id = id;
     this.name = name;
