@@ -51,4 +51,10 @@ public class TeamService {
     team.addActivity(activity);
     teamRepository.save(team);
   }
+
+  public void addUserToTeam(long userId, long teamId) {
+    Team team = teamRepository.findById(teamId).orElseThrow();
+    team.addMember(userId);
+    teamRepository.save(team);
+  }
 }

@@ -112,4 +112,18 @@ class TeamServiceShould {
 
     verify(mockedTeamRepository).save(team);
   }
+
+  @Test
+  void add_a_user_to_a_team_if_the_team_exists() {
+    long newMemberId = 50L;
+
+    Team mockedTeam = mock(Team.class);
+    when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(mockedTeam));
+
+    teamService.addUserToTeam(newMemberId, TEAM_ID);
+
+    verify(mockedTeamRepository).findById(TEAM_ID);
+    verify(mockedTeam).addMember(newMemberId);
+    verify(mockedTeamRepository).save(mockedTeam);
+  }
 }

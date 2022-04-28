@@ -21,7 +21,7 @@ public class Team {
   private List<Activity> activities;
 
   @MappedCollection(idColumn = "team_id")
-  private Set<UserRef> members;
+  Set<UserRef> members;
 
   @PersistenceConstructor
   private Team(
@@ -49,5 +49,9 @@ public class Team {
 
   public void addActivity(Activity activity) {
     activities.add(activity);
+  }
+
+  public void addMember(long userId) {
+    members.add(new UserRef(userId));
   }
 }

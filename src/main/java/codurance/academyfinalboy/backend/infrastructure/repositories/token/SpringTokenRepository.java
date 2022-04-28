@@ -2,11 +2,13 @@ package codurance.academyfinalboy.backend.infrastructure.repositories.token;
 
 import codurance.academyfinalboy.backend.model.token.Token;
 import codurance.academyfinalboy.backend.model.token.TokenRepository;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class SpringTokenRepository implements TokenRepository {
-  private SpringDataJdbcTokenRepository repository;
+  private final SpringDataJdbcTokenRepository repository;
 
   public SpringTokenRepository(SpringDataJdbcTokenRepository repository) {
     this.repository = repository;
@@ -20,5 +22,10 @@ public class SpringTokenRepository implements TokenRepository {
   @Override
   public void clear() {
     repository.deleteAll();
+  }
+
+  @Override
+  public Optional<Token> findByJoinId(UUID joinTokenID) {
+    return repository.findByJoinId(joinTokenID);
   }
 }
