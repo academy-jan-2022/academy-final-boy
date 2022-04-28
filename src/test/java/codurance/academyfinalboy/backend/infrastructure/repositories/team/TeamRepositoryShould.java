@@ -65,6 +65,7 @@ class TeamRepositoryShould extends BaseSpringTest {
     foundTeam.addActivity(activity2);
 
     repository.save(foundTeam);
+    assertThat(repository.findById(teamId).orElseThrow()).isEqualTo(foundTeam);
   }
 
   @Test

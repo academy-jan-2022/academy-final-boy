@@ -40,12 +40,6 @@ class ActivityShould {
   void splits_unevenly_team_members_into_specified_number_of_groups() {
     var activity = new ActivityBuilder().withMembers(5).withNumberOfGroups(3).build();
 
-    activity
-        .getGroups()
-        .forEach(
-            group ->
-                assertThat(group.getGrouping()).hasAtLeastOneElementOfType(ActivityMember.class));
-
     assertThat(activity.getGroups()).hasSize(3);
     assertThat(activity.getGroups().get(0).getGrouping()).hasSize(2);
     assertThat(activity.getGroups().get(1).getGrouping()).hasSize(2);
