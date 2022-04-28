@@ -77,6 +77,6 @@ public class GetTeamStepdefs {
   public void anExceptionIsThrown() {
     var expectedJson = "Logged in user doesn't belong to this team";
 
-    response.then().assertThat().statusCode(400).body("message", equalTo(expectedJson));
+    response.then().assertThat().statusCode(403).body("message", equalTo(expectedJson));
   }
 }

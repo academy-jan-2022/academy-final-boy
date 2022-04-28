@@ -26,6 +26,7 @@ Feature: Join Team
     When the join team endpoint is called with the join token id
     Then an exception is thrown with message
       | message        | User does not exist  |
+      | code           | 401                  |
 
   Scenario: An expired token is used
     Given the following user exists:
@@ -43,6 +44,7 @@ Feature: Join Team
     When the join team endpoint is called with the join token id
     Then an exception is thrown with message
       | message        | Token is expired  |
+      | code           | 404               |
 
   Scenario: Token does not exist
     Given the following user exists:
@@ -57,3 +59,4 @@ Feature: Join Team
     When the join team endpoint is called with the join token id
     Then an exception is thrown with message
       | message        | Invalid token  |
+      | code           | 404            |

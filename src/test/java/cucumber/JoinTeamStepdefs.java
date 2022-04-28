@@ -81,8 +81,9 @@ public class JoinTeamStepdefs {
   @Then("an exception is thrown with message")
   public void noTeamIsReturnedFromTheDatabase(Map<String, String> data) {
     var expectedJson = data.get("message");
+    var code = Integer.parseInt(data.get("code"));
 
-    response.then().assertThat().statusCode(400).body("message", equalTo(expectedJson));
+    response.then().assertThat().statusCode(code).body("message", equalTo(expectedJson));
   }
 
   @And("the token is expired:")
