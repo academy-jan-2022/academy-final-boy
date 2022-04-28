@@ -1,14 +1,10 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
-
 import codurance.academyfinalboy.backend.actions.JoinTeam;
-import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
+import java.util.UUID;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.UUID;
 
 @RestController
 public class JoinTeamController {
@@ -26,11 +22,7 @@ public class JoinTeamController {
     return new JoinTeamResponse(teamId);
   }
 
-  public record JoinTeamRequest(UUID joinTokenId) {
+  public record JoinTeamRequest(UUID joinTokenId) {}
 
-  }
-
-  public record JoinTeamResponse(Long teamId) {
-
-  }
+  public record JoinTeamResponse(Long teamId) {}
 }

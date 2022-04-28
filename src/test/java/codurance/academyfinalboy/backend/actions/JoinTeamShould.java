@@ -1,5 +1,12 @@
 package codurance.academyfinalboy.backend.actions;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import codurance.academyfinalboy.backend.model.team.TeamService;
 import codurance.academyfinalboy.backend.model.token.InvalidTokenException;
 import codurance.academyfinalboy.backend.model.token.TimeProvider;
@@ -7,23 +14,14 @@ import codurance.academyfinalboy.backend.model.token.Token;
 import codurance.academyfinalboy.backend.model.token.TokenService;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
+import java.util.Optional;
+import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
-import java.util.UUID;
-
 import org.mockito.Mock;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 public class JoinTeamShould {
@@ -44,7 +42,8 @@ public class JoinTeamShould {
   class UserExists {
     @BeforeEach
     void setUp() throws Exception {
-      JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
+      JoinTeam joinTeamAction =
+          new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
 
       joinTokenId = UUID.randomUUID();
       token = new Token(TEAM_ID, joinTokenId, new TimeProvider().getCurrentTime().plusMinutes(5));
@@ -66,32 +65,33 @@ public class JoinTeamShould {
       verify(mockedTokenService).getToken(joinTokenId);
     }
 
-    @Test void
-    add_user_to_the_team() {
-      verify(mockedTeamService).addUserToTeam(user.getId(),TEAM_ID);
+    @Test
+    void add_user_to_the_team() {
+      verify(mockedTeamService).addUserToTeam(user.getId(), TEAM_ID);
     }
 
-    @Test void
-    add_team_to_the_user() {
+    @Test
+    void add_team_to_the_user() {
       verify(mockedUserService).addTeamToUser(user, TEAM_ID);
     }
 
-    @Test void
-    return_the_team_id() {
+    @Test
+    void return_the_team_id() {
       assertThat(actionResult, equalTo(TEAM_ID));
     }
   }
 
   @Nested
   class UserDoesNotExist {
-    @Test void
-    throw_invalid_user_exception_when_user_does_not_exist() throws Exception {
-      JoinTeam joinTeamAction = new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
+    @Test
+    void throw_invalid_user_exception_when_user_does_not_exist() throws Exception {
+      JoinTeam joinTeamAction =
+          new JoinTeam(mockedUserService, mockedTokenService, mockedTeamService);
 
       when(mockedUserService.getCurrentUser()).thenReturn(Optional.empty());
 
       Exception exception =
-              assertThrows(InvalidUserException.class, () -> joinTeamAction.execute(joinTokenId));
+          assertThrows(InvalidUserException.class, () -> joinTeamAction.execute(joinTokenId));
       String expectedMessage = "User to add does not exist";
       String actualMessage = exception.getMessage();
 

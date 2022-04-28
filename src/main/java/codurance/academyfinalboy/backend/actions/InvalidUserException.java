@@ -1,7 +1,7 @@
 package codurance.academyfinalboy.backend.actions;
 
 public class InvalidUserException extends Exception {
-    public InvalidUserException(String errorMessage) {
-        super(errorMessage);
-    }
+  public InvalidUserException(String errorMessage) {
+    super(errorMessage);
+  }
 }
