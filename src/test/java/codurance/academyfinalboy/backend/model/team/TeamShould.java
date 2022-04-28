@@ -5,7 +5,7 @@ import static org.hamcrest.Matchers.contains;
 
 import org.junit.jupiter.api.Test;
 
-public class TeamShould {
+class TeamShould {
 
   @Test
   void add_a_user_to_a_team() {

@@ -9,7 +9,7 @@ import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
-public class RemoveUserShould {
+class RemoveUserShould {
   public static final long TEAM_ID = 1L;
   public static final long USER_ID = 1L;
 
