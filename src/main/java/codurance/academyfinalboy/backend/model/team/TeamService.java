@@ -29,7 +29,7 @@ public class TeamService {
       return createTeamWithMembers(teamId);
     }
 
-    throw new UserNotMemberOfTeamException("Logged in user doesn't belong to this team");
+    throw new UserNotMemberOfTeamException();
   }
 
   public boolean verifyMembership(long teamId, long userId) {
