@@ -1,5 +1,9 @@
 package codurance.academyfinalboy.backend.web.controllers;
 
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import codurance.academyfinalboy.backend.BaseSpringTest;
 import codurance.academyfinalboy.backend.actions.RemoveUser;
 import codurance.academyfinalboy.backend.model.team.Team;
@@ -10,11 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class RemoveUserControllerShould extends BaseSpringTest {
   @Autowired MockMvc mockMvc;
@@ -29,7 +28,10 @@ public class RemoveUserControllerShould extends BaseSpringTest {
     user.setId(4L);
     expectedTeam.setId(11L);
 
-    mockMvc.perform(delete("/remove-user?teamId=11").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk());;
+    mockMvc
+        .perform(delete("/remove-user?teamId=11").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+    ;
     verify(removeUser).execute(expectedTeam.getId());
   }
 }

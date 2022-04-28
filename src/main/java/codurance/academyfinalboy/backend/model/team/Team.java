@@ -55,7 +55,7 @@ public class Team {
     members.add(new UserRef(userId));
   }
 
-    public void removeMember(long userId) {
-      members.remove(new UserRef(userId));
-    }
+  public void removeMember(long userId) {
+    members.remove(new UserRef(userId));
+  }
 }

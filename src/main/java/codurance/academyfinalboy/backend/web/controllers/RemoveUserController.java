@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class RemoveUserController {
-    private final RemoveUser removeUser;
+  private final RemoveUser removeUser;
 
-    public RemoveUserController(RemoveUser removeUser) {
-        this.removeUser = removeUser;
-    }
+  public RemoveUserController(RemoveUser removeUser) {
+    this.removeUser = removeUser;
+  }
 
-    @DeleteMapping("/remove-user")
-    void removeUser(@RequestParam Long teamId) {
-        removeUser.execute(teamId);
-    }
+  @DeleteMapping("/remove-user")
+  void removeUser(@RequestParam Long teamId) {
+    removeUser.execute(teamId);
+  }
 }

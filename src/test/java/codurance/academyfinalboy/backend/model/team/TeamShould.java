@@ -25,7 +25,8 @@ public class TeamShould {
     Team team = new Team("Name", "Description", teamCreatorId);
 
     team.addMember(currentMemberId);
-    assertThat(team.getMembers(), contains(new UserRef(currentMemberId), new UserRef(teamCreatorId)));
+    assertThat(
+        team.getMembers(), contains(new UserRef(currentMemberId), new UserRef(teamCreatorId)));
 
     team.removeMember(currentMemberId);
     assertThat(team.getMembers(), contains(new UserRef(teamCreatorId)));

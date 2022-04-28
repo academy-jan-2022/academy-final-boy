@@ -134,7 +134,7 @@ class TeamServiceShould {
     Team mockedTeam = mock(Team.class);
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(mockedTeam));
 
-    teamService.removeUserFromTeam(currentMemberId,TEAM_ID);
+    teamService.removeUserFromTeam(currentMemberId, TEAM_ID);
     verify(mockedTeamRepository).findById(TEAM_ID);
     verify(mockedTeam).removeMember(currentMemberId);
     verify(mockedTeamRepository).save(mockedTeam);

@@ -1,7 +1,6 @@
 package cucumber.worlds;
 
 import codurance.academyfinalboy.backend.model.user.User;
-
 import java.util.ArrayList;
 import java.util.List;
 
