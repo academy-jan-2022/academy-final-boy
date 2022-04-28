@@ -106,9 +106,8 @@ class TeamServiceShould {
   void add_activity_to_team() {
     var team = new Team("team name", "description", USER_ID);
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(team));
-    var members = generateActivityMembersBy(4);
 
-    var activity = new Activity("FizzBuzz", members, 2);
+    Activity activity = new ActivityBuilder().build();
 
     teamService.addActivity(TEAM_ID, activity);
     team.addActivity(activity);
@@ -116,10 +115,5 @@ class TeamServiceShould {
     verify(mockedTeamRepository).save(team);
   }
 
-  List<ActivityMember> generateActivityMembersBy(int numberOfMembers) {
-    return new ArrayList<>(
-        IntStream.range(0, numberOfMembers)
-            .mapToObj(index -> new ActivityMember(String.valueOf(index)))
-            .toList());
-  }
+
 }
