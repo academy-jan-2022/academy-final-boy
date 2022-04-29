@@ -1,5 +1,6 @@
 package codurance.academyfinalboy.backend.model.team;
 
+import codurance.academyfinalboy.backend.actions.InvalidUserException;
 import codurance.academyfinalboy.backend.model.user.User;
 import codurance.academyfinalboy.backend.model.user.UserService;
 import java.util.List;
@@ -21,15 +22,15 @@ public class TeamService {
     return teamRepository.save(team);
   }
 
-  public TeamView getTeam(Long teamId) throws Exception {
-    User currentUser = userService.getCurrentUser().orElseThrow();
+  public TeamView getTeam(Long teamId) throws InvalidUserException, UserNotMemberOfTeamException {
+    User currentUser = userService.getCurrentUser().orElseThrow(InvalidUserException::new);
     Long currentUserId = currentUser.getId();
 
     if (verifyMembership(teamId, currentUserId)) {
       return createTeamWithMembers(teamId);
     }
 
-    throw new Exception("Logged in user doesn't belong to this team");
+    throw new UserNotMemberOfTeamException();
   }
 
   public boolean verifyMembership(long teamId, long userId) {

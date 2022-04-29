@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+import codurance.academyfinalboy.backend.actions.InvalidUserException;
 import codurance.academyfinalboy.backend.builders.ActivityBuilder;
 import codurance.academyfinalboy.backend.builders.UserBuilder;
 import codurance.academyfinalboy.backend.model.user.User;
@@ -62,7 +63,7 @@ class TeamServiceShould {
   }
 
   @Test
-  void get_a_teamview() throws Exception {
+  void get_a_teamview() throws InvalidUserException, UserNotMemberOfTeamException {
     Activity activity = new ActivityBuilder().build();
     savedTeam.setId(TEAM_ID);
     savedTeam.addActivity(activity);
@@ -92,7 +93,8 @@ class TeamServiceShould {
     when(mockedTeamRepository.findById(TEAM_ID)).thenReturn(Optional.of(savedTeam));
     when(mockedUserService.getCurrentUser()).thenReturn(Optional.of(user));
 
-    Exception exception = assertThrows(Exception.class, () -> teamService.getTeam(TEAM_ID));
+    UserNotMemberOfTeamException exception =
+        assertThrows(UserNotMemberOfTeamException.class, () -> teamService.getTeam(TEAM_ID));
 
     String expectedMessage = "Logged in user doesn't belong to this team";
     String actualMessage = exception.getMessage();
