@@ -6,10 +6,17 @@ This project with Spring Initializr
 
 | Technology      | Use                  |
 | --------------- | -------------------- |
-| Spring        | Java Framework       |
-| SQL Server        | Database        |
+| Spring          | Java Framework       |
+| SQL Server      | Database             |
+| Flyway          | Migrations           |
+| Junit           | Unit Testing         |
 | Cucumber        | BDD Testing          |
-| Junit        | Unit Testing          |
+| SonarCloud      | Code Analysis        |
+| Spotless        | Linting / Formatting |
+| Github Actions  | CI                   |
+| Azure           | CD                   |
+| Docker          | Containerisation     |
+
 
 ## Available commands
 
